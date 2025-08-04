@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cynthia M</title>
+    <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" as="style">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9I42P0G2h/4aT5aA/e8q1j0n/z2y5bF3Z5Lz5B8e4i1z3j6bC6Lz6k6c6Lz6c6z2y5Lz5B5z" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js" as="script">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" as="script">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Subtle dark grid background */
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-color: #030712; /* bg-gray-950 equivalent */
+        }
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            background-image: linear-gradient(to right, #6EE7B7, #60A5FA, #8B5CF6); /* green, blue, purple */
+        }
+        /* Custom animation for fade-in effect */
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fade-in 0.8s ease-out forwards;
+        }
+        .animate-fade-in.delay-200 { animation-delay: 0.2s; }
+        .animate-fade-in.delay-400 { animation-delay: 0.4s; }
+
+        /* Custom underline effect for headings */
+        .section-heading-underline::after {
+            content: '';
+            display: block;
+            width: 80px; /* Adjust width as needed */
+            height: 4px; /* Adjust thickness */
+            background: linear-gradient(to right, #34D399, #1D4ED8); /* Tailwinds green-500, blue-700 */
+            margin: 1rem auto 0; /* Center it and add space */
+            border-radius: 9999px; /* Pill shape */
+        }
+        /* Card Hover Effect */
+        .card-hover-effect {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            transform: translateZ(0); /* Force GPU acceleration */
+        }
+
+        .card-hover-effect::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(107, 114, 128, 0.1), rgba(16, 185, 129, 0.1)); /* gray-400 & green-500 with opacity */
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .card-hover-effect:hover::before {
+            opacity: 1;
+        }
+
+        .card-hover-effect > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .card-hover-effect:hover {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5), 0 0 0 2px #10B981; /* strong shadow + green border */
+        }
+
+        /* Input focus glow */
+        input:focus, textarea:focus {
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.5); /* green-500 with opacity */
+            border-color: #10B981; /* green-500 */
+        }
+    </style>
+</head>
+<body class="bg-gray-950 text-gray-100">
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-gray-950 bg-opacity-80 backdrop-filter backdrop-blur-lg">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center" aria-label="Main navigation">
+            <a href="#hero" class="text-2xl font-bold text-white transition-colors duration-300 hover:text-green-300" aria-label="Your Name - Go to Hero Section">Your Name</a>
+            <div class="hidden md:flex space-x-6" role="menubar">
+                <a href="#about" class="text-gray-400 hover:text-white transition-colors duration-300" role="menuitem">About</a>
+                <a href="#projects" class="text-gray-400 hover:text-white transition-colors duration-300" role="menuitem">Projects</a>
+                <a href="#skills" class="text-gray-400 hover:text-white transition-colors duration-300" role="menuitem">Skills</a>
+                <a href="#future-learning" class="text-gray-400 hover:text-white transition-colors duration-300" role="menuitem">Future Learning</a>
+                <a href="#contact" class="text-gray-400 hover:text-white transition-colors duration-300" role="menuitem">Contact</a>
+            </div>
+            <button id="mobile-menu-btn" class="md:hidden text-white focus:outline-none" aria-label="Open mobile menu" aria-expanded="false" aria-controls="mobile-menu">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden bg-gray-900 text-white text-center py-4" role="menu" aria-labelledby="mobile-menu-btn">
+            <a href="#about" class="block py-2 hover:bg-gray-800 transition-colors duration-300" role="menuitem">About</a>
+            <a href="#projects" class="block py-2 hover:bg-gray-800 transition-colors duration-300" role="menuitem">Projects</a>
+            <a href="#skills" class="block py-2 hover:bg-gray-800 transition-colors duration-300" role="menuitem">Skills</a>
+            <a href="#future-learning" class="block py-2 hover:bg-gray-800 transition-colors duration-300" role="menuitem">Future Learning</a>
+            <a href="#contact" class="block py-2 hover:bg-gray-800 transition-colors duration-300" role="menuitem">Contact</a>
+        </div>
+    </header>
+
+    <main class="pt-24">
+        <section id="hero" class="relative overflow-hidden container mx-auto px-4 py-20 min-h-screen flex items-center justify-center" aria-label="Hero section with introduction and animated background">
+            <canvas id="hero-canvas" class="absolute inset-0 z-0 opacity-20"></canvas>
+            <div class="relative z-10 text-center max-w-4xl">
+                <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-tight text-white mb-4 animate-fade-in">
+                    <span class="text-gradient">Hello, I'm Your Name</span>
+                </h1>
+                <p class="text-lg sm:text-xl md:text-2xl text-gray-400 mb-8 animate-fade-in delay-200">
+                    A **machine learning engineer** passionate about building intelligent systems that solve real-world problems.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#projects" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105 shadow-md">
+                        View Projects
+                    </a>
+                    <a href="#contact" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105 shadow-md">
+                        Get In Touch
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="container mx-auto px-4 py-20 min-h-screen flex items-center justify-center" aria-labelledby="about-heading">
+            <div class="w-full max-w-4xl bg-gray-900 p-8 md:p-12 rounded-2xl shadow-xl border border-gray-800">
+                <div class="flex flex-col md:flex-row items-center md:items-start mb-8 md:mb-12">
+                    <img src="https://placehold.co/200x200/1F2937/D1D5DB?text=Profile" alt="Your Name's professional headshot" class="rounded-full w-40 h-40 mb-6 md:mb-0 border-4 border-green-500 shadow-lg object-cover">
+                    <div class="md:ml-12 text-center md:text-left">
+                        <h2 id="about-heading" class="text-4xl md:text-5xl font-extrabold text-white leading-tight">Your Name</h2>
+                        <p class="text-xl md:text-2xl text-gray-400 font-semibold mt-1">Machine Learning Engineer | Data Scientist</p>
+                        <div class="mt-6 flex flex-wrap justify-center md:justify-start gap-y-4 gap-x-8 text-gray-400">
+                            <a href="mailto:youremail@example.com" class="hover:text-green-300 transition-colors duration-300 flex items-center gap-2" aria-label="Email Your Name at youremail@example.com">
+                                <i class="fas fa-envelope" aria-hidden="true"></i> youremail@example.com
+                            </a>
+                            <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" class="hover:text-green-300 transition-colors duration-300 flex items-center gap-2" aria-label="Visit Your Name's LinkedIn profile">
+                                <i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn
+                            </a>
+                            <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" class="hover:text-green-300 transition-colors duration-300 flex items-center gap-2" aria-label="Visit Your Name's GitHub profile">
+                                <i class="fab fa-github" aria-hidden="true"></i> GitHub
+                            </a>
+                        </div>
+                        <div class="mt-6">
+                            <a href="https://example.com/your-resume.pdf" download class="inline-block p-4 rounded-full bg-green-500 hover:bg-green-600 text-white transition-all duration-300 transform hover:scale-105 shadow-md" aria-label="Download Your Name's Resume PDF">
+                                <i class="fas fa-download text-xl" aria-hidden="true"></i> Download Resume
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pb-8 mb-8 border-b border-gray-700">
+                    <h3 class="text-2xl font-bold text-green-300 section-heading-underline-small pb-2 mb-4">Professional Summary</h3>
+                    <p class="text-gray-300 leading-relaxed">
+                        A highly motivated and results-driven **Machine Learning Engineer** with recent intensive bootcamp training, eager to apply expertise in **Python**, **deep learning (TensorFlow, Keras)**, and **natural language processing (NLP)** to develop innovative AI solutions. Proven ability in **end-to-end ML pipeline development**, **data analysis (Pandas, NumPy)**, and **MLOps practices (Docker, cloud deployment)**. Seeking to leverage strong analytical skills and a passion for building intelligent systems to contribute effectively to a dynamic AI team.
+                    </p>
+                </div>
+
+                <div class="pb-8 mb-8 border-b border-gray-700">
+                    <h3 class="text-2xl font-bold text-green-300 section-heading-underline-small pb-2 mb-4">Education</h3>
+                    <div class="mb-4">
+                        <div class="flex justify-between flex-wrap">
+                            <p class="font-semibold text-white">**AI/ML Bootcamp, [Bootcamp Name/Provider]**</p>
+                            <p class="text-gray-400">Month, 2024</p>
+                        </div>
+                        <p class="text-gray-300">Certification in Machine Learning & Deep Learning</p>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between flex-wrap">
+                            <p class="font-semibold text-white">**[Your Degree Name], [Your Major]**</p>
+                            <p class="text-gray-400">[University Name], [City, State/Country]</p>
+                        </div>
+                        <p class="text-gray-300">Graduated: Month, Year</p>
+                    </div>
+                </div>
+
+                <div class="pb-0">
+                    <h3 class="text-2xl font-bold text-green-300 section-heading-underline-small pb-2 mb-4">Experience</h3>
+                    <div class="mb-6">
+                        <div class="flex justify-between flex-wrap items-baseline">
+                            <p class="font-semibold text-white">**Machine Learning Engineer - Capstone Project, [Bootcamp Name]**</p>
+                            <p class="text-gray-400">Month, Year - Present</p>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-2">[Brief project description or context]</p>
+                        <ul class="list-disc list-inside text-gray-300 space-y-1 mt-2">
+                            <li>**Developed and deployed an end-to-end machine learning pipeline** using **Scikit-learn** and **Pandas** to solve a real-world classification problem, demonstrating proficiency in full lifecycle ML development.</li>
+                            <li>**Engineered robust features** from raw datasets through advanced preprocessing and **feature selection techniques**, resulting in a **15% improvement in model accuracy** and optimized data processing.</li>
+                            <li>**Containerized the entire application using Docker** and implemented key **MLOps principles** for automated deployment and continuous monitoring, ensuring reliable model performance in production.</li>
+                            <li>Presented project findings and technical architecture to a panel of industry experts, receiving positive feedback on solution robustness and scalability.</li>
+                        </ul>
+                    </div>
+                    <div class="mb-0">
+                        <div class="flex justify-between flex-wrap items-baseline">
+                            <p class="font-semibold text-white">**Data Science Project - [Your Project Title], [Bootcamp Name]**</p>
+                            <p class="text-gray-400">Month, Year</p>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-2">[Brief project description or context]</p>
+                        <ul class="list-disc list-inside text-gray-300 space-y-1 mt-2">
+                            <li>**Conducted comprehensive exploratory data analysis (EDA)** on a large, public dataset utilizing **NumPy** and **Matplotlib** to uncover critical insights and prepare data for advanced modeling.</li>
+                            <li>**Designed and implemented a deep learning model** with **TensorFlow** and **Keras** for an image classification task, achieving an impressive **95%+ accuracy** on unseen data.</li>
+                            <li>**Rigorously evaluated model performance** using key metrics like precision, recall, and F1-score, and documented the complete development process in a clear, concise technical report.</li>
+                            <li>Collaborated effectively with peers on data cleaning and model validation, enhancing team productivity by 20%.</li>
+                        </ul>
+                    </div>
+                    </div>
+            </div>
+        </section>
+
+        <section id="projects" class="container mx-auto px-4 py-20 min-h-screen" aria-labelledby="projects-heading">
+            <h2 id="projects-heading" class="text-4xl font-bold text-center text-white mb-12 section-heading-underline">Featured Projects</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <article class="group bg-gray-900 rounded-2xl shadow-xl overflow-hidden card-hover-effect">
+                    <img src="https://placehold.co/600x400/374151/E5E7EB?text=Project+1+Image" alt="Image for Sentiment Analysis Project" class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110">
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold text-white mb-2">Project Title 1: Sentiment Analysis</h3>
+                        <p class="text-gray-400 mb-4">
+                            A natural language processing project to classify customer reviews.
+                        </p>
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-semibold text-green-300">Problem Statement</h4>
+                                <p class="text-gray-300">
+                                    Built a model to predict sentiment (positive, negative, neutral) of product reviews, helping businesses analyze customer feedback at scale.
+                                </p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-green-300">Methodology & Technologies</h4>
+                                <p class="text-gray-300">
+                                    Utilized Python with NLTK and Scikit-learn for text preprocessing, TF-IDF vectorization, and training a logistic regression model.
+                                </p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-green-300">Results & Impact</h4>
+                                <p class="text-gray-300">
+                                    The model achieved 89% accuracy, automating customer feedback analysis and reducing manual effort by over 70%.
+                                </p>
+                            </div>
+                            <div class="flex justify-between items-center mt-4">
+                                <a href="#" target="_blank" rel="noopener noreferrer" class="text-green-300 hover:text-white transition-colors duration-300">
+                                    <i class="fas fa-play-circle mr-2" aria-hidden="true"></i>Live Demo
+                                </a>
+                                <a href="https://github.com/yourusername/project1" target="_blank" rel="noopener noreferrer" class="text-green-300 hover:text-white transition-colors duration-300">
+                                    <i class="fab fa-github mr-2" aria-hidden="true"></i>GitHub Repo
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="group bg-gray-900 rounded-2xl shadow-xl overflow-hidden card-hover-effect">
+                    <img src="https://placehold.co/600x400/374151/E5E7EB?text=Project+2+Image" alt="Image for House Price Prediction Project" class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110">
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold text-white mb-2">Project Title 2: House Price Prediction</h3>
+                        <p class="text-gray-400 mb-4">
+                            A regression model to predict housing prices in a specific region.
+                        </p>
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-semibold text-green-300">Problem Statement</h4>
+                                <p class="text-gray-300">
+                                    Predicted accurate house prices based on features like size and location, providing a valuable tool for real estate professionals.
+                                </p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-green-300">Methodology & Technologies</h4>
+                                <p class="text-gray-300">
+                                    Used Python, Pandas, and Scikit-learn to train a Random Forest Regressor after performing exploratory data analysis and feature engineering.
+                                </p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-green-300">Results & Impact</h4>
+                                <p class="text-gray-300">
+                                    The model achieved a Mean Absolute Error (MAE) of $15,000, demonstrating a significant improvement over manual price estimation.
+                                </p>
+                            </div>
+                            <div class="flex justify-between items-center mt-4">
+                                <a href="#" target="_blank" rel="noopener noreferrer" class="text-green-300 hover:text-white transition-colors duration-300">
+                                    <i class="fas fa-play-circle mr-2" aria-hidden="true"></i>Live Demo
+                                </a>
+                                <a href="https://github.com/yourusername/project2" target="_blank" rel="noopener noreferrer" class="text-green-300 hover:text-white transition-colors duration-300">
+                                    <i class="fab fa-github mr-2" aria-hidden="true"></i>GitHub Repo
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="group bg-gray-900 rounded-2xl shadow-xl overflow-hidden card-hover-effect">
+                    <img src="https://placehold.co/600x400/374151/E5E7EB?text=Project+3+Image" alt="Image for Image Classification Project" class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110">
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold text-white mb-2">Project Title 3: Image Classification</h3>
+                        <p class="text-gray-400 mb-4">
+                            A computer vision model for classifying images of different objects.
+                        </p>
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-semibold text-green-300">Problem Statement</h4>
+                                <p class="text-gray-300">
+                                    Developed a Convolutional Neural Network (CNN) to categorize images into predefined classes, a foundational task in computer vision.
+                                </p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-green-300">Methodology & Technologies</h4>
+                                <p class="text-gray-300">
+                                    Implemented a CNN using TensorFlow and Keras. The model was trained with data augmentation to prevent overfitting and improve generalization.
+                                </p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-green-300">Results & Impact</h4>
+                                <p class="text-gray-300">
+                                    The model achieved over 95% classification accuracy, demonstrating proficiency in deep learning and modern computer vision techniques.
+                                </p>
+                            </div>
+                            <div class="flex justify-between items-center mt-4">
+                                <a href="#" target="_blank" rel="noopener noreferrer" class="text-green-300 hover:text-white transition-colors duration-300">
+                                    <i class="fas fa-play-circle mr-2" aria-hidden="true"></i>Live Demo
+                                </a>
+                                <a href="https://github.com/yourusername/project3" target="_blank" rel="noopener noreferrer" class="text-green-300 hover:text-white transition-colors duration-300">
+                                    <i class="fab fa-github mr-2" aria-hidden="true"></i>GitHub Repo
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="skills" class="container mx-auto px-4 py-20 min-h-screen flex items-center">
+            <div class="w-full">
+                <h2 class="text-4xl font-bold text-center text-white mb-12 section-heading-underline">Technical Skills & Competencies</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-gray-900 p-8 rounded-2xl shadow-xl card-hover-effect">
+                        <h3 class="text-2xl font-bold text-green-300 mb-4">Languages & Tools</h3>
+                        <ul class="space-y-4 text-gray-300">
+                            <li class="flex items-center gap-4"><i class="fab fa-python text-2xl text-yellow-400" aria-hidden="true"></i> <span class="text-lg">Python</span></li>
+                            <li class="flex items-center gap-4"><i class="fas fa-database text-2xl text-blue-400" aria-hidden="true"></i> <span class="text-lg">SQL</span></li>
+                            <li class="flex items-center gap-4"><i class="fab fa-git-alt text-2xl text-red-500" aria-hidden="true"></i> <span class="text-lg">Git & GitHub</span></li>
+                            <li class="flex items-center gap-4"><i class="fab fa-js-square text-2xl text-yellow-500" aria-hidden="true"></i> <span class="text-lg">JavaScript</span></li>
+                            <li class="flex items-center gap-4"><i class="fas fa-terminal text-2xl text-gray-400" aria-hidden="true"></i> <span class="text-lg">Linux/Shell</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-900 p-8 rounded-2xl shadow-xl card-hover-effect">
+                        <h3 class="text-2xl font-bold text-green-300 mb-4">Data Science & ML</h3>
+                        <ul class="space-y-4 text-gray-300">
+                            <li class="flex items-center gap-4"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/TensorFlow_logo.svg/120px-TensorFlow_logo.svg.png" onerror="this.onerror=null; this.src='https://placehold.co/24x24/1F2937/D1D5DB?text=TF';" alt="TensorFlow logo" class="h-8 w-auto"> <span class="text-lg">TensorFlow & Keras</span></li>
+                            <li class="flex items-center gap-4"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Scikit-learn_logo_with_name.svg/120px-Scikit-learn_logo.svg.png" onerror="this.onerror=null; this.src='https://placehold.co/24x24/1F2937/D1D5DB?text=SK';" alt="Scikit-learn logo" class="h-8 w-auto"> <span class="text-lg">Scikit-learn</span></li>
+                            <li class="flex items-center gap-4"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Jupyter_logo.svg/120px-Jupyter_logo.svg.png" onerror="this.onerror=null; this.src='https://placehold.co/24x24/1F2937/D1D5DB?text=JN';" alt="Jupyter logo" class="h-8 w-auto"> <span class="text-lg">Jupyter Notebooks</span></li>
+                            <li class="flex items-center gap-4"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Numpy_logo.svg" onerror="this.onerror=null; this.src='https://placehold.co/24x24/1F2937/D1D5DB?text=NP';" alt="NumPy logo" class="h-8 w-auto"> <span class="text-lg">NumPy & Pandas</span></li>
+                            <li class="flex items-center gap-4"><i class="fas fa-chart-line text-2xl text-purple-400" aria-hidden="true"></i> <span class="text-lg">Data Visualization (Matplotlib, Seaborn)</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-900 p-8 rounded-2xl shadow-xl card-hover-effect">
+                        <h3 class="text-2xl font-bold text-green-300 mb-4">Methodologies & Cloud</h3>
+                        <ul class="space-y-4 text-gray-300">
+                            <li class="flex items-center gap-4"><i class="fas fa-cogs text-2xl text-gray-400" aria-hidden="true"></i> <span class="text-lg">MLOps Principles</span></li>
+                            <li class="flex items-center gap-4"><i class="fas fa-cloud text-2xl text-blue-500" aria-hidden="true"></i> <span class="text-lg">Cloud Computing (GCP, AWS)</span></li>
+                            <li class="flex items-center gap-4"><i class="fas fa-cube text-2xl text-cyan-400" aria-hidden="true"></i> <span class="text-lg">Docker</span></li>
+                            <li class="flex items-center gap-4"><i class="fas fa-tasks text-2xl text-red-500" aria-hidden="true"></i> <span class="text-lg">Agile & Scrum</span></li>
+                            <li class="flex items-center gap-4"><i class="fas fa-sitemap text-2xl text-lime-400" aria-hidden="true"></i> <span class="text-lg">Model Deployment</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="future-learning" class="container mx-auto px-4 py-20 min-h-screen flex items-center justify-center" aria-labelledby="future-learning-heading">
+            <div class="w-full max-w-4xl bg-gray-900 p-8 md:p-12 rounded-2xl shadow-xl border border-gray-800">
+                <h2 id="future-learning-heading" class="text-4xl font-bold text-center text-white mb-12 section-heading-underline">Future Learning & Development</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-md card-hover-effect">
+                        <h3 class="text-xl font-semibold text-green-300 mb-3 flex items-center gap-2"><i class="fas fa-brain" aria-hidden="true"></i> Advanced AI/ML Concepts</h3>
+                        <ul class="list-disc list-inside text-gray-300 space-y-2">
+                            <li>**Generative AI:** Diving into **transformer models** and **diffusion models** for content generation and understanding.</li>
+                            <li>**Reinforcement Learning:** Building a foundational project to gain practical experience in decision-making algorithms.</li>
+                            <li>**Ethical AI:** Deepening understanding of responsible AI development and bias mitigation.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-md card-hover-effect">
+                        <h3 class="text-xl font-semibold text-green-300 mb-3 flex items-center gap-2"><i class="fas fa-cloud" aria-hidden="true"></i> Cloud & MLOps Certifications</h3>
+                        <ul class="list-disc list-inside text-gray-300 space-y-2">
+                            <li>**AWS Certified Machine Learning – Specialty:** Preparing for certification to master AI/ML solutions on AWS.</li>
+                            <li>**Google Cloud Professional Machine Learning Engineer:** Aiming for certification to strengthen GCP deployment skills.</li>
+                            <li>**MLOps Tools:** Exploring advanced MLOps tools like Kubeflow and MLflow for scalable deployments.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-md card-hover-effect">
+                        <h3 class="text-xl font-semibold text-green-300 mb-3 flex items-center gap-2"><i class="fas fa-code" aria-hidden="true"></i> Software Development & Frontend</h3>
+                        <ul class="list-disc list-inside text-gray-300 space-y-2">
+                            <li>**React & TypeScript:** Developing a Miro-frontend application to enhance interactive web development skills.</li>
+                            <li>**Backend Development:** Learning Node.js/Python frameworks (e.g., FastAPI) for building robust API backends for ML models.</li>
+                            <li>**System Design:** Studying scalable system architecture principles for large-scale AI applications.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="container mx-auto px-4 py-20 min-h-screen flex items-center justify-center">
+            <div class="w-full max-w-2xl bg-gray-900 p-8 rounded-2xl shadow-xl border border-gray-800">
+                <h2 class="text-4xl font-bold text-center text-white mb-4 section-heading-underline">Get In Touch</h2>
+                <p class="text-gray-400 text-center mb-8">
+                    I'm currently seeking new opportunities. Feel free to reach out to me!
+                </p>
+                <form class="space-y-6" aria-label="Contact Form">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-300">Name</label>
+                        <input type="text" id="name" name="name" class="mt-1 block w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 text-white" required>
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-300">Email</label>
+                        <input type="email" id="email" name="email" class="mt-1 block w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 text-white" required>
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gray-300">Message</label>
+                        <textarea id="message" name="message" rows="4" class="mt-1 block w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 text-white" required></textarea>
+                    </div>
+                    <div>
+                        <button type="submit" class="w-full py-3 px-4 bg-green-500 hover:bg-green-600 rounded-md font-bold text-white transition-colors duration-300 transform hover:scale-105">
+                            Send Message
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-950 text-center p-8 text-gray-500">
+        <p>&copy; 2024 Your Name. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+
+                    // Close mobile menu after clicking a link
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+                    if (mobileMenu.classList.contains('block')) {
+                        mobileMenu.classList.add('hidden');
+                        mobileMenu.classList.remove('block');
+                        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            });
+
+            // Mobile menu toggle
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            mobileMenuBtn.addEventListener('click', () => {
+                const isHidden = mobileMenu.classList.toggle('hidden');
+                mobileMenu.classList.toggle('block', !isHidden); // Add 'block' when not hidden
+                mobileMenuBtn.setAttribute('aria-expanded', !isHidden);
+            });
+
+            // D3.js animated background - Encapsulated for better organization
+            function initializeHeroCanvas() {
+                const canvas = document.getElementById('hero-canvas');
+                // Check if canvas exists to prevent errors on pages without it
+                if (!canvas) return; 
+
+                const context = canvas.getContext('2d');
+                let width = window.innerWidth;
+                let height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
+
+                window.addEventListener('resize', () => {
+                    width = window.innerWidth;
+                    height = window.innerHeight;
+                    canvas.width = width;
+                    canvas.height = height;
+                });
+
+                const numNodes = 100;
+                const nodes = d3.range(numNodes).map(function() {
+                    return {
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        vx: (Math.random() - 0.5) * 0.5,
+                        vy: (Math.random() - 0.5) * 0.5
+                    };
+                });
+
+                const maxDistance = 150;
+
+                function animate() {
+                    context.clearRect(0, 0, width, height);
+
+                    for (let i = 0; i < numNodes; i++) {
+                        const node = nodes[i];
+                        node.x += node.vx;
+                        node.y += node.vy;
+
+                        // Bounce off edges
+                        if (node.x < 0 || node.x > width) node.vx *= -1;
+                        if (node.y < 0 || node.y > height) node.vy *= -1;
+
+                        context.beginPath();
+                        context.arc(node.x, node.y, 1.5, 0, 2 * Math.PI);
+                        context.fillStyle = 'rgba(107, 114, 128, 0.7)'; // Tailwind's gray-400 with opacity
+                        context.fill();
+
+                        for (let j = i + 1; j < numNodes; j++) {
+                            const otherNode = nodes[j];
+                            const dx = node.x - otherNode.x;
+                            const dy = node.y - otherNode.y;
+                            const distance = Math.sqrt(dx * dx + dy * dy);
+
+                            if (distance < maxDistance) {
+                                const opacity = 1 - (distance / maxDistance);
+                                context.beginPath();
+                                context.moveTo(node.x, node.y);
+                                context.lineTo(otherNode.x, otherNode.y);
+                                context.strokeStyle = `rgba(107, 114, 128, ${opacity})`;
+                                context.stroke();
+                            }
+                        }
+                    }
+                    requestAnimationFrame(animate);
+                }
+                animate();
+            }
+
+            initializeHeroCanvas(); // Call the function to initialize the canvas animation
+        });
+    </script>
+</body>
+</html>
