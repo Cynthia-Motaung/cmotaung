@@ -1,0 +1,121 @@
+body {
+    font-family: 'Inter', sans-serif;
+    /* Subtle dark grid background */
+    background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-color: #030712; /* bg-gray-950 equivalent */
+}
+
+.text-gradient {
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(to right, #6EE7B7, #60A5FA, #8B5CF6); /* green, blue, purple */
+}
+
+/* Custom animation for fade-in effect */
+@keyframes fade-in {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+    animation: fade-in 0.8s ease-out forwards;
+    opacity: 0; /* Start hidden */
+}
+.animate-fade-in.delay-200 { animation-delay: 0.2s; }
+.animate-fade-in.delay-400 { animation-delay: 0.4s; }
+
+/* Custom underline effect for headings */
+.section-heading-underline::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(to right, #34D399, #1D4ED8);
+    margin: 1rem auto 0;
+    border-radius: 9999px;
+}
+
+/* Card Hover Effect */
+.card-hover-effect {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    transform: translateZ(0); /* Force GPU acceleration */
+}
+
+.card-hover-effect::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(107, 114, 128, 0.1), rgba(16, 185, 129, 0.1));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+.card-hover-effect:hover::before {
+    opacity: 1;
+}
+
+.card-hover-effect > * {
+    position: relative;
+    z-index: 2;
+}
+
+.card-hover-effect:hover {
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5), 0 0 0 2px #10B981;
+}
+
+/* --- PRODUCTION ENHANCEMENTS --- */
+
+/* Input focus glow */
+input:focus, textarea:focus {
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.5);
+    border-color: #10B981;
+}
+
+/* Accessibility: Enhanced focus rings for keyboard navigation */
+a:focus-visible, button:focus-visible {
+    outline: 2px solid #6EE7B7; /* A bright, visible color */
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* For form inputs, use the existing glow effect but ensure it's applied for keyboard focus too */
+input:focus-visible, textarea:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.5);
+    border-color: #10B981;
+}
+
+/* Gradient hover for nav links */
+.nav-link-hover-gradient:hover {
+    background-image: linear-gradient(to right, #34D399, #1D4ED8);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* Skill bar styles for animated gradient progress bars */
+.skill-bar {
+    width: 0; /* Start at 0 width for animation */
+    background: linear-gradient(to right, #34D399, #1D4ED8);
+    transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1); /* Smooth animation effect */
+}
+
+/* --- NEW: Reveal on Scroll Animation --- */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.6s ease-out;
+}
+.reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
