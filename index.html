@@ -38,6 +38,8 @@
 </head>
 <body class="bg-gray-950 text-gray-100">
 
+    <div id="cursor-glow"></div>
+
     <a href="#main-content" class="absolute left-[-9999px] top-1 z-[9999] bg-green-500 text-white p-3 rounded-br-lg focus:left-0">Skip to main content</a>
 
     <header class="fixed top-0 left-0 right-0 z-50 bg-gray-950 bg-opacity-80 backdrop-filter backdrop-blur-lg">
@@ -85,75 +87,78 @@
         </section>
 
         <section id="about" class="container mx-auto px-4 py-20" aria-labelledby="about-heading">
-            <div class="w-full max-w-4xl mx-auto bg-gray-900 p-8 md:p-12 rounded-2xl shadow-xl border border-gray-800 reveal">
-                <h2 id="about-heading" class="text-4xl font-bold text-center text-white mb-12 section-heading-underline">About Me</h2>
-                <div class="flex flex-col md:flex-row items-center md:items-start text-center md:text-left mb-8 md:mb-12">
-                    <img src="./assets/images/profile-photo.jpg" alt="Cynthia M's professional headshot" class="rounded-full w-40 h-40 mb-6 md:mb-0 border-4 border-green-500 shadow-lg object-cover" loading="lazy">
-                    <div class="md:ml-12">
-                        <h3 class="text-4xl md:text-5xl font-extrabold text-white leading-tight">Cynthia M</h3>
-                        <p class="text-xl md:text-2xl text-gray-400 font-semibold mt-1">Machine Learning Engineer | Data Scientist</p>
-                        <div class="mt-6 flex flex-wrap justify-center md:justify-start gap-y-4 gap-x-6 text-gray-400">
-                            <a href="mailto:youremail@example.com" class="hover:text-green-300 transition-colors duration-300 flex items-center gap-2" aria-label="Email at youremail@example.com">
-                                <i class="fas fa-envelope" aria-hidden="true"></i> youremail@example.com
-                            </a>
-                            <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" class="hover:text-green-300 transition-colors duration-300 flex items-center gap-2" aria-label="Visit LinkedIn profile">
-                                <i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn
-                            </a>
-                            <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" class="hover:text-green-300 transition-colors duration-300 flex items-center gap-2" aria-label="Visit GitHub profile">
-                                <i class="fab fa-github" aria-hidden="true"></i> GitHub
-                            </a>
+            <div class="w-full max-w-4xl mx-auto reveal">
+                <div class="text-center mb-16">
+                    <h2 id="about-heading" class="text-4xl font-bold text-center text-white mb-4">Resume</h2>
+                    <p class="text-lg text-gray-400">A summary of my professional and educational journey.</p>
+                </div>
+
+                <div class="space-y-16">
+                    <div>
+                        <div class="flex items-center gap-x-4 mb-8">
+                            <i class="fas fa-briefcase text-3xl text-green-400"></i>
+                            <h3 class="text-3xl font-bold text-white">Experience</h3>
+                        </div>
+                        <div class="relative pl-12 timeline-container space-y-8">
+                            <div class="relative timeline-item">
+                                <div class="timeline-icon"></div>
+                                <div class="flex justify-between items-start">
+                                    <h4 class="text-xl font-semibold text-white">Machine Learning Engineer - Capstone Project</h4>
+                                    <span class="text-sm font-medium text-gray-400 whitespace-nowrap">Month, '24 - Present</span>
+                                </div>
+                                <h5 class="font-medium text-green-300 mb-3">[Bootcamp Name]</h5>
+                                <ul class="list-disc list-outside ml-5 text-gray-300 space-y-2">
+                                    <li>Developed and deployed an end-to-end machine learning pipeline using Scikit-learn and Pandas.</li>
+                                    <li>Engineered robust features from raw datasets, resulting in a 15% improvement in model accuracy.</li>
+                                    <li>Containerized the application using Docker and implemented key MLOps principles.</li>
+                                </ul>
+                            </div>
+                            <div class="relative timeline-item">
+                                <div class="timeline-icon"></div>
+                                <div class="flex justify-between items-start">
+                                    <h4 class="text-xl font-semibold text-white">Data Science Project - [Your Project Title]</h4>
+                                    <span class="text-sm font-medium text-gray-400 whitespace-nowrap">Month, '24</span>
+                                </div>
+                                <h5 class="font-medium text-green-300 mb-3">[Bootcamp Name]</h5>
+                                <ul class="list-disc list-outside ml-5 text-gray-300 space-y-2">
+                                    <li>Conducted comprehensive exploratory data analysis (EDA) on a large dataset utilizing NumPy and Matplotlib.</li>
+                                    <li>Designed and implemented a deep learning model with TensorFlow and Keras for image classification, achieving 95%+ accuracy.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex items-center gap-x-4 mb-8">
+                             <i class="fas fa-graduation-cap text-3xl text-green-400"></i>
+                            <h3 class="text-3xl font-bold text-white">Education</h3>
+                        </div>
+                        <div class="relative pl-12 timeline-container space-y-8">
+                             <div class="relative timeline-item">
+                                <div class="timeline-icon"></div>
+                                <div class="flex justify-between items-start">
+                                    <h4 class="text-xl font-semibold text-white">AI/ML Bootcamp</h4>
+                                    <span class="text-sm font-medium text-gray-400 whitespace-nowrap">2024</span>
+                                </div>
+                                <h5 class="font-medium text-green-300 mb-1">[Bootcamp Name/Provider]</h5>
+                                <p class="text-gray-300">Certification in Machine Learning & Deep Learning</p>
+                            </div>
+                             <div class="relative timeline-item">
+                                <div class="timeline-icon"></div>
+                                <div class="flex justify-between items-start">
+                                    <h4 class="text-xl font-semibold text-white">[Your Degree Name], [Your Major]</h4>
+                                    <span class="text-sm font-medium text-gray-400 whitespace-nowrap">Year</span>
+                                </div>
+                                <h5 class="font-medium text-green-300 mb-1">[University Name], [City, State]</h5>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="text-center mb-12">
-                    <a href="./assets/Cynthia-M-Resume.pdf" download="Cynthia-M-Resume.pdf" class="inline-block py-3 px-8 rounded-full bg-transparent border-2 border-green-400 text-green-400 font-bold transition-all duration-300 transform hover:scale-105 hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-700 hover:text-white hover:border-transparent" aria-label="Download Cynthia's Resume as PDF">
-                        <i class="fas fa-download mr-2" aria-hidden="true"></i> Download Resume
+                <div class="text-center mt-16">
+                     <a href="./assets/Cynthia-M-Resume.pdf" download="Cynthia-M-Resume.pdf" class="inline-block py-3 px-8 rounded-full bg-transparent border-2 border-green-400 text-green-400 font-bold transition-all duration-300 transform hover:scale-105 hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-700 hover:text-white hover:border-transparent" aria-label="Download Cynthia's Resume as PDF">
+                        <i class="fas fa-download mr-2" aria-hidden="true"></i> Download Full Resume
                     </a>
-                </div>
-
-                <div class="pb-8 mb-8 border-b border-gray-700">
-                    <h4 class="text-2xl font-bold text-green-300 mb-4">Professional Summary</h4>
-                    <p class="text-gray-300 leading-relaxed">
-                        A highly motivated and results-driven Machine Learning Engineer with recent intensive bootcamp training, eager to apply expertise in Python, deep learning (TensorFlow, Keras), and natural language processing (NLP) to develop innovative AI solutions. Proven ability in end-to-end ML pipeline development, data analysis (Pandas, NumPy), and MLOps practices (Docker, cloud deployment). Seeking to leverage strong analytical skills and a passion for building intelligent systems to contribute effectively to a dynamic AI team.
-                    </p>
-                </div>
-
-                <div class="pb-8 mb-8 border-b border-gray-700">
-                    <h4 class="text-2xl font-bold text-green-300 mb-6">Experience</h4>
-                    <div class="mb-6">
-                        <div class="flex justify-between flex-wrap items-baseline">
-                            <p class="font-semibold text-white">Machine Learning Engineer - Capstone Project, [Bootcamp Name]</p>
-                            <p class="text-gray-400 text-sm">Month, Year - Present</p>
-                        </div>
-                        <ul class="list-disc list-inside text-gray-300 space-y-2 mt-2">
-                            <li>Developed and deployed an end-to-end machine learning pipeline using Scikit-learn and Pandas, demonstrating proficiency in full lifecycle ML development.</li>
-                            <li>Engineered robust features from raw datasets, resulting in a 15% improvement in model accuracy.</li>
-                            <li>Containerized the application using Docker and implemented key MLOps principles for automated deployment.</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <div class="flex justify-between flex-wrap items-baseline">
-                             <p class="font-semibold text-white">Data Science Project - [Your Project Title], [Bootcamp Name]</p>
-                            <p class="text-gray-400 text-sm">Month, Year</p>
-                        </div>
-                        <ul class="list-disc list-inside text-gray-300 space-y-2 mt-2">
-                            <li>Conducted comprehensive exploratory data analysis (EDA) on a large dataset utilizing NumPy and Matplotlib.</li>
-                            <li>Designed and implemented a deep learning model with TensorFlow and Keras for image classification, achieving 95%+ accuracy.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div>
-                    <h4 class="text-2xl font-bold text-green-300 mb-4">Education</h4>
-                    <div class="mb-4">
-                        <p class="font-semibold text-white">AI/ML Bootcamp, [Bootcamp Name/Provider]</p>
-                        <p class="text-gray-400">Month, 2024</p>
-                    </div>
-                    <div>
-                        <p class="font-semibold text-white">[Your Degree Name], [Your Major]</p>
-                        <p class="text-gray-400">[University Name] - Graduated: Month, Year</p>
-                    </div>
                 </div>
             </div>
         </section>
@@ -172,17 +177,21 @@
                             <p class="text-gray-300">Classifying customer reviews with NLP.</p>
                         </div>
                     </div>
-                    <div class="p-6 space-y-4">
-                        <p class="text-gray-400">
-                            Built a model to predict sentiment of product reviews, helping businesses analyze customer feedback at scale. Utilized Python with NLTK and Scikit-learn for text preprocessing and training.
+                    <div class="p-6">
+                        <p class="text-gray-400 mb-4">
+                            Built a model to predict sentiment of product reviews, helping businesses analyze customer feedback at scale.
                         </p>
-                         <p class="text-white font-semibold">Achieved <span class="text-green-400">89% accuracy</span>, automating feedback analysis.</p>
-                        <div class="flex justify-start space-x-4 mt-4">
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">NLTK</span>
+                            <span class="tech-tag">Scikit-learn</span>
+                        </div>
+                        <div class="flex justify-start space-x-4">
                             <a href="#" target="_blank" rel="noopener noreferrer" class="text-green-300 hover:text-white transition-colors duration-300 font-semibold flex items-center gap-2">
                                 <i class="fas fa-play-circle" aria-hidden="true"></i>Live Demo
                             </a>
                             <a href="https://github.com/yourusername/project1" target="_blank" rel="noopener noreferrer" class="text-green-300 hover:text-white transition-colors duration-300 font-semibold flex items-center gap-2">
-                                <i class="fab fa-github" aria-hidden="true"></i>GitHub Repo
+                                <i class="fab fa-github" aria-hidden="true"></i>GitHub
                             </a>
                         </div>
                     </div>
@@ -197,17 +206,21 @@
                             <p class="text-gray-300">A regression model to predict housing prices.</p>
                         </div>
                     </div>
-                    <div class="p-6 space-y-4">
-                        <p class="text-gray-400">
-                            Predicted accurate house prices based on features like size and location. Used Python, Pandas, and Scikit-learn to train a Random Forest Regressor model.
+                    <div class="p-6">
+                        <p class="text-gray-400 mb-4">
+                            Predicted accurate house prices based on features like size and location. Trained a Random Forest Regressor model.
                         </p>
-                         <p class="text-white font-semibold">Achieved a <span class="text-green-400">Mean Absolute Error of $15k</span>.</p>
-                        <div class="flex justify-start space-x-4 mt-4">
-                            <a href="#" target="_blank" rel="noopener noreferrer" class="text-green-300 hover:text-white transition-colors duration-300 font-semibold flex items-center gap-2">
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Pandas</span>
+                            <span class="tech-tag">Random Forest</span>
+                        </div>
+                        <div class="flex justify-start space-x-4">
+                             <a href="#" target="_blank" rel="noopener noreferrer" class="text-green-300 hover:text-white transition-colors duration-300 font-semibold flex items-center gap-2">
                                 <i class="fas fa-play-circle" aria-hidden="true"></i>Live Demo
                             </a>
                             <a href="https://github.com/yourusername/project2" target="_blank" rel="noopener noreferrer" class="text-green-300 hover:text-white transition-colors duration-300 font-semibold flex items-center gap-2">
-                                <i class="fab fa-github" aria-hidden="true"></i>GitHub Repo
+                                <i class="fab fa-github" aria-hidden="true"></i>GitHub
                             </a>
                         </div>
                     </div>
@@ -222,17 +235,21 @@
                             <p class="text-gray-300">A computer vision model for object recognition.</p>
                         </div>
                     </div>
-                    <div class="p-6 space-y-4">
-                        <p class="text-gray-400">
-                           Developed a Convolutional Neural Network (CNN) to categorize images into predefined classes. Implemented using TensorFlow and Keras with data augmentation.
+                    <div class="p-6">
+                        <p class="text-gray-400 mb-4">
+                           Developed a Convolutional Neural Network (CNN) to categorize images into predefined classes.
                         </p>
-                        <p class="text-white font-semibold">The model achieved over <span class="text-green-400">95% classification accuracy</span>.</p>
-                        <div class="flex justify-start space-x-4 mt-4">
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tech-tag">TensorFlow</span>
+                            <span class="tech-tag">Keras</span>
+                            <span class="tech-tag">CNN</span>
+                        </div>
+                        <div class="flex justify-start space-x-4">
                             <a href="#" target="_blank" rel="noopener noreferrer" class="text-green-300 hover:text-white transition-colors duration-300 font-semibold flex items-center gap-2">
                                 <i class="fas fa-play-circle" aria-hidden="true"></i>Live Demo
                             </a>
                             <a href="https://github.com/yourusername/project3" target="_blank" rel="noopener noreferrer" class="text-green-300 hover:text-white transition-colors duration-300 font-semibold flex items-center gap-2">
-                                <i class="fab fa-github" aria-hidden="true"></i>GitHub Repo
+                                <i class="fab fa-github" aria-hidden="true"></i>GitHub
                             </a>
                         </div>
                     </div>
@@ -242,133 +259,56 @@
 
         <section id="skills" class="container mx-auto px-4 py-20" aria-labelledby="skills-heading">
             <div class="reveal">
-                <h2 id="skills-heading" class="text-4xl font-bold text-center text-white mb-12 section-heading-underline">Technical Skills</h2>
+                <h2 id="skills-heading" class="text-4xl font-bold text-center text-white mb-16 section-heading-underline">Technical Skills</h2>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-gray-900 p-8 rounded-2xl shadow-xl card-hover-effect reveal">
-                    <h3 class="text-2xl font-bold text-green-300 mb-6">Languages & Tools</h3>
-                    <ul class="space-y-5 text-gray-300">
-                        <li class="space-y-2">
-                            <div class="flex justify-between mb-1">
-                                <span class="font-semibold text-white">Python</span>
-                                <span class="text-sm font-semibold text-gray-400">90%</span>
-                            </div>
-                            <div class="w-full bg-gray-700 rounded-full h-2.5">
-                                <div class="skill-bar rounded-full h-2.5" data-width="90%"></div>
-                            </div>
-                        </li>
-                        <li class="space-y-2">
-                            <div class="flex justify-between mb-1">
-                                <span class="font-semibold text-white">SQL</span>
-                                <span class="text-sm font-semibold text-gray-400">80%</span>
-                            </div>
-                            <div class="w-full bg-gray-700 rounded-full h-2.5">
-                                <div class="skill-bar rounded-full h-2.5" data-width="80%"></div>
-                            </div>
-                        </li>
-                        <li class="space-y-2">
-                            <div class="flex justify-between mb-1">
-                                <span class="font-semibold text-white">Git & GitHub</span>
-                                <span class="text-sm font-semibold text-gray-400">85%</span>
-                            </div>
-                            <div class="w-full bg-gray-700 rounded-full h-2.5">
-                                <div class="skill-bar rounded-full h-2.5" data-width="85%"></div>
-                            </div>
-                        </li>
-                        <li class="space-y-2">
-                            <div class="flex justify-between mb-1">
-                                <span class="font-semibold text-white">JavaScript</span>
-                                <span class="text-sm font-semibold text-gray-400">60%</span>
-                            </div>
-                            <div class="w-full bg-gray-700 rounded-full h-2.5">
-                                <div class="skill-bar rounded-full h-2.5" data-width="60%"></div>
-                            </div>
-                        </li>
-                    </ul>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
+                <div class="flex flex-col items-center text-center p-4 reveal">
+                    <img src="https://cdn.simpleicons.org/csharp/512BD4" alt="C# logo" class="skill-logo mb-3">
+                    <h4 class="font-semibold text-white">C#</h4>
                 </div>
-
-                <div class="bg-gray-900 p-8 rounded-2xl shadow-xl card-hover-effect reveal">
-                    <h3 class="text-2xl font-bold text-green-300 mb-6">Data Science & ML</h3>
-                    <ul class="space-y-5 text-gray-300">
-                        <li class="space-y-2">
-                            <div class="flex justify-between mb-1">
-                                <span class="font-semibold text-white">TensorFlow & Keras</span>
-                                <span class="text-sm font-semibold text-gray-400">85%</span>
-                            </div>
-                            <div class="w-full bg-gray-700 rounded-full h-2.5">
-                                <div class="skill-bar rounded-full h-2.5" data-width="85%"></div>
-                            </div>
-                        </li>
-                        <li class="space-y-2">
-                            <div class="flex justify-between mb-1">
-                                <span class="font-semibold text-white">Scikit-learn</span>
-                                <span class="text-sm font-semibold text-gray-400">90%</span>
-                            </div>
-                            <div class="w-full bg-gray-700 rounded-full h-2.5">
-                                <div class="skill-bar rounded-full h-2.5" data-width="90%"></div>
-                            </div>
-                        </li>
-                        <li class="space-y-2">
-                            <div class="flex justify-between mb-1">
-                                <span class="font-semibold text-white">NumPy & Pandas</span>
-                                <span class="text-sm font-semibold text-gray-400">95%</span>
-                            </div>
-                            <div class="w-full bg-gray-700 rounded-full h-2.5">
-                                <div class="skill-bar rounded-full h-2.5" data-width="95%"></div>
-                            </div>
-                        </li>
-                        <li class="space-y-2">
-                            <div class="flex justify-between mb-1">
-                                <span class="font-semibold text-white">Data Visualization</span>
-                                <span class="text-sm font-semibold text-gray-400">80%</span>
-                            </div>
-                            <div class="w-full bg-gray-700 rounded-full h-2.5">
-                                <div class="skill-bar rounded-full h-2.5" data-width="80%"></div>
-                            </div>
-                        </li>
-                    </ul>
+                <div class="flex flex-col items-center text-center p-4 reveal">
+                    <img src="https://cdn.simpleicons.org/dotnet/512BD4" alt=".NET Core logo" class="skill-logo mb-3">
+                    <h4 class="font-semibold text-white">.NET Core</h4>
                 </div>
-
-                <div class="bg-gray-900 p-8 rounded-2xl shadow-xl card-hover-effect reveal">
-                    <h3 class="text-2xl font-bold text-green-300 mb-6">Methodologies & Cloud</h3>
-                     <ul class="space-y-5 text-gray-300">
-                        <li class="space-y-2">
-                            <div class="flex justify-between mb-1">
-                                <span class="font-semibold text-white">MLOps Principles</span>
-                                <span class="text-sm font-semibold text-gray-400">75%</span>
-                            </div>
-                            <div class="w-full bg-gray-700 rounded-full h-2.5">
-                                <div class="skill-bar rounded-full h-2.5" data-width="75%"></div>
-                            </div>
-                        </li>
-                        <li class="space-y-2">
-                            <div class="flex justify-between mb-1">
-                                <span class="font-semibold text-white">Cloud (GCP, AWS)</span>
-                                <span class="text-sm font-semibold text-gray-400">70%</span>
-                            </div>
-                            <div class="w-full bg-gray-700 rounded-full h-2.5">
-                                <div class="skill-bar rounded-full h-2.5" data-width="70%"></div>
-                            </div>
-                        </li>
-                        <li class="space-y-2">
-                            <div class="flex justify-between mb-1">
-                                <span class="font-semibold text-white">Docker</span>
-                                <span class="text-sm font-semibold text-gray-400">80%</span>
-                            </div>
-                            <div class="w-full bg-gray-700 rounded-full h-2.5">
-                                <div class="skill-bar rounded-full h-2.5" data-width="80%"></div>
-                            </div>
-                        </li>
-                         <li class="space-y-2">
-                            <div class="flex justify-between mb-1">
-                                <span class="font-semibold text-white">Model Deployment</span>
-                                <span class="text-sm font-semibold text-gray-400">70%</span>
-                            </div>
-                            <div class="w-full bg-gray-700 rounded-full h-2.5">
-                                <div class="skill-bar rounded-full h-2.5" data-width="70%"></div>
-                            </div>
-                        </li>
-                    </ul>
+                <div class="flex flex-col items-center text-center p-4 reveal">
+                    <img src="https://cdn.simpleicons.org/dotnet/512BD4" alt="Entity Framework Core logo" class="skill-logo mb-3">
+                    <h4 class="font-semibold text-white">EF Core</h4>
+                </div>
+                <div class="flex flex-col items-center text-center p-4 reveal">
+                    <img src="https://cdn.simpleicons.org/microsoftsqlserver/CC2927" alt="MSSQL logo" class="skill-logo mb-3">
+                    <h4 class="font-semibold text-white">MS SQL Server</h4>
+                </div>
+                <div class="flex flex-col items-center text-center p-4 reveal">
+                    <img src="https://cdn.simpleicons.org/azuredevops/0078D7" alt="Azure DevOps logo" class="skill-logo mb-3">
+                    <h4 class="font-semibold text-white">Azure DevOps</h4>
+                </div>
+                <div class="flex flex-col items-center text-center p-4 reveal">
+                    <img src="https://cdn.simpleicons.org/postgresql/4169E1" alt="PostgreSQL logo" class="skill-logo mb-3">
+                    <h4 class="font-semibold text-white">PostgreSQL</h4>
+                </div>
+                <div class="flex flex-col items-center text-center p-4 reveal">
+                    <img src="https://cdn.simpleicons.org/python/3776AB" alt="Python logo" class="skill-logo mb-3">
+                    <h4 class="font-semibold text-white">Python</h4>
+                </div>
+                <div class="flex flex-col items-center text-center p-4 reveal">
+                    <img src="https://cdn.simpleicons.org/git/F05032" alt="Git logo" class="skill-logo mb-3">
+                    <h4 class="font-semibold text-white">Git</h4>
+                </div>
+                <div class="flex flex-col items-center text-center p-4 reveal">
+                    <img src="https://cdn.simpleicons.org/bootstrap/7952B3" alt="Bootstrap logo" class="skill-logo mb-3">
+                    <h4 class="font-semibold text-white">Bootstrap</h4>
+                </div>
+                <div class="flex flex-col items-center text-center p-4 reveal">
+                    <img src="https://cdn.simpleicons.org/html5/E34F26" alt="HTML5 logo" class="skill-logo mb-3">
+                    <h4 class="font-semibold text-white">HTML5</h4>
+                </div>
+                <div class="flex flex-col items-center text-center p-4 reveal">
+                    <img src="https://cdn.simpleicons.org/css3/1572B6" alt="CSS3 logo" class="skill-logo mb-3">
+                    <h4 class="font-semibold text-white">CSS3</h4>
+                </div>
+                <div class="flex flex-col items-center text-center p-4 reveal">
+                    <img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="JavaScript logo" class="skill-logo mb-3">
+                    <h4 class="font-semibold text-white">JavaScript</h4>
                 </div>
             </div>
         </section>
@@ -425,7 +365,18 @@
         </section>
     </main>
 
-    <footer class="bg-gray-950 text-center p-8 text-gray-500">
+    <footer class="bg-gray-950/70 text-center p-8 text-gray-500 reveal">
+        <div class="flex justify-center space-x-6 mb-4">
+             <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors duration-300" aria-label="Visit LinkedIn profile">
+                <i class="fab fa-linkedin text-2xl" aria-hidden="true"></i>
+            </a>
+            <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors duration-300" aria-label="Visit GitHub profile">
+                <i class="fab fa-github text-2xl" aria-hidden="true"></i>
+            </a>
+             <a href="mailto:youremail@example.com" class="hover:text-white transition-colors duration-300" aria-label="Email at youremail@example.com">
+                <i class="fas fa-envelope text-2xl" aria-hidden="true"></i>
+            </a>
+        </div>
         <p>&copy; 2025 Cynthia M. All rights reserved.</p>
     </footer>
 

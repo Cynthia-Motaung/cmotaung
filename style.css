@@ -102,14 +102,7 @@ input:focus-visible, textarea:focus-visible {
     color: transparent;
 }
 
-/* Skill bar styles for animated gradient progress bars */
-.skill-bar {
-    width: 0; /* Start at 0 width for animation */
-    background: linear-gradient(to right, #34D399, #1D4ED8);
-    transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1); /* Smooth animation effect */
-}
-
-/* --- NEW: Reveal on Scroll Animation --- */
+/* Reveal on Scroll Animation */
 .reveal {
     opacity: 0;
     transform: translateY(30px);
@@ -118,4 +111,73 @@ input:focus-visible, textarea:focus-visible {
 .reveal.is-visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* Resume Timeline Styles */
+.timeline-container::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    width: 2px;
+    background-color: #374151; /* Tailwind gray-700 */
+}
+
+.timeline-item:last-child {
+    padding-bottom: 0;
+}
+
+.timeline-icon {
+    position: absolute;
+    left: -6px; /* (12px icon width + 4px border) / 2 - 2px line width */
+    top: 6px;
+    width: 16px;
+    height: 16px;
+    background-color: #34D399; /* Green from theme */
+    border-radius: 9999px;
+    border: 3px solid #030712; /* Page background color */
+}
+
+/* --- NEW STYLES FOR LATEST IMPROVEMENTS --- */
+
+/* Glowing Cursor Effect */
+#cursor-glow {
+    position: fixed;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(45, 212, 191, 0.15) 0%, rgba(45, 212, 191, 0) 70%);
+    border-radius: 50%;
+    pointer-events: none; /* Allows clicking through the element */
+    transform: translate(-50%, -50%); /* Center the glow on the cursor */
+    z-index: 9998;
+    transition: opacity 0.3s ease;
+}
+/* Hide cursor on touch devices where it's not needed */
+@media (hover: none) {
+    #cursor-glow {
+        display: none;
+    }
+}
+
+
+/* Tech Tags for Projects */
+.tech-tag {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background-color: rgba(107, 114, 128, 0.15); /* gray-400 with opacity */
+    color: #a7f3d0; /* Tailwind green-200 */
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* Skill Logos */
+.skill-logo {
+    height: 48px;
+    width: 48px;
+    transition: transform 0.3s ease;
+}
+.skill-logo:hover {
+    transform: scale(1.1);
 }
