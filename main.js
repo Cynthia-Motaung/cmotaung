@@ -91,13 +91,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- NEW: Glowing Cursor Effect ---
+    // Glowing Cursor Effect
     function initializeCursorGlow() {
         const cursorGlow = document.getElementById('cursor-glow');
         if (!cursorGlow) return;
 
         window.addEventListener('mousemove', (e) => {
-            // Use requestAnimationFrame for performance
             requestAnimationFrame(() => {
                 cursorGlow.style.left = `${e.clientX}px`;
                 cursorGlow.style.top = `${e.clientY}px`;
@@ -105,8 +104,81 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // CHATBOT LOGIC
+    function initializeChatbot() {
+        const chatbotIcon = document.getElementById('chatbot-icon');
+        const chatbotWindow = document.getElementById('chatbot-window');
+        const closeBtn = document.getElementById('chatbot-close-btn');
+        const sendBtn = document.getElementById('chatbot-send-btn');
+        const messagesContainer = document.getElementById('chatbot-messages');
+        const input = document.getElementById('chatbot-input');
+
+        if (!chatbotIcon || !chatbotWindow || !closeBtn || !sendBtn || !messagesContainer || !input) {
+            // If any chatbot element is missing, don't run the script.
+            return;
+        }
+
+        const knowledgeBase = {
+            'default': "I'm not sure how to answer that. Could you ask about Cynthia's experience, skills, or career goals?",
+            'greeting': "Hello! How can I help you learn more about Cynthia's professional background?",
+            'experience': "Cynthia has hands-on experience developing end-to-end machine learning pipelines from her bootcamp capstone project. She also completed a data science project focused on deep learning for image classification, achieving over 95% accuracy.",
+            'skills': "Cynthia's technical skills include C#, .NET Core, Python, Git, and various database technologies like MS SQL Server and PostgreSQL. She is also proficient in web technologies such as HTML, CSS, JavaScript, and Bootstrap.",
+            'objectives': "Cynthia's career objective is to apply her expertise in machine learning and data science to develop innovative AI solutions that solve real-world problems. She is seeking to contribute to a dynamic AI team.",
+            'aspirations': "She aspires to grow into a senior machine learning role, with a future focus on advanced topics like Generative AI and MLOps. She is also passionate about ethical AI and aims to promote responsible AI development.",
+            'contact': "You can get in touch with Cynthia via the contact form on this website or connect with her on LinkedIn. You'll find the links in the footer."
+        };
+
+        const toggleChatWindow = () => {
+            chatbotWindow.classList.toggle('hidden');
+            chatbotIcon.classList.toggle('chatbot-icon-closed');
+            chatbotIcon.classList.toggle('chatbot-icon-open');
+        };
+
+        const getBotResponse = (userInput) => {
+            const lowerInput = userInput.toLowerCase();
+            if (lowerInput.includes('hello') || lowerInput.includes('hi')) return knowledgeBase.greeting;
+            if (lowerInput.includes('experience') || lowerInput.includes('work') || lowerInput.includes('project')) return knowledgeBase.experience;
+            if (lowerInput.includes('skill') || lowerInput.includes('technolog')) return knowledgeBase.skills;
+            if (lowerInput.includes('objective') || lowerInput.includes('goal')) return knowledgeBase.objectives;
+            if (lowerInput.includes('aspiration') || lowerInput.includes('future')) return knowledgeBase.aspirations;
+            if (lowerInput.includes('contact') || lowerInput.includes('email') || lowerInput.includes('reach out')) return knowledgeBase.contact;
+            return knowledgeBase.default;
+        };
+
+        const appendMessage = (text, sender) => {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('chat-message', `${sender}-message`);
+            messageDiv.innerHTML = `<p>${text}</p>`;
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        };
+
+        const handleSendMessage = () => {
+            const userInput = input.value.trim();
+            if (userInput === '') return;
+
+            appendMessage(userInput, 'user');
+            input.value = '';
+
+            setTimeout(() => {
+                const botResponse = getBotResponse(userInput);
+                appendMessage(botResponse, 'bot');
+            }, 500);
+        };
+        
+        chatbotIcon.addEventListener('click', toggleChatWindow);
+        closeBtn.addEventListener('click', toggleChatWindow);
+        sendBtn.addEventListener('click', handleSendMessage);
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleSendMessage();
+            }
+        });
+    }
+
     // Initialize all scripts
     initializeHeroCanvas();
     revealOnScroll();
     initializeCursorGlow();
+    initializeChatbot(); // Ensures the chatbot logic runs
 });
