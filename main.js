@@ -114,19 +114,34 @@ document.addEventListener('DOMContentLoaded', function() {
         const input = document.getElementById('chatbot-input');
 
         if (!chatbotIcon || !chatbotWindow || !closeBtn || !sendBtn || !messagesContainer || !input) {
-            // If any chatbot element is missing, don't run the script.
             console.warn('Chatbot elements not found. Chatbot initialization skipped.');
             return;
         }
 
         const knowledgeBase = {
-            'default': "I'm not sure how to answer that. Could you ask about Cynthia's experience, skills, or career goals?",
-            'greeting': "Hello! How can I help you learn more about Cynthia's professional background?",
-            'experience': "Cynthia has hands-on experience developing end-to-end machine learning pipelines from her bootcamp capstone project. She also completed a data science project focused on deep learning for image classification, achieving over 95% accuracy.",
-            'skills': "Cynthia's technical skills include C#, .NET Core, Python, Git, and various database technologies like MS SQL Server and PostgreSQL. She is also proficient in web technologies such as HTML, CSS, JavaScript, and Bootstrap.",
-            'objectives': "Cynthia's career objective is to apply her expertise in machine learning and data science to develop innovative AI solutions that solve real-world problems. She is seeking to contribute to a dynamic AI team.",
-            'aspirations': "She aspires to grow into a senior machine learning role, with a future focus on advanced topics like Generative AI and MLOps. She is also passionate about ethical AI and aims to promote responsible AI development.",
-            'contact': "You can get in touch with Cynthia via the contact form on this website or connect with her on LinkedIn. You'll find the links in the footer."
+            'default': "I'm sorry, I don't have an answer for that. You can ask me about my skills, projects, career goals, or experience to get to know me better!",
+            // Updated greeting to be more conversational and inviting
+            'greeting': "Hi there! I'm Cynthia, a software developer. What can I tell you about my skills and experience?",
+            'background': "I'm a full-stack developer with a strong foundation in C#, ASP.NET Core, and SQL Server. I am actively expanding my skills in AI and machine learning with Python, Pandas, and TensorFlow.",
+            'techStack': "My tech stack includes:\n\n" +
+                        "**Backend:** C#, ASP.NET Core, Entity Framework Core\n" +
+                        "**Frontend:** HTML, CSS, JavaScript, React (basic)\n" +
+                        "**Databases:** SQL Server, PostgreSQL\n" +
+                        "**AI/ML:** Python, Pandas, TensorFlow, OpenAI APIs\n" +
+                        "**Tools:** Git & GitHub, Azure DevOps, Visual Studio",
+            'personality': "I'm a naturally curious, focused, and methodical problem-solver. I'm driven by a sense of purpose and a commitment to lifelong learning, which I see as essential for growth.",
+            'academicGoals': "I am passionate about continuous education and plan to pursue a Master’s or PhD to bridge the gap between software development, AI, and education. My long-term goal is to combine technical expertise with a strong teaching and mentoring role.",
+            'projectsAndGoals': "I am currently focused on mastering full-stack ASP.NET Core and integrating AI into my applications. My projects demonstrate my ability to combine productivity, personal growth, and intelligent automation.",
+            'educationalBackground': "I hold a Diploma in Software Development, which provided me with a strong foundation in object-oriented programming and web development principles. I also continue to learn through real-world projects and courses.",
+            'teachingPhilosophy': "I believe in a 'Learn One, Do One, Practice One, Teach One, Create & Innovate One' philosophy. This cycle ensures deep understanding and fosters continuous growth and innovation.",
+            'softSkills': "My soft skills are a key part of how I work. I excel at clear communication, teamwork, and taking initiative. I'm highly adaptable and organized, with a strong attention to detail that ensures high-quality solutions.",
+            'hobbies': "Outside of my work, I enjoy hiking, reading, and running. These hobbies help me stay balanced, creative, and disciplined.",
+            'firstEncounterWithAI': "I initially feared AI might replace developers, but I've come to see it as a powerful tool. I'm focused on learning how to responsibly integrate AI and build the infrastructure around it, seeing it as a way to expand our capabilities.",
+            'debuggingMindset': "I approach challenges with a 'failing forward' mindset. I see every bug as an opportunity to learn, which builds my confidence and capability as a developer.",
+            'howIGotIntoTech': "I started my journey in tech with an interest in cybersecurity. However, I found my true passion in software engineering—building systems rather than just testing them. This shift drives my work today.",
+            'whyILoveCoding': "I love software development because it offers endless potential and a path of lifelong learning. The ability to solve real-world problems with creativity and logic is what keeps me engaged.",
+            'careerObjective': "Yes, I am actively seeking a Junior Developer position or internship. I am looking for a role that aligns with my current tech stack (C#, ASP.NET Core, Python) and offers opportunities for mentorship and growth.",
+            'contact': "You can get in touch with me via the contact form on this website or connect with me on LinkedIn."
         };
 
         const toggleChatWindow = () => {
@@ -149,20 +164,28 @@ document.addEventListener('DOMContentLoaded', function() {
         chatbotIcon.style.transform = 'scale(1)';
 
         const getBotResponse = (userInput) => {
-            const lowerInput = userInput.toLowerCase();
-            if (lowerInput.includes('hello') || lowerInput.includes('hi')) return knowledgeBase.greeting;
-            if (lowerInput.includes('experience') || lowerInput.includes('work') || lowerInput.includes('project')) return knowledgeBase.experience;
-            if (lowerInput.includes('skill') || lowerInput.includes('technolog')) return knowledgeBase.skills;
-            if (lowerInput.includes('objective') || lowerInput.includes('goal')) return knowledgeBase.objectives;
-            if (lowerInput.includes('aspiration') || lowerInput.includes('future')) return knowledgeBase.aspirations;
-            if (lowerInput.includes('contact') || lowerInput.includes('email') || lowerInput.includes('reach out')) return knowledgeBase.contact;
-            return knowledgeBase.default;
-        };
+    const lowerInput = userInput.toLowerCase();
+    if (lowerInput.includes('hello') || lowerInput.includes('hi')) return knowledgeBase.greeting;
+    if (lowerInput.includes('yourself') || lowerInput.includes('about you') || lowerInput.includes('who are you')) return knowledgeBase.background;
+    if (lowerInput.includes('stack') || lowerInput.includes('tech') || lowerInput.includes('technologies') || lowerInput.includes('skills') || lowerInput.includes('languages') || lowerInput.includes('frameworks')) return knowledgeBase.techStack;
+    if (lowerInput.includes('projects') || lowerInput.includes('work') || lowerInput.includes('demonstrate') || lowerInput.includes('built') || lowerInput.includes('portfolio')) return knowledgeBase.projectsAndGoals;
+    if (lowerInput.includes('looking for') || lowerInput.includes('career') || lowerInput.includes('role') || lowerInput.includes('position') || lowerInput.includes('hire') || lowerInput.includes('opportunities') || lowerInput.includes('vacancy')) return knowledgeBase.careerObjective;
+    if (lowerInput.includes('soft skills') || lowerInput.includes('communication') || lowerInput.includes('teamwork') || lowerInput.includes('team')) return knowledgeBase.softSkills;
+    if (lowerInput.includes('education') || lowerInput.includes('diploma') || lowerInput.includes('background')) return knowledgeBase.educationalBackground;
+    if (lowerInput.includes('goals') || lowerInput.includes('academic') || lowerInput.includes('teach')) return knowledgeBase.academicGoals;
+    if (lowerInput.includes('how i got into tech') || lowerInput.includes('story') || lowerInput.includes('journey')) return knowledgeBase.howIGotIntoTech;
+    if (lowerInput.includes('why coding') || lowerInput.includes('love development') || lowerInput.includes('passionate')) return knowledgeBase.whyILoveCoding;
+    if (lowerInput.includes('debugging') || lowerInput.includes('motivated') || lowerInput.includes('challenges')) return knowledgeBase.debuggingMindset;
+    if (lowerInput.includes('ai') || lowerInput.includes('artificial intelligence')) return knowledgeBase.firstEncounterWithAI;
+    if (lowerInput.includes('hobbies') || lowerInput.includes('outside coding') || lowerInput.includes('passions')) return knowledgeBase.hobbies;
+    if (lowerInput.includes('contact') || lowerInput.includes('email') || lowerInput.includes('reach out')) return knowledgeBase.contact;
+    return knowledgeBase.default;
+};
 
         const appendMessage = (text, sender) => {
             const messageDiv = document.createElement('div');
             messageDiv.classList.add('chat-message', `${sender}-message`);
-            messageDiv.innerHTML = `<p>${text}</p>`;
+            messageDiv.innerHTML = `<p>${text.replace(/\n/g, '<br>')}</p>`;
             messagesContainer.appendChild(messageDiv);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         };
