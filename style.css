@@ -317,3 +317,38 @@ input:focus-visible, textarea:focus-visible {
 #chatbot-send-btn:hover {
     background-color: #10B981; /* green-500 */
 }
+
+/* Typing indicator for chatbot */
+.typing .typing-dot {
+    animation: typing-bounce 0.8s infinite;
+    animation-delay: 0s;
+}
+
+.typing .typing-dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing .typing-dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typing-bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+.typing {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.typing-dot {
+    width: 6px;
+    height: 6px;
+    background-color: #E5E7EB; /* gray-200 */
+    border-radius: 50%;
+}
