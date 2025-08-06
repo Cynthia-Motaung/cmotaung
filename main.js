@@ -115,6 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (!chatbotIcon || !chatbotWindow || !closeBtn || !sendBtn || !messagesContainer || !input) {
             // If any chatbot element is missing, don't run the script.
+            console.warn('Chatbot elements not found. Chatbot initialization skipped.');
             return;
         }
 
@@ -129,10 +130,23 @@ document.addEventListener('DOMContentLoaded', function() {
         };
 
         const toggleChatWindow = () => {
-            chatbotWindow.classList.toggle('hidden');
-            chatbotIcon.classList.toggle('chatbot-icon-closed');
-            chatbotIcon.classList.toggle('chatbot-icon-open');
+            const isOpen = !chatbotWindow.classList.contains('hidden');
+            
+            if (isOpen) {
+                chatbotWindow.classList.add('hidden');
+                chatbotIcon.style.opacity = '1';
+                chatbotIcon.style.transform = 'scale(1)';
+            } else {
+                chatbotWindow.classList.remove('hidden');
+                chatbotIcon.style.opacity = '0';
+                chatbotIcon.style.transform = 'scale(0)';
+            }
         };
+        
+        // Initial state: hide the chatbot window and show the icon
+        chatbotWindow.classList.add('hidden');
+        chatbotIcon.style.opacity = '1';
+        chatbotIcon.style.transform = 'scale(1)';
 
         const getBotResponse = (userInput) => {
             const lowerInput = userInput.toLowerCase();
