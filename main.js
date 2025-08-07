@@ -114,9 +114,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const input = document.getElementById('chatbot-input');
 
         if (!chatbotIcon || !chatbotWindow || !closeBtn || !sendBtn || !messagesContainer || !input) {
-            console.warn('Chatbot elements not found. Chatbot initialization skipped.');
-            return;
-        }
+        console.warn('Chatbot elements not found. Chatbot initialization skipped.');
+        return;
+    }
 
         const knowledgeBase = {
             'default': {
@@ -213,22 +213,26 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         };
 
+        chatbotWindow.classList.add('hidden');
+
         const toggleChatWindow = () => {
             const isOpen = !chatbotWindow.classList.contains('hidden');
             
             if (isOpen) {
                 chatbotWindow.classList.add('hidden');
+                // Show the icon when closing the chat window
                 chatbotIcon.style.opacity = '1';
                 chatbotIcon.style.transform = 'scale(1)';
             } else {
                 chatbotWindow.classList.remove('hidden');
+                // Hide the icon when opening the chat window
                 chatbotIcon.style.opacity = '0';
                 chatbotIcon.style.transform = 'scale(0)';
             }
         };
         
         // Initial state: hide the chatbot window and show the icon
-        chatbotWindow.classList.add('hidden');
+        
         chatbotIcon.style.opacity = '1';
         chatbotIcon.style.transform = 'scale(1)';
 
