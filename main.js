@@ -114,9 +114,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const input = document.getElementById('chatbot-input');
 
         if (!chatbotIcon || !chatbotWindow || !closeBtn || !sendBtn || !messagesContainer || !input) {
-        console.warn('Chatbot elements not found. Chatbot initialization skipped.');
-        return;
-    }
+            console.warn('Chatbot elements not found. Chatbot initialization skipped.');
+            return;
+        }
 
         const knowledgeBase = {
             'default': {
@@ -220,26 +220,22 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (isOpen) {
                 chatbotWindow.classList.add('hidden');
-                // Show the icon when closing the chat window
                 chatbotIcon.style.opacity = '1';
                 chatbotIcon.style.transform = 'scale(1)';
             } else {
                 chatbotWindow.classList.remove('hidden');
-                // Hide the icon when opening the chat window
                 chatbotIcon.style.opacity = '0';
                 chatbotIcon.style.transform = 'scale(0)';
             }
         };
         
-        // Initial state: hide the chatbot window and show the icon
-        
+        // Corrected: Set the initial state to ensure the icon is visible on load
         chatbotIcon.style.opacity = '1';
         chatbotIcon.style.transform = 'scale(1)';
 
         const getBotResponse = (userInput) => {
             const lowerInput = userInput.toLowerCase();
             
-            // Map common user queries to the corresponding knowledge base topic
             const topics = {
                 'greeting': /hello|hi|hey|greetings/,
                 'background': /yourself|about you|who are you|background|introduction|intro/,
@@ -266,7 +262,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     break;
                 }
             }
-
             return knowledgeBase[matchedTopic];
         };
 

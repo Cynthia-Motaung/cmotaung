@@ -12,11 +12,13 @@
     <meta property="og:url" content="https://www.your-domain.com/">
     <meta property="og:title" content="Cynthia M | Software Developer">
     <meta property="og:description" content="Portfolio of Cynthia M, a Software Developer specializing in full-stack web applications and AI.">
-    <meta property="og:image" content="https://www.your-domain.com/assets/og-image.png"> <meta property="twitter:card" content="summary_large_image">
+    <meta property="og:image" content="https://www.your-domain.com/assets/og-image.png">
+    <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://www.your-domain.com/">
     <meta property="twitter:title" content="Cynthia M | Software Developer">
     <meta property="twitter:description" content="Portfolio of Cynthia M, a Software Developer specializing in full-stack web applications and AI.">
-    <meta property="twitter:image" content="https://www.your-domain.com/assets/og-image.png"> <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon/apple-touch-icon.png">
+    <meta property="twitter:image" content="https://www.your-domain.com/assets/og-image.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon/favicon-16x16.png">
     <link rel="manifest" href="./assets/favicon/site.webmanifest">
@@ -30,6 +32,7 @@
     <script src="https://cdn.tailwindcss.com" defer></script>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha512-dLxUokApny2OgDyddAopbBbDxbD3sJgN2uNfsgB4C8h+H8dIeH9IrmW2gNde15A6E9aUagzO2rA8T99yM5V9jQ==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
     
     <link rel="stylesheet" href="style.css">
@@ -89,8 +92,10 @@
         <section id="about" class="container mx-auto px-4 py-20" aria-labelledby="about-heading">
             <div class="w-full max-w-4xl mx-auto reveal">
                 <div class="text-center mb-16">
-                    <h2 id="about-heading" class="text-4xl font-bold text-center text-white mb-4">Resume</h2>
-                    <p class="text-lg text-gray-400">A summary of my professional and educational journey.</p>
+                    <h2 id="about-heading" class="text-4xl font-bold text-center text-white mb-4">About Me</h2>
+                    <p class="text-lg text-gray-400 max-w-3xl mx-auto leading-relaxed">
+                        As a developer, I specialize in bridging the critical gap between foundational software architecture and applied artificial intelligence. With core expertise in C# and .NET, I engineer resilient, scalable systems designed for high performance and maintainability. I then leverage my skills in Python and machine learning to build intelligent features upon that solid foundation, transforming data into actionable insights. My approach ensures that innovation is not just a concept but a practical reality, resulting in production-grade applications that are both smart and stable.
+                    </p>
                 </div>
                 <div class="space-y-16">
                     <div>
@@ -101,28 +106,32 @@
                         <div class="relative pl-12 timeline-container space-y-8">
                             <div class="relative timeline-item">
                                 <div class="timeline-icon"></div>
-                                <div class="flex justify-between items-start">
-                                    <h4 class="text-xl font-semibold text-white">Machine Learning Engineer - Capstone Project</h4>
-                                    <span class="text-sm font-medium text-gray-400 whitespace-nowrap">Month, '24 - Present</span>
+                                <div class="timeline-card">
+                                    <div class="flex justify-between items-start">
+                                        <h4 class="text-xl font-semibold text-white">Machine Learning Engineer - Capstone Project</h4>
+                                        <span class="text-sm font-medium text-gray-400 whitespace-nowrap">Month, '24 - Present</span>
+                                    </div>
+                                    <h5 class="font-medium text-green-300 mb-4">[Bootcamp Name]</h5>
+                                    <ul class="list-disc list-outside ml-5 text-gray-300 space-y-2">
+                                        <li>Developed and deployed an end-to-end machine learning pipeline using Scikit-learn and Pandas.</li>
+                                        <li>Engineered robust features from raw datasets, resulting in a 15% improvement in model accuracy.</li>
+                                        <li>Containerized the application using Docker and implemented key MLOps principles.</li>
+                                    </ul>
                                 </div>
-                                <h5 class="font-medium text-green-300 mb-4">[Bootcamp Name]</h5>
-                                <ul class="list-disc list-outside ml-5 text-gray-300 space-y-2">
-                                    <li>Developed and deployed an end-to-end machine learning pipeline using Scikit-learn and Pandas.</li>
-                                    <li>Engineered robust features from raw datasets, resulting in a 15% improvement in model accuracy.</li>
-                                    <li>Containerized the application using Docker and implemented key MLOps principles.</li>
-                                </ul>
                             </div>
                             <div class="relative timeline-item">
                                 <div class="timeline-icon"></div>
-                                <div class="flex justify-between items-start">
-                                    <h4 class="text-xl font-semibold text-white">Data Science Project - [Your Project Title]</h4>
-                                    <span class="text-sm font-medium text-gray-400 whitespace-nowrap">Month, '24</span>
+                                 <div class="timeline-card">
+                                    <div class="flex justify-between items-start">
+                                        <h4 class="text-xl font-semibold text-white">Data Science Project - [Your Project Title]</h4>
+                                        <span class="text-sm font-medium text-gray-400 whitespace-nowrap">Month, '24</span>
+                                    </div>
+                                    <h5 class="font-medium text-green-300 mb-4">[Bootcamp Name]</h5>
+                                    <ul class="list-disc list-outside ml-5 text-gray-300 space-y-2">
+                                        <li>Conducted comprehensive exploratory data analysis (EDA) on a large dataset utilizing NumPy and Matplotlib.</li>
+                                        <li>Designed and implemented a deep learning model with TensorFlow and Keras for image classification, achieving 95%+ accuracy.</li>
+                                    </ul>
                                 </div>
-                                <h5 class="font-medium text-green-300 mb-4">[Bootcamp Name]</h5>
-                                <ul class="list-disc list-outside ml-5 text-gray-300 space-y-2">
-                                    <li>Conducted comprehensive exploratory data analysis (EDA) on a large dataset utilizing NumPy and Matplotlib.</li>
-                                    <li>Designed and implemented a deep learning model with TensorFlow and Keras for image classification, achieving 95%+ accuracy.</li>
-                                </ul>
                             </div>
                         </div>
                     </div>
@@ -135,20 +144,24 @@
                         <div class="relative pl-12 timeline-container space-y-8">
                              <div class="relative timeline-item">
                                 <div class="timeline-icon"></div>
-                                <div class="flex justify-between items-start">
-                                    <h4 class="text-xl font-semibold text-white">AI/ML Bootcamp</h4>
-                                    <span class="text-sm font-medium text-gray-400 whitespace-nowrap">2024</span>
+                                <div class="timeline-card">
+                                    <div class="flex justify-between items-start">
+                                        <h4 class="text-xl font-semibold text-white">AI/ML Bootcamp</h4>
+                                        <span class="text-sm font-medium text-gray-400 whitespace-nowrap">2024</span>
+                                    </div>
+                                    <h5 class="font-medium text-green-300 mb-1">[Bootcamp Name/Provider]</h5>
+                                    <p class="text-gray-300">Certification in Machine Learning & Deep Learning</p>
                                 </div>
-                                <h5 class="font-medium text-green-300 mb-1">[Bootcamp Name/Provider]</h5>
-                                <p class="text-gray-300">Certification in Machine Learning & Deep Learning</p>
                             </div>
                              <div class="relative timeline-item">
                                 <div class="timeline-icon"></div>
-                                <div class="flex justify-between items-start">
-                                    <h4 class="text-xl font-semibold text-white">[Your Degree Name], [Your Major]</h4>
-                                    <span class="text-sm font-medium text-gray-400 whitespace-nowrap">Year</span>
+                                <div class="timeline-card">
+                                    <div class="flex justify-between items-start">
+                                        <h4 class="text-xl font-semibold text-white">[Your Degree Name], [Your Major]</h4>
+                                        <span class="text-sm font-medium text-gray-400 whitespace-nowrap">Year</span>
+                                    </div>
+                                    <h5 class="font-medium text-green-300 mb-1">[University Name], [City, State]</h5>
                                 </div>
-                                <h5 class="font-medium text-green-300 mb-1">[University Name], [City, State]</h5>
                             </div>
                         </div>
                     </div>
@@ -158,6 +171,35 @@
                      <a href="./assets/Cynthia-M-Resume.pdf" download="Cynthia-M-Resume.pdf" class="inline-block py-3 px-8 rounded-full bg-transparent border-2 border-green-400 text-green-400 font-bold transition-all duration-300 transform hover:scale-105 hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-700 hover:text-white hover:border-transparent" aria-label="Download Cynthia's Resume as PDF">
                         <i class="fas fa-download mr-2" aria-hidden="true"></i> Download Full Resume
                     </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="approach" class="container mx-auto px-4 py-20 bg-gray-950">
+            <div class="max-w-4xl mx-auto reveal">
+                <h2 class="text-3xl font-bold text-center text-white mb-12">My Approach</h2>
+                <div class="grid md:grid-cols-2 gap-10 text-center">
+                    
+                    <div class="bg-gray-900 p-8 rounded-2xl card-hover-effect">
+                        <div class="text-green-400 mb-4">
+                            <i class="fas fa-layer-group text-4xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white mb-3">Engineer First</h3>
+                        <p class="text-gray-400">
+                            I believe that successful AI and ML solutions are built on a foundation of solid software engineering. My expertise in C# and .NET ensures that any system I create is reliable, maintainable, and secure.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-gray-900 p-8 rounded-2xl card-hover-effect">
+                        <div class="text-blue-400 mb-4">
+                            <i class="fas fa-brain text-4xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white mb-3">AI-Focused</h3>
+                        <p class="text-gray-400">
+                            I see AI not just as a tool, but as a transformative force. I am dedicated to learning and implementing cutting-edge AI technologies to build smarter, more efficient applications that solve real-world problems.
+                        </p>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -178,7 +220,7 @@
                     </div>
                     <div class="p-6">
                         <p class="text-gray-400 mb-4">
-                            Built a model to predict sentiment of product reviews, helping businesses analyze customer feedback at scale.
+                           Engineered a sentiment analysis pipeline to translate raw customer reviews into actionable business intelligence, enabling companies to rapidly identify product strengths and weaknesses.
                         </p>
                         <div class="flex flex-wrap gap-2 mb-4">
                             <span class="tech-tag">Python</span>
@@ -207,7 +249,7 @@
                     </div>
                     <div class="p-6">
                         <p class="text-gray-400 mb-4">
-                            Predicted accurate house prices based on features like size and location. Trained a Random Forest Regressor model.
+                            Developed a regression model to provide accurate, data-driven housing price estimates, leveraging a Random Forest Regressor for high-precision market predictions.
                         </p>
                         <div class="flex flex-wrap gap-2 mb-4">
                             <span class="tech-tag">Python</span>
@@ -236,7 +278,7 @@
                     </div>
                     <div class="p-6">
                         <p class="text-gray-400 mb-4">
-                           Developed a Convolutional Neural Network (CNN) to categorize images into predefined classes.
+                           Built and trained a Convolutional Neural Network (CNN) to automatically categorize images, achieving high accuracy for object recognition tasks.
                         </p>
                         <div class="flex flex-wrap gap-2 mb-4">
                             <span class="tech-tag">TensorFlow</span>
@@ -260,54 +302,80 @@
             <div class="reveal">
                 <h2 id="skills-heading" class="text-4xl font-bold text-center text-white mb-16 section-heading-underline">Technical Skills</h2>
             </div>
-            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
-                <div class="flex flex-col items-center text-center p-4 reveal">
-                    <img src="data:image/jpeg;base64,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" alt="C# logo" class="skill-logo mb-3">
-                    <h4 class="font-semibold text-white">C#</h4>
+        
+            <div class="space-y-16">
+                <div class="reveal">
+                    <h3 class="text-2xl font-semibold text-green-300 mb-6 text-center">Backend & Databases</h3>
+                    <div class="skill-category-container">
+                        <div class="skill-item">
+                            <img src="data:image/jpeg;base64,...(your base64 code)..." alt="C# logo" class="skill-logo mb-3">
+                            <h4 class="font-semibold text-white">C#</h4>
+                        </div>
+                        <div class="skill-item">
+                            <img src="https://cdn.simpleicons.org/dotnet/512BD4" alt=".NET Core logo" class="skill-logo mb-3">
+                            <h4 class="font-semibold text-white">.NET Core</h4>
+                        </div>
+                        <div class="skill-item">
+                            <img src="https://cdn.simpleicons.org/dotnet/512BD4" alt="Entity Framework Core logo" class="skill-logo mb-3">
+                            <h4 class="font-semibold text-white">EF Core</h4>
+                        </div>
+                        <div class="skill-item">
+                            <img src="data:image/jpeg;base64,...(your base64 code)..." alt="MSSQL logo" class="skill-logo mb-3">
+                            <h4 class="font-semibold text-white">MS SQL Server</h4>
+                        </div>
+                        <div class="skill-item">
+                            <img src="https://cdn.simpleicons.org/postgresql/4169E1" alt="PostgreSQL logo" class="skill-logo mb-3">
+                            <h4 class="font-semibold text-white">PostgreSQL</h4>
+                        </div>
+                    </div>
                 </div>
-                <div class="flex flex-col items-center text-center p-4 reveal">
-                    <img src="https://cdn.simpleicons.org/dotnet/512BD4" alt=".NET Core logo" class="skill-logo mb-3">
-                    <h4 class="font-semibold text-white">.NET Core</h4>
+        
+                <div class="reveal">
+                    <h3 class="text-2xl font-semibold text-blue-400 mb-6 text-center">AI / ML</h3>
+                    <div class="skill-category-container">
+                        <div class="skill-item">
+                            <img src="https://cdn.simpleicons.org/python/3776AB" alt="Python logo" class="skill-logo mb-3">
+                            <h4 class="font-semibold text-white">Python</h4>
+                        </div>
+                        <div class="skill-item">
+                            <img src="https://cdn.simpleicons.org/pandas/150458" alt="Pandas logo" class="skill-logo mb-3" style="background-color: white; border-radius: 8px;">
+                            <h4 class="font-semibold text-white">Pandas</h4>
+                        </div>
+                        <div class="skill-item">
+                            <img src="https://cdn.simpleicons.org/tensorflow/FF6F00" alt="TensorFlow logo" class="skill-logo mb-3">
+                            <h4 class="font-semibold text-white">TensorFlow</h4>
+                        </div>
+                         <div class="skill-item">
+                            <img src="https://cdn.simpleicons.org/openai/412991" alt="OpenAI logo" class="skill-logo mb-3" style="background-color: white; border-radius: 50%;">
+                            <h4 class="font-semibold text-white">OpenAI API</h4>
+                        </div>
+                    </div>
                 </div>
-                <div class="flex flex-col items-center text-center p-4 reveal">
-                    <img src="https://cdn.simpleicons.org/dotnet/512BD4" alt="Entity Framework Core logo" class="skill-logo mb-3">
-                    <h4 class="font-semibold text-white">EF Core</h4>
-                </div>
-                <div class="flex flex-col items-center text-center p-4 reveal">
-                    <img src="data:image/jpeg;base64,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" alt="MSSQL logo" class="skill-logo mb-3">
-                    <h4 class="font-semibold text-white">MS SQL Server</h4>
-                </div>
-                <div class="flex flex-col items-center text-center p-4 reveal">
-                    <img src="data:image/jpeg;base64,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" alt="Azure DevOps logo" class="skill-logo mb-3">
-                    <h4 class="font-semibold text-white">Azure DevOps</h4>
-                </div>
-                <div class="flex flex-col items-center text-center p-4 reveal">
-                    <img src="https://cdn.simpleicons.org/postgresql/4169E1" alt="PostgreSQL logo" class="skill-logo mb-3">
-                    <h4 class="font-semibold text-white">PostgreSQL</h4>
-                </div>
-                <div class="flex flex-col items-center text-center p-4 reveal">
-                    <img src="https://cdn.simpleicons.org/python/3776AB" alt="Python logo" class="skill-logo mb-3">
-                    <h4 class="font-semibold text-white">Python</h4>
-                </div>
-                <div class="flex flex-col items-center text-center p-4 reveal">
-                    <img src="https://cdn.simpleicons.org/git/F05032" alt="Git logo" class="skill-logo mb-3">
-                    <h4 class="font-semibold text-white">Git</h4>
-                </div>
-                <div class="flex flex-col items-center text-center p-4 reveal">
-                    <img src="https://cdn.simpleicons.org/bootstrap/7952B3" alt="Bootstrap logo" class="skill-logo mb-3">
-                    <h4 class="font-semibold text-white">Bootstrap</h4>
-                </div>
-                <div class="flex flex-col items-center text-center p-4 reveal">
-                    <img src="https://cdn.simpleicons.org/html5/E34F26" alt="HTML5 logo" class="skill-logo mb-3">
-                    <h4 class="font-semibold text-white">HTML5</h4>
-                </div>
-                <div class="flex flex-col items-center text-center p-4 reveal">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYLROWrKvqBt8Rvbx3e4BQhCzs9BTQhrvtgQ&s" alt="CSS3 logo" class="skill-logo mb-3">
-                    <h4 class="font-semibold text-white">CSS3</h4>
-                </div>
-                <div class="flex flex-col items-center text-center p-4 reveal">
-                    <img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="JavaScript logo" class="skill-logo mb-3">
-                    <h4 class="font-semibold text-white">JavaScript</h4>
+        
+                <div class="reveal">
+                    <h3 class="text-2xl font-semibold text-purple-400 mb-6 text-center">Frontend & Tools</h3>
+                    <div class="skill-category-container">
+                        <div class="skill-item">
+                            <img src="https://cdn.simpleicons.org/html5/E34F26" alt="HTML5 logo" class="skill-logo mb-3">
+                            <h4 class="font-semibold text-white">HTML5</h4>
+                        </div>
+                        <div class="skill-item">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYLROWrKvqBt8Rvbx3e4BQhCzs9BTQhrvtgQ&s" alt="CSS3 logo" class="skill-logo mb-3">
+                            <h4 class="font-semibold text-white">CSS3</h4>
+                        </div>
+                        <div class="skill-item">
+                            <img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="JavaScript logo" class="skill-logo mb-3">
+                            <h4 class="font-semibold text-white">JavaScript</h4>
+                        </div>
+                        <div class="skill-item">
+                            <img src="https://cdn.simpleicons.org/git/F05032" alt="Git logo" class="skill-logo mb-3">
+                            <h4 class="font-semibold text-white">Git</h4>
+                        </div>
+                         <div class="skill-item">
+                            <img src="data:image/jpeg;base64,...(your base64 code)..." alt="Azure DevOps logo" class="skill-logo mb-3">
+                            <h4 class="font-semibold text-white">Azure DevOps</h4>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -318,7 +386,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="bg-gray-800 p-6 rounded-lg shadow-md card-hover-effect">
                         <h3 class="text-xl font-semibold text-green-300 mb-3 flex items-center gap-2"><i class="fas fa-brain" aria-hidden="true"></i> Advanced AI Concepts</h3>
-                        <ul class="list-disc list-inside text-gray-300 space-y-2">
+                        <ul>
                             <li>Diving into Generative AI (Transformers, Diffusion Models).</li>
                             <li>Building a foundational Reinforcement Learning project.</li>
                             <li>Studying Ethical AI and bias mitigation techniques.</li>
@@ -326,7 +394,7 @@
                     </div>
                     <div class="bg-gray-800 p-6 rounded-lg shadow-md card-hover-effect">
                         <h3 class="text-xl font-semibold text-green-300 mb-3 flex items-center gap-2"><i class="fas fa-cloud" aria-hidden="true"></i> Cloud & MLOps</h3>
-                        <ul class="list-disc list-inside text-gray-300 space-y-2">
+                        <ul>
                             <li>Preparing for AWS Certified Machine Learning certification.</li>
                             <li>Exploring advanced MLOps tools like Kubeflow and MLflow.</li>
                         </ul>
@@ -381,7 +449,7 @@
 
     
     <div id="chatbot-container">
-        <div id="chatbot-icon" class="chatbot-icon-closed" role="button" aria-label="Open chat" tabindex="0">
+        <div id="chatbot-icon" role="button" aria-label="Open chat" tabindex="0">
             <i class="fas fa-comment-dots"></i>
         </div>
         
