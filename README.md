@@ -3,10 +3,6 @@
 This repository contains the source code for a modern, interactive developer portfolio. It is a single-page application designed to showcase professional experience, projects, and skills through a sleek user interface and dynamic animations.
 
 **Live Demo:** https://cmotaung.vercel.app/
-
-![Portfolio Screenshot](./assets/images/screenshot.png)
-*(To add a screenshot, capture an image of the final portfolio, name it `screenshot.png`, and place it in the `/assets/images/` folder.)*
-
 ---
 
 ## ✨ Features
