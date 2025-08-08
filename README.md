@@ -2,7 +2,7 @@
 
 This repository contains the source code for a modern, interactive developer portfolio. It is a single-page application designed to showcase professional experience, projects, and skills through a sleek user interface and dynamic animations.
 
-**Live Demo:** [https://your-portfolio-link.vercel.app/](https://your-portfolio-link.vercel.app/)
+**Live Demo:** https://your-portfolio-link.vercel.app/
 
 ![Portfolio Screenshot](./assets/images/screenshot.png)
 *(To add a screenshot, capture an image of the final portfolio, name it `screenshot.png`, and place it in the `/assets/images/` folder.)*
@@ -50,7 +50,7 @@ A modern web browser is required. A code editor such as [VS Code](https://code.v
 
 1.  **Clone the repository:**
     ```sh
-    git clone [https://github.com/your-username/your-repo-name.git](https://github.com/your-username/your-repo-name.git)
+    git clone https://github.com/Cynthia-Motaung/cmotaung
     ```
 2.  **Navigate to the project directory:**
     ```sh
