@@ -211,7 +211,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                 <article class="group bg-gray-900 rounded-2xl shadow-xl overflow-hidden card-hover-effect reveal">
                     <div class="relative">
-                        <img src="/py.png" alt="Abstract image representing sentiment analysis" class="w-full h-56 object-cover" loading="lazy">
+                        <img src="/assets/py.png" alt="Abstract image representing sentiment analysis" class="w-full h-56 object-cover" loading="lazy">
                         <div class="absolute inset-0 bg-black bg-opacity-40"></div>
                         <div class="absolute inset-0 p-6 flex flex-col justify-end">
                             <h3 class="text-2xl font-bold text-white">Portfolio</h3>
@@ -240,7 +240,7 @@
 
                 <article class="group bg-gray-900 rounded-2xl shadow-xl overflow-hidden card-hover-effect reveal">
                     <div class="relative">
-                        <img src="/chatbot.png" alt="Image of a modern house" class="w-full h-56 object-cover" loading="lazy">
+                        <img src="/assets/chatbot.png" alt="Image of a modern house" class="w-full h-56 object-cover" loading="lazy">
                         <div class="absolute inset-0 bg-black bg-opacity-40"></div>
                         <div class="absolute inset-0 p-6 flex flex-col justify-end">
                             <h3 class="text-2xl font-bold text-white">AI Tutor</h3>
@@ -269,7 +269,7 @@
 
                 <article class="group bg-gray-900 rounded-2xl shadow-xl overflow-hidden card-hover-effect reveal">
                     <div class="relative">
-                        <img src="/resumeBuilder.png" alt="Abstract image representing neural networks" class="w-full h-56 object-cover" loading="lazy">
+                        <img src="/assets/resumeBuilder.png" alt="Abstract image representing neural networks" class="w-full h-56 object-cover" loading="lazy">
                         <div class="absolute inset-0 bg-black bg-opacity-40"></div>
                         <div class="absolute inset-0 p-6 flex flex-col justify-end">
                             <h3 class="text-2xl font-bold text-white">Resume Builder</h3>
@@ -441,10 +441,10 @@
              <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors duration-300" aria-label="Visit LinkedIn profile">
                 <i class="fab fa-linkedin text-2xl" aria-hidden="true"></i>
             </a>
-            <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors duration-300" aria-label="Visit GitHub profile">
+            <a href="https://github.com/Cynthia-Motaung/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors duration-300" aria-label="Visit GitHub profile">
                 <i class="fab fa-github text-2xl" aria-hidden="true"></i>
             </a>
-             <a href="mailto:youremail@example.com" class="hover:text-white transition-colors duration-300" aria-label="Email at youremail@example.com">
+             <a href="mailto:cynthiamotaung015@gmail.com" class="hover:text-white transition-colors duration-300" aria-label="Email at youremail@example.com">
                 <i class="fas fa-envelope text-2xl" aria-hidden="true"></i>
             </a>
         </div>
@@ -453,27 +453,35 @@
 
     
     <div id="chatbot-container">
-        <div id="chatbot-icon" role="button" aria-label="Open chat" tabindex="0">
-            <i class="fas fa-comment-dots"></i>
-        </div>
-        
-        <div id="chatbot-window" class="hidden">
-            <div id="chatbot-header">
+    <div id="chatbot-icon" role="button" aria-label="Open chat" tabindex="0">
+        <i class="fas fa-comment-dots"></i>
+    </div>
+    
+    <div id="chatbot-window" class="hidden">
+        <div id="chatbot-header">
+            <div class="chatbot-header-content">
+                <img src="/assets/Media.jpg" alt="Cynthia's avatar" class="bot-avatar">
                 <span>Chat with Cynthia</span>
-                <button id="chatbot-close-btn" aria-label="Close chat">&times;</button>
             </div>
-            <div id="chatbot-messages">
-                <div class="chat-message bot-message">
+            <button id="chatbot-close-btn" aria-label="Close chat">&times;</button>
+        </div>
+        <div id="chatbot-messages">
+            <div class="chat-message bot-message">
+                <div class="bot-avatar-container">
+                    <img src="./assets/Media.jpg" alt="Cynthia's avatar" class="bot-avatar">
+                </div>
+                <div class="message-content">
                     <p>Ask me anything.</p>
                 </div>
             </div>
-            <div id="chatbot-input-container">
-                <input type="text" id="chatbot-input" placeholder="Ask a question...">
-                <button id="chatbot-send-btn" aria-label="Send message">
-                    <i class="fas fa-paper-plane"></i>
-                </button>
-            </div>
+        </div>
+        <div id="chatbot-input-container">
+            <input type="text" id="chatbot-input" placeholder="Ask a question...">
+            <button id="chatbot-send-btn" aria-label="Send message">
+                <i class="fas fa-paper-plane"></i>
+            </button>
         </div>
     </div>
+</div>
     </body>
 </html>

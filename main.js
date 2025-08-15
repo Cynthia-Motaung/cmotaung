@@ -118,6 +118,18 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
+        // --- NEW CODE: Add this function ---
+        function toggleChatWindow() {
+            const isHidden = chatbotWindow.classList.contains('hidden');
+            chatbotWindow.classList.toggle('hidden');
+            chatbotIcon.classList.toggle('hidden', !isHidden);
+            
+            if (isHidden) {
+                input.focus();
+            }
+        }
+        // ------------------------------------
+
         const knowledgeBase = {
             'default': {
                 responses: [
@@ -138,145 +150,80 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             'techStack': {
                 responses: [
-                    "My tech stack includes:\n\n" +
-                    "**Backend:** C#, ASP.NET Core, Entity Framework Core\n" +
-                    "**Frontend:** HTML, CSS, JavaScript, React (basic)\n" +
-                    "**Databases:** SQL Server, PostgreSQL\n" +
-                    "**AI/ML:** Python, Pandas, TensorFlow, OpenAI APIs\n" +
-                    "**Tools:** Git & GitHub, Azure DevOps, Visual Studio"
+                    "My tech stack includes:\n- **Languages**: C#, Python, SQL, JavaScript, HTML, CSS\n- **Frameworks/Libraries**: ASP.NET Core, React, Tailwind CSS, Pandas, TensorFlow\n- **Databases**: SQL Server, SQLite\n- **Tools**: Git, Docker"
                 ]
             },
-            'personality': {
+            'projects': {
                 responses: [
-                    "I'm a naturally curious, focused, and methodical problem-solver. I'm driven by a sense of purpose and a commitment to lifelong learning, which I see as essential for growth."
+                    "I have worked on several projects, including a full-stack e-commerce application, a sentiment analysis tool, and an educational chatbot. You can find more details in my portfolio."
                 ]
             },
-            'academicGoals': {
+            'skills': {
                 responses: [
-                    "I am passionate about continuous education and plan to pursue a Master’s or PhD to bridge the gap between software development, AI, and education. My long-term goal is to combine technical expertise with a strong teaching and mentoring role."
-                ]
-            },
-            'projectsAndGoals': {
-                responses: [
-                    "I am currently focused on mastering full-stack ASP.NET Core and integrating AI into my applications. My projects demonstrate my ability to combine productivity, personal growth, and intelligent automation."
-                ]
-            },
-            'educationalBackground': {
-                responses: [
-                    "I hold a Diploma in Software Development, which provided me with a strong foundation in object-oriented programming and web development principles. I also continue to learn through real-world projects and courses."
-                ]
-            },
-            'teachingPhilosophy': {
-                responses: [
-                    "I believe in a 'Learn One, Do One, Practice One, Teach One, Create & Innovate One' philosophy. This cycle ensures deep understanding and fosters continuous growth and innovation."
-                ]
-            },
-            'softSkills': {
-                responses: [
-                    "My soft skills are a key part of how I work. I excel at clear communication, teamwork, and taking initiative. I'm highly adaptable and organized, with a strong attention to detail that ensures high-quality solutions."
-                ]
-            },
-            'hobbies': {
-                responses: [
-                    "Outside of my work, I enjoy hiking, reading, and running. These hobbies help me stay balanced, creative, and disciplined."
-                ]
-            },
-            'firstEncounterWithAI': {
-                responses: [
-                    "I initially feared AI might replace developers, but I've come to see it as a powerful tool. I'm focused on learning how to responsibly integrate AI and build the infrastructure around it, seeing it as a way to expand our capabilities."
-                ]
-            },
-            'debuggingMindset': {
-                responses: [
-                    "I approach challenges with a 'failing forward' mindset. I see every bug as an opportunity to learn, which builds my confidence and capability as a developer."
-                ]
-            },
-            'howIGotIntoTech': {
-                responses: [
-                    "I started my journey in tech with an interest in cybersecurity. However, I found my true passion in software engineering—building systems rather than just testing them. This shift drives my work today."
-                ]
-            },
-            'whyILoveCoding': {
-                responses: [
-                    "I love software development because it offers endless potential and a path of lifelong learning. The ability to solve real-world problems with creativity and logic is what keeps me engaged."
-                ]
-            },
-            'careerObjective': {
-                responses: [
-                    "Yes, I am actively seeking a Junior Developer position or internship. I am looking for a role that aligns with my current tech stack (C#, ASP.NET Core, Python) and offers opportunities for mentorship and growth."
+                    "My core skills are in backend development with C# and ASP.NET Core, but I'm also proficient in Python for data analysis and AI. I have experience with SQL databases and modern front-end frameworks like React."
                 ]
             },
             'contact': {
                 responses: [
-                    "You can get in touch with me via the contact form on this website or connect with me on LinkedIn."
+                    "You can get in touch with me through the contact form on this page or by connecting with me on LinkedIn."
                 ]
-            }
+            },
         };
 
-        chatbotWindow.classList.add('hidden');
+        function getBotResponse(userInput) {
+            const lowerCaseInput = userInput.toLowerCase();
+            const greetings = ['hi', 'hello', 'hey', 'greetings', 'what\'s up'];
+            const techTerms = ['tech', 'stack', 'technologies', 'languages', 'frameworks'];
+            const projectTerms = ['project', 'work', 'portfolio', 'built'];
+            const skillTerms = ['skill', 'skills', 'expertise', 'proficient'];
+            const contactTerms = ['contact', 'email', 'get in touch', 'connect'];
 
-        const toggleChatWindow = () => {
-            const isOpen = !chatbotWindow.classList.contains('hidden');
-            
-            if (isOpen) {
-                chatbotWindow.classList.add('hidden');
-                chatbotIcon.style.opacity = '1';
-                chatbotIcon.style.transform = 'scale(1)';
+            for (const term of greetings) {
+                if (lowerCaseInput.includes(term)) return knowledgeBase.greeting;
+            }
+            for (const term of techTerms) {
+                if (lowerCaseInput.includes(term)) return knowledgeBase.techStack;
+            }
+            for (const term of projectTerms) {
+                if (lowerCaseInput.includes(term)) return knowledgeBase.projects;
+            }
+            for (const term of skillTerms) {
+                if (lowerCaseInput.includes(term)) return knowledgeBase.skills;
+            }
+            for (const term of contactTerms) {
+                if (lowerCaseInput.includes(term)) return knowledgeBase.contact;
+            }
+
+            return knowledgeBase.default;
+        }
+
+        function appendMessage(text, sender) {
+            const messageElement = document.createElement('div');
+            messageElement.className = `chat-message ${sender}-message`;
+
+            const avatarElement = document.createElement('div');
+            avatarElement.className = `${sender}-avatar-container`;
+
+            const avatarImage = document.createElement('img');
+            avatarImage.className = `${sender}-avatar`;
+
+            if (sender === 'user') {
+                avatarImage.src = 'data:image/jpeg;base64,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'; // CHANGE THIS TO YOUR IMAGE
+                avatarImage.alt = 'User avatar';
             } else {
-                chatbotWindow.classList.remove('hidden');
-                chatbotIcon.style.opacity = '0';
-                chatbotIcon.style.transform = 'scale(0)';
+                avatarImage.src = './assets/Media.jpg'; // CHANGE THIS TO YOUR BOT IMAGE
             }
-        };
-        
-        // Corrected: Set the initial state to ensure the icon is visible on load
-        chatbotIcon.style.opacity = '1';
-        chatbotIcon.style.transform = 'scale(1)';
 
-        const getBotResponse = (userInput) => {
-            const lowerInput = userInput.toLowerCase();
-            
-            const topics = {
-                'greeting': /hello|hi|hey|greetings/,
-                'background': /yourself|about you|who are you|background|introduction|intro/,
-                'techStack': /stack|tech|skills|technologies|languages|frameworks|tools|proficient|expertise/,
-                'personality': /personality|work style|approach|how you work|mindset|curious/,
-                'academicGoals': /goals|academic|master|phd|teach|mentor|future|long-term/,
-                'projectsAndGoals': /projects|work|portfolio|built|create|app|application|goals/,
-                'educationalBackground': /education|school|diploma|learning|background/,
-                'teachingPhilosophy': /teach|mentor|philosophy|approach/,
-                'softSkills': /soft skills|communication|teamwork|team|collaborate|adapt|leadership/,
-                'hobbies': /hobbies|interests|outside|hobby|passions/,
-                'firstEncounterWithAI': /ai|artificial intelligence|machine learning|ml|encounter/,
-                'debuggingMindset': /debug|motivated|challenges|problem solving|failing forward/,
-                'howIGotIntoTech': /started|begin|how.*tech|journey|story/,
-                'whyILoveCoding': /why.*code|love.*coding|passionate/,
-                'careerObjective': /job|career|role|position|hire|opportunity|vacancy|looking for|open to/,
-                'contact': /contact|email|reach out|connect|linkedin/
-            };
+            const messageContent = document.createElement('div');
+            messageContent.className = 'message-content';
+            messageContent.innerHTML = `<p>${text}</p>`;
 
-            let matchedTopic = 'default';
-            for (const [key, regex] of Object.entries(topics)) {
-                if (regex.test(lowerInput)) {
-                    matchedTopic = key;
-                    break;
-                }
-            }
-            return knowledgeBase[matchedTopic];
-        };
-
-        const appendMessage = (text, sender) => {
-            const messageDiv = document.createElement('div');
-            messageDiv.classList.add('chat-message', `${sender}-message`);
-            
-            const formattedText = text
-                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                .replace(/\n/g, '<br>');
-            
-            messageDiv.innerHTML = `<p>${formattedText}</p>`;
-            messagesContainer.appendChild(messageDiv);
+            messageElement.appendChild(avatarElement);
+            avatarElement.appendChild(avatarImage);
+            messageElement.appendChild(messageContent);
+            messagesContainer.appendChild(messageElement);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        };
+        }
 
         const handleSendMessage = () => {
             const userInput = input.value.trim();
