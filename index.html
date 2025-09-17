@@ -38,14 +38,122 @@
     <link rel="stylesheet" href="style.css">
     <script src="main.js" defer></script>
 
+    <style>
+        /* Enhanced scrolling styles */
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 6rem;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(17, 24, 39, 0.5);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, #34D399, #1D4ED8);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(to bottom, #10B981, #2563EB);
+        }
+        
+        /* Progress indicator */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(to right, #34D399, #1D4ED8);
+            z-index: 9999;
+            transition: width 0.2s ease;
+        }
+        
+        /* Enhanced reveal animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        
+        .reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Parallax effect for hero */
+        .parallax {
+            transform-style: preserve-3d;
+        }
+        
+        .parallax-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+        
+        .parallax-back {
+            transform: translateZ(-10px) scale(2);
+        }
+        
+        /* Section fade-in effect */
+        section {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+        
+        section.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Enhanced navigation on scroll */
+        header.scrolled {
+            background-color: rgba(3, 7, 18, 0.95);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Gradient text animation */
+        .animate-gradient {
+            background-size: 300% 300%;
+            background-image: linear-gradient(to right, #6EE7B7, #60A5FA, #8B5CF6, #6EE7B7);
+            animation: gradientShift 4s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50% }
+            50% { background-position: 100% 50% }
+            100% { background-position: 0% 50% }
+        }
+        
+        /* Hover effects for cards */
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+    </style>
 </head>
 <body class="bg-gray-950 text-gray-100">
 
+    <div id="scroll-progress"></div>
     <div id="cursor-glow"></div>
 
     <a href="#main-content" class="absolute left-[-9999px] top-1 z-[9999] bg-green-500 text-white p-3 rounded-br-lg focus:left-0">Skip to main content</a>
 
-    <header class="fixed top-0 left-0 right-0 z-50 bg-gray-950 bg-opacity-80 backdrop-filter backdrop-blur-lg">
+    <header class="fixed top-0 left-0 right-0 z-50 bg-gray-950 bg-opacity-80 backdrop-filter backdrop-blur-lg transition-all duration-300">
         <nav class="container mx-auto px-4 py-4 flex justify-between items-center" aria-label="Main navigation">
             <a href="#hero" class="text-2xl font-bold text-white transition-colors duration-300 hover:text-green-300" aria-label="Cynthia M - Go to Hero Section">Cynthia M</a>
             <div class="hidden md:flex space-x-6" role="menubar">
@@ -70,22 +178,29 @@
 
     <main id="main-content" class="pt-24">
         <section id="hero" class="relative overflow-hidden container mx-auto px-4 py-20 min-h-screen flex items-center justify-center" aria-label="Hero section with introduction and animated background">
-            <div id="hero-canvas" class="absolute inset-0 z-0 opacity-40"></div>
+            <div id="hero-canvas" class="absolute inset-0 z-0 opacity-40 parallax">
+                <div class="parallax-layer parallax-back"></div>
+            </div>
             <div class="relative z-10 text-center max-w-4xl">
                 <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-tight text-white mb-4 animate-fade-in">
-                    <span class="text-gradient">Hello, I'm Cynthia M</span>
+                    <span class="text-gradient animate-gradient">Hello, I'm Cynthia M</span>
                 </h1>
                 <p class="text-lg sm:text-xl md:text-2xl text-gray-400 mb-8 animate-fade-in delay-200">
                     A software developer focused on creating full-stack web applications and exploring AI-driven features.
                 </p>
                 <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 animate-fade-in delay-400">
-                    <a href="#projects" class="bg-gradient-to-r from-green-400 to-blue-700 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg">
+                    <a href="#projects" class="bg-gradient-to-r from-green-400 to-blue-700 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover-lift">
                         View My Work
                     </a>
-                    <a href="#contact" class="bg-transparent border border-gray-400 text-gray-400 font-bold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105 hover:bg-gray-700 hover:text-white hover:border-gray-700">
+                    <a href="#contact" class="bg-transparent border border-gray-400 text-gray-400 font-bold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105 hover:bg-gray-700 hover:text-white hover:border-gray-700 hover-lift">
                         Get In Touch
                     </a>
                 </div>
+            </div>
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+                <a href="#about" class="text-gray-400 hover:text-white transition-colors duration-300" aria-label="Scroll to About section">
+                    <i class="fas fa-chevron-down text-2xl"></i>
+                </a>
             </div>
         </section>
 
@@ -106,7 +221,7 @@
                         <div class="relative pl-12 timeline-container space-y-8">
                             <div class="relative timeline-item">
                                 <div class="timeline-icon"></div>
-                                <div class="timeline-card">
+                                <div class="timeline-card hover-lift">
                                     <div class="flex justify-between items-start">
                                         <h4 class="text-xl font-semibold text-white">📚 LumiReads</h4>
                                         <span class="text-sm font-medium text-gray-400 whitespace-nowrap">July, '25</span>
@@ -121,7 +236,7 @@
                             </div>
                             <div class="relative timeline-item">
                                 <div class="timeline-icon"></div>
-                                 <div class="timeline-card">
+                                 <div class="timeline-card hover-lift">
                                     <div class="flex justify-between items-start">
                                         <h4 class="text-xl font-semibold text-white">🏥 Ward Management System</h4>
                                         <span class="text-sm font-medium text-gray-400 whitespace-nowrap">December, '24</span>
@@ -144,7 +259,7 @@
                         <div class="relative pl-12 timeline-container space-y-8">
                              <div class="relative timeline-item">
                                 <div class="timeline-icon"></div>
-                                <div class="timeline-card">
+                                <div class="timeline-card hover-lift">
                                     <div class="flex justify-between items-start">
                                         <h4 class="text-xl font-semibold text-white">AI Bootcamp</h4>
                                         <span class="text-sm font-medium text-gray-400 whitespace-nowrap">2025</span>
@@ -155,7 +270,7 @@
                             </div>
                              <div class="relative timeline-item">
                                 <div class="timeline-icon"></div>
-                                <div class="timeline-card">
+                                <div class="timeline-card hover-lift">
                                     <div class="flex justify-between items-start">
                                         <h4 class="text-xl font-semibold text-white">Dip Information Technology, Software Development</h4>
                                         <span class="text-sm font-medium text-gray-400 whitespace-nowrap">2024</span>
@@ -168,7 +283,7 @@
                 </div>
 
                 <div class="text-center mt-16">
-                     <a href="./assets/Cynthia-M-Resume.pdf" download="My Resume.pdf" class="inline-block py-3 px-8 rounded-full bg-transparent border-2 border-green-400 text-green-400 font-bold transition-all duration-300 transform hover:scale-105 hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-700 hover:text-white hover:border-transparent" aria-label="Download Cynthia's Resume as PDF">
+                     <a href="./assets/Cynthia-M-Resume.pdf" download="My Resume.pdf" class="inline-block py-3 px-8 rounded-full bg-transparent border-2 border-green-400 text-green-400 font-bold transition-all duration-300 transform hover:scale-105 hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-700 hover:text-white hover:border-transparent hover-lift" aria-label="Download Cynthia's Resume as PDF">
                         <i class="fas fa-download mr-2" aria-hidden="true"></i> Download Full Resume
                     </a>
                 </div>
@@ -180,7 +295,7 @@
                 <h2 class="text-3xl font-bold text-center text-white mb-12">My Approach</h2>
                 <div class="grid md:grid-cols-2 gap-10 text-center">
                     
-                    <div class="bg-gray-900 p-8 rounded-2xl card-hover-effect">
+                    <div class="bg-gray-900 p-8 rounded-2xl card-hover-effect hover-lift">
                         <div class="text-green-400 mb-4">
                             <i class="fas fa-layer-group text-4xl"></i>
                         </div>
@@ -190,7 +305,7 @@
                         </p>
                     </div>
                     
-                    <div class="bg-gray-900 p-8 rounded-2xl card-hover-effect">
+                    <div class="bg-gray-900 p-8 rounded-2xl card-hover-effect hover-lift">
                         <div class="text-blue-400 mb-4">
                             <i class="fas fa-brain text-4xl"></i>
                         </div>
@@ -209,7 +324,7 @@
                 <h2 id="projects-heading" class="text-4xl font-bold text-center text-white mb-12 section-heading-underline">Featured Projects</h2>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                <article class="group bg-gray-900 rounded-2xl shadow-xl overflow-hidden card-hover-effect reveal">
+                <article class="group bg-gray-900 rounded-2xl shadow-xl overflow-hidden card-hover-effect reveal hover-lift">
                     <div class="relative">
                         <img src="/py.png" alt="Abstract image representing sentiment analysis" class="w-full h-56 object-cover" loading="lazy">
                         <div class="absolute inset-0 bg-black bg-opacity-40"></div>
@@ -238,7 +353,7 @@
                     </div>
                 </article>
 
-                <article class="group bg-gray-900 rounded-2xl shadow-xl overflow-hidden card-hover-effect reveal">
+                <article class="group bg-gray-900 rounded-2xl shadow-xl overflow-hidden card-hover-effect reveal hover-lift">
                     <div class="relative">
                         <img src="/chatbot.png" alt="Image of a modern house" class="w-full h-56 object-cover" loading="lazy">
                         <div class="absolute inset-0 bg-black bg-opacity-40"></div>
@@ -267,7 +382,7 @@
                     </div>
                 </article>
 
-                <article class="group bg-gray-900 rounded-2xl shadow-xl overflow-hidden card-hover-effect reveal">
+                <article class="group bg-gray-900 rounded-2xl shadow-xl overflow-hidden card-hover-effect reveal hover-lift">
                     <div class="relative">
                         <img src="/resumeBuilder.png" alt="Abstract image representing neural networks" class="w-full h-56 object-cover" loading="lazy">
                         <div class="absolute inset-0 bg-black bg-opacity-40"></div>
@@ -307,173 +422,395 @@
                 <div class="reveal">
                     <h3 class="text-2xl font-semibold text-green-300 mb-6 text-center">Backend & Databases</h3>
                     <div class="skill-category-container">
-                        <div class="skill-item">
-                            <img src="data:image/png;base64,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" alt="C# logo" class="skill-logo mb-3">
-                            <h4 class="font-semibold text-white">C#</h4>
+                        <div class="skill-item hover-lift">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg" alt="C#" loading="lazy" />
+                            <span>C#</span>
                         </div>
-                        <div class="skill-item">
-                            <img src="https://cdn.simpleicons.org/dotnet/512BD4" alt=".NET Core logo" class="skill-logo mb-3">
-                            <h4 class="font-semibold text-white">.NET Core</h4>
+                        <div class="skill-item hover-lift">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/dotnetcore/dotnetcore-original.svg" alt=".NET Core" loading="lazy" />
+                            <span>.NET Core</span>
                         </div>
-                        <div class="skill-item">
-                            <img src="https://cdn.simpleicons.org/dotnet/512BD4" alt="Entity Framework Core logo" class="skill-logo mb-3">
-                            <h4 class="font-semibold text-white">EF Core</h4>
+                        <div class="skill-item hover-lift">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python" loading="lazy" />
+                            <span>Python</span>
                         </div>
-                        <div class="skill-item">
-                            <img src="data:image/jpeg;base64,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" alt="MSSQL logo" class="skill-logo mb-3">
-                            <h4 class="font-semibold text-white">MS SQL Server</h4>
+                        <!--<div class="skill-item hover-lift">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg" alt="FastAPI" loading="lazy" />
+                            <span>FastAPI</span>
+                        </div>-->
+                        <div class="skill-item hover-lift">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" alt="PostgreSQL" loading="lazy" />
+                            <span>PostgreSQL</span>
                         </div>
-                        <div class="skill-item">
-                            <img src="https://cdn.simpleicons.org/postgresql/4169E1" alt="PostgreSQL logo" class="skill-logo mb-3">
-                            <h4 class="font-semibold text-white">PostgreSQL</h4>
+                        <!--<div class="skill-item hover-lift">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" alt="MySQL" loading="lazy" />
+                            <span>MySQL</span>
+                        </div>
+                        <div class="skill-item hover-lift">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg" alt="MongoDB" loading="lazy" />
+                            <span>MongoDB</span>
+                        </div>-->
+                    </div>
+                </div>
+        
+                <div class="reveal">
+                    <h3 class="text-2xl font-semibold text-green-300 mb-6 text-center">Frontend</h3>
+                    <div class="skill-category-container">
+                        <div class="skill-item hover-lift">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" alt="HTML5" loading="lazy" />
+                            <span>HTML5</span>
+                        </div>
+                        <div class="skill-item hover-lift">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" alt="CSS3" loading="lazy" />
+                            <span>CSS3</span>
+                        </div>
+                        <div class="skill-item hover-lift">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="JavaScript" loading="lazy" />
+                            <span>JavaScript</span>
+                        </div>
+                        <div class="skill-item hover-lift">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" alt="React" loading="lazy" />
+                            <span>React</span>
+                        </div>
+                        <!--<div class="skill-item hover-lift">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind CSS" loading="lazy" />
+                            <span>Tailwind CSS</span>
+                        </div>-->
+                        <div class="skill-item hover-lift">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bootstrap/bootstrap-original.svg" alt="Bootstrap" loading="lazy" />
+                            <span>Bootstrap</span>
                         </div>
                     </div>
                 </div>
         
                 <div class="reveal">
-                    <h3 class="text-2xl font-semibold text-blue-400 mb-6 text-center">AI / ML</h3>
+                    <h3 class="text-2xl font-semibold text-green-300 mb-6 text-center">AI & Machine Learning</h3>
                     <div class="skill-category-container">
-                        <div class="skill-item">
-                            <img src="https://cdn.simpleicons.org/python/3776AB" alt="Python logo" class="skill-logo mb-3">
-                            <h4 class="font-semibold text-white">Python</h4>
+                        <div class="skill-item hover-lift">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg" alt="TensorFlow" loading="lazy" />
+                            <span>TensorFlow</span>
                         </div>
-                        <div class="skill-item">
-                            <img src="https://cdn.simpleicons.org/pandas/150458" alt="Pandas logo" class="skill-logo mb-3" style="background-color: white; border-radius: 8px;">
-                            <h4 class="font-semibold text-white">Pandas</h4>
+                        <div class="skill-item hover-lift">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytorch/pytorch-original.svg" alt="PyTorch" loading="lazy" />
+                            <span>PyTorch</span>
                         </div>
-                        <div class="skill-item">
-                            <img src="https://cdn.simpleicons.org/tensorflow/FF6F00" alt="TensorFlow logo" class="skill-logo mb-3">
-                            <h4 class="font-semibold text-white">TensorFlow</h4>
+                       <!---- <div class="skill-item hover-lift">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/opencv/opencv-original.svg" alt="OpenCV" loading="lazy" />
+                            <span>OpenCV</span>
+                        </div>-->
+                        <div class="skill-item hover-lift">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg" alt="Pandas" loading="lazy" />
+                            <span>Pandas</span>
                         </div>
-                         <div class="skill-item">
-                            <img src="https://cdn.simpleicons.org/openai/412991" alt="OpenAI logo" class="skill-logo mb-3" style="background-color: white; border-radius: 50%;">
-                            <h4 class="font-semibold text-white">OpenAI API</h4>
+                        <div class="skill-item hover-lift">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg" alt="NumPy" loading="lazy" />
+                            <span>NumPy</span>
                         </div>
                     </div>
                 </div>
         
                 <div class="reveal">
-                    <h3 class="text-2xl font-semibold text-purple-400 mb-6 text-center">Frontend & Tools</h3>
+                    <h3 class="text-2xl font-semibold text-green-300 mb-6 text-center">Tools & Platforms</h3>
                     <div class="skill-category-container">
-                        <div class="skill-item">
-                            <img src="https://cdn.simpleicons.org/html5/E34F26" alt="HTML5 logo" class="skill-logo mb-3">
-                            <h4 class="font-semibold text-white">HTML5</h4>
+                        <div class="skill-item hover-lift">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" alt="Git" loading="lazy" />
+                            <span>Git</span>
                         </div>
-                        <div class="skill-item">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYLROWrKvqBt8Rvbx3e4BQhCzs9BTQhrvtgQ&s" alt="CSS3 logo" class="skill-logo mb-3">
-                            <h4 class="font-semibold text-white">CSS3</h4>
+                        <div class="skill-item hover-lift">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" alt="Docker" loading="lazy" />
+                            <span>Docker</span>
                         </div>
-                        <div class="skill-item">
-                            <img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="JavaScript logo" class="skill-logo mb-3">
-                            <h4 class="font-semibold text-white">JavaScript</h4>
+                        <div class="skill-item hover-lift">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg" alt="Azure" loading="lazy" />
+                            <span>Azure</span>
                         </div>
-                        <div class="skill-item">
-                            <img src="https://cdn.simpleicons.org/git/F05032" alt="Git logo" class="skill-logo mb-3">
-                            <h4 class="font-semibold text-white">Git</h4>
+                        <div class="skill-item hover-lift">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/visualstudio/visualstudio-plain.svg" alt="Visual Studio" loading="lazy" />
+                            <span>Visual Studio</span>
                         </div>
-                         <div class="skill-item">
-                            <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxIREhAQEBAWFRUVFRUVFRUWFRAVFhYVFRUXFhUWFRcYHSggGBolHRUVITEhJSkrLi4uFx8zODMtNygtLisBCgoKDg0OGhAQFS0mHyYtLS0uLS0tLS0tLS0tLS0tLS0tKy0uLS0tLS0tLS0tLS0tLS0tLS0uLS0tLS0tLS0tLf/AABEIAKIBOAMBIgACEQEDEQH/xAAcAAACAwEBAQEAAAAAAAAAAAABAgADBAUHBgj/xABBEAABBAEBBQMKAgcHBQAAAAABAAIDEQQhBRIxQVEGYYEHEyJxkaGxwdHwMuEUM0JScnOCJTRidJKz8RUjJFOy/8QAGgEBAQEBAQEBAAAAAAAAAAAAAQIAAwUEBv/EADARAAMAAQMCAwUHBQAAAAAAAAABEQIDEiExsQRBURMicaHRBTNhkcHw8RQyQoHh/9oADAMBAAIRAxEAPwD4AsKgBQLyU0R1Gl6r9ejyGM3kUQFfJkgHeZ0rVUB18fyXRSEclkVXr9Uxq9Pog/WqCgasmA7T4KzzpOlmhwFqhz60r76KOfXAhdFSWjS09QPv1Jt4czXsKxb18ytsMAc1o3Hb5PGwBXimEPgdkwHA37vitEeTehFdL+XVWf8AR64u+fyTY0LRwHt099qd2LIbHZE88L16K84LhodOvPVdbZme1pG8wOA8KRy5GnVtV98bXF6uVkIrObFjAdSujjvoa1XfS57swDgAfAV8EoyX9fAaD3Kmnl1MzpvnZyGvDoq/NuJFh1dALFc+ixmZx/aPtKsjcUJQlo0Y+znvcGNHpcNbbw1PH1KiWEtc5p4tJB9YNFbN6vS4E8D3kAkj2149yR8IOoWWbvJKpie3UpCOS1SxFUCMk0OK6LMoz68uKhlLeevw/NaZ4d0WDfU/T6/LjiclNMUXMzNKcLrXw5/L3qz9IB5369Vguvv2qt+h0KzxRUN72NPL2fRZ3wdD7dFS2fqn3z1UxopItxo6uwkzaoJBOR+WiR8oPEffgp5tGFDgq5nAWSungxxuc1rpNwE8TyXH2qynuDTvNBNO5V3BKdcKXWGSeQu7hy++aWCfcJIAOhGvtVbil+h+C6JzodZUI7qqynNhK7uUstCFVlOVphwHva57RoOPcpZVS6mEqIvFaKKSzYEd/kFW4HmoFKIZYX9EN8pQrGxFVQGieQbXd2VHG6zIaNaUuOyIDjqfctUUu7wWbOeSpsGMC40L6WffSqyscCjpfcB81U6Q3aO/fHX4rKkwaNgVzCbsckvohoonePEcq+6QL+ZOitknSGYBwBv3fVVec5u9vD3cFzjlfu+0qsyE6krY4BtOn+l1+HXv/Lik/SXHUnw5exY2K9rxzF+4/mqiRMNjH3r/AMj8u9bceKxvdOui50XVp9mh/P3q+M3qNCP2fp9PsTkQzeW/dhbcWAEDS7XMidf38Fth0F9dB8/p4rjlYSzQ9t1QNC2jjyN347yAYehTwiwfA/I/EJnR/fT1rnuAqka4VY4i+mnVViQA6eJ5n1d336mnyCdOIHXj+XqWR+vBWueopFuQ8UQOei5kjCFc55SGS10x4Khmcqn6gez6fP2LQ9VFt+On0XRZFCloVbI3Wd3h3oOcQrceYVR4obZRW52tHQ/fBJK8NFnwHM/QKvaGS0HTU+5c0zm7OqUqUlTfjjfNu5VQ5KvMjDQC3TkqYJ6NtPI6eCSeYu4rc0tLkrc++KQNvgDwPDXkgUWSFt7p5Gz4JU8yvLgDWF9mxoFntMT3fJIR3/JSWgHVaIM5zAWgkA8VWYwGb2t3w5er5rOTaBiZZM3SyRZPAcfv6oIsDS113vDhx4ffuUUstFwlDqHBapmR6bt992uaFbFIR6lEBo1tCe0caPfBINDv6pSKNFZM5jgpgVWES6uKUBpaw170N8DUqhmZVDlz60s8j7JIuuV9F0S4rJnJqfldPaVXvk6kqkFOCqXAw0GqFH1pmuVAKcFNJhe0q5pWcFM1yxMNbXLVHL11+PgVgY5aIypZDR18SLzrmtZ+MnQHS/Hhffpfr46nMcHmOvSaS2tOXPp3+K48UlEEE2OBGi0xZBu7N3x599nmuOSZzeLPpNkQseS18gZodT1HAev6LJkvHAOFf1e06cVzY8k8LIPrXe7T9n5sQlx9OInSQDh0Eg/ZPfwPuXBzHNJvr0FaeTTaXQ48n8Q9/wAws5Y4n0aJ7i36pXS93xVRm3dRofWu6oRkc7rXrtv1VThzBHgWpHOv/hK4DlorKhHA8gqyT0PsKUPvRJIKVFI1SwndEh0BNePq8LWGeXkOP3xVc2UQN0OPtND81lE55gH76hKRWOL8xpIO/VZHBbHTt71lcqTZ0RUD8D8FBLyK6GFsuSUOLWk0LOnJc7Ij3SW+1G5PgU0MXdPaoxhPv+Cy2QrocitChlQRyQpnOvVIpLQxlIG7enGtEjKsWg4pCh5NlJHRhl3dKu+FfPuUWCJ1FRRugPEb1pgUt6qOfXH2IpUNMMzm8DSb9JA/EbWAzHloltUg2nSOTf4dFUSsjXUrmSpJ2lwKYFV2mBVUIWAp2qoFXwcU0ljhqN0uwcRojDr16Liy8UY5UhOjByuYVmDk7XKqZo1termOWNrl1uzmypcydkEI9I6ucb3WMH4nO7tR6yQOajLJYptk7W3EVtct+zMGbIduwRPkPPdFgfxO4N8SF6dsbybYsVOnLsh/+L0I/BgOv9RK+xx4GRtDI2NY0aBrQGtHqA0C8rW+1MFxpq9v3+R9WHgsn/c4ecbI8nEriHZUoYLvcjpzvFx9EH1By9JewOBa4AgiiDqCDxBCZYc3bGND+tyImdznsB9hNry9XX1NfJX5H26elhpLg+H7V9gSN6bBHe6G/b5on/5PgeAXnEj6JBBBBIIIogjQgg8D3L2HM8ouz47qV0hHKON59jnAN96+K21tfD2rkQRx40kUkkjWGcujB3Tp6bBYfpw1BGmtaH1fCa2ulNXBz1/fU+LX0tJu4NX0PjnPSPyD4r17C8mGEz9Y6WXuc8NHhuAH3ruYXZLAircw4rHAuaJHD+p9lVl9qaK6JsMfBZvrD89vcqzIeRTZDvSd/EfiqC5eomfPAOcqnFF5VRKqlJBJSEoEpHFalQ6uzdtyQBwYa3hRrmFzcmXeJPVU7yDnX8lMXUyxjoCVZA0ce9UbyZklHRBcGl0qkgcke6+KVykqDlKUu8pallQlqJSopKLYJOKM3BZQUS60Ghoji0spXtooxzCtUj32VSZMCCmBVdpgVVNC1j6VzH2stpgUktGsFOJKWVsigckmHQ/TDVWqi+1nBTArBtNDXqxr1mDk4cmktGkPK997L7DZsnClkeN+URulnI5ljS7zbCf2RqB1JJ5r8+tdwX6b7Vf3LN/y0/8AtOXl/aWb9zDyb5+R9PhsVzl6HnWV5XZHaQ4jG9DJI5/ta0N+K4md5RNoyGmzNjHSONg97t4+9fEterI5aX1Y+D0MemC79zhlq6j/AMjrZ23Mmb9dkSv7nPfX+m69ywtkrQaLOZLU313SSUSOTV6l5euv2Md/5+F/PZ8VwC9djsU7+0MH+ez4qdX7vL4PsVgveXxP0eooovyR7J+V55PSf/E74lVFyXId6T/4nfEqkuX7JHjwtJVRKm+lcVqKQCUjio4qslalJBJSEqEpSUUqDEpLUtByGxSCeKUlF3NISjJikS0LQJQUUqDbyiRRAwFopbRtTSoMmBSIgqqTB0QUlo2mhB7RBSApgVVCDgpgVXaIKaTC0FOCqQUwK1CFwcmDlSCmDk0IXhy/UHaz+453+Wn/ANpy/LNr0SfytZU0M0E+PCRLG+Muj84wtD2lpNOc4Ei7qxfcvg8boZ6rwePl/wAO2jksbfM+FDk28vusHyXSZMEeRhZ0MzHi277JIu4tdRfTgbBHIhYczyY7Uj4QMl/lyx/B5aV3XitFub1/vjucno5+h8pvKby35nZrOi/WYU47/NSOb/qaCPeuS59EtOhHEHQj1hdscll0ZDxa6l28u32Hd/aGD/PZ8V89vLudhXf2jgfz2fFTq/d5fB9hwXvI/TKiii/Jnqn5MyD6b/4nfEqkuRyXem/+J3xKqJX69M8uBJWrZzGucA80OZWIlAPpZs0NW0WNa4hpscisZKjnWlJWpSRCULQJQtFGBJV2JHvODTzKz2oHVwRRhv2viCJ26CD6u9c4lNJKTqTaRDfI4qLkiCloWppUJaiW0UURbRSqWpoj2jaS0bTTQdG0gKZVSYNaYFV2iCmhCy0QVXaNpoQstMCqrTWmhCwFMCqgUQVqELQ5MHKm0bWoQ+18nPbV2zZt2SzjSkedaLJYeAlYOoFAgcQOZAX6Jgma9rXscHNcA5rmkEOaRYII4ghfkLeXp3kj7efo724GU/8A7LzULyf1T3H8BP7jifAnodPN8d4XevaYLnz/ABPo0dSe6z3NU5OLHIKkja8dHNa4ewrzfyjdv8nZmdFFEyOSJ2OyRzHgg7xklaS14Po6MbxBGnBadheWDBmpuQ1+M41+Iecjs9HsF13ua0Lzf6XV2rNKr8Dvvxsp9FmdhNmS2HYEIv8A9bfNH2x0Vz8PyZYEM8ORCJY3RPD2gSFzSRydv2a8V9VgZ8U7BJBKyRh4OY5r2+1pWlR7fVXG5/mOzF+RFy+0faDHwITPkv3W8GtGr3u5MY3mfcOJoAlc3tv20x9mR70npyuB81CCA5/e4/ssvi72WdF+d+0faHIz5jPkv3ncGtGjI2/usbyHvPMld/C+Der72XGPcjU1Fj8TnyyWXHqSfabSEpSUpK/QU+ODEoWlJQtajAkoWhaFoowNoWgShaKMDaFoIEoowNoWhaFoowNoIWhaKIbUSqKaILRSooojI2ktFNAa0wKRS00Cy1LSAo2mhB7RtJaNppoOCjartG00IWWjartdnYPZrJzWZMmMwOGOzfks0SCHENYP2nEMdp3IeaxVbNKcu0bVO+OqO+OoVUIW2par3lA8dVqEOrtfbUuV5jz7t50MQha8/icxr3ObvnmRvkXzAF62Tz7VQeOq7PZ3s7Nnee8y6JohaHyOlkEbQ1xoHeIriFLeOC9EMbZjwM+WB/nIJXxP/eje5h9RLTqO4r7fZnlf2jEwsk81PoQ18jN14PIncIDgOlWeq+a212Sy8WMTvaySEkN89BIyaMOPBri3Vp4cRWoF2uAXjqubw0tVVpMpbsTZtHPlyJHzTyOkkebc9x1PyAHAAaAaBZrSby6/Z/s5k5u+YGN3I9ZJpHtjij6bz3aX3CyujyWK54RO1tnKtC119v8AZnJw2xyTNa6KTSOaJ7ZYXnjQe3geOhq6NcFxN8dQtjmslUx2tD2paQu71LTTQNqWltS0U0DaFoWha1GBJQtC0LRRgbQtBRTRCghaiKJLUQQRTARtKjaChrRSIpoQa0UtqWmgMjaW1LTQg9o2ktG1qaDWjaS1LTQLLXreymRbOg2ZE/aMWLOyUZ2TG9kznvMjN2OIloO4BCXNI6uvTn5Datycp8rjJK9z3u/E97nOcaFC3O1OgA8Fy1dPfFeCsXD0zE2HlQbVmj2XN5rGmjblefbGyRrcN9vaWtLSSQd9jWgWSBysjoYW1sjN2o9kuPJE04OXBiMmj83JL6A9JxIAdI6t4gaDhys+XY23MqMAR5c7A1u60MmmaA0Gw0AO0F8kuTtjJkcx8uTM98erHPllc5h42xxNt4Dh0XJ6DfWdJfMrcj7Bmx58fYW0DkwPic/Jx91sjCx9N0J3XagXYvnRX1O2cyOfbmNs7IZEMXehkczcYPPZAxD5kyuOrtSxgbe6QACNV5Lk7VnlDxLkSvD90vD5ZHBxb+EuDj6VWavgqcnKfK4vle57jQLnuc5xAFAEuN6AAeCr2Lbbb9fnO0Dcj07tblPdh5jcwZUrmujEL5dnxYrMeXf1ayRrz6Dm22tRw1114vk/x3y4u3I4mOe92IwNaxrnOcfOHQNGpK+RzNqTzBrZsiWUN/CJJJHhvL0Q4mkMHaU0BJgnkiLhRMckkZIHAEtItK0msHjfO9vobdzT7Xs1s2fBw9rTZsT4IZsR+OyOVrmOmyXEeZLI3DeO56RutASeRr7WUNgfiwYzciTCdDGfMQ7PhyIMiNzAZHPnLwS91myao1of2vE83aEsxDp5pJSNAZHvkIHcXE0mj2pO2MwNyJWxG7iEkgjN8bYDum/Upz0Hm639P5Mskj0XYGJBtGLDmJqPZs8rZy6t44AD8mB0ncPNui/q8VTtKafa2zN/FYXyszJ5svHj9J587ZgkDBq9rW1GKF6f4V53DlyMD2ske1rxuva1zmh7f3XgGnDuKmLlyROEkUj43jg5jnMcPU5pBT7F2p9On69+xtx9vDgzYWxdotzWui/SpMcYsEgLXmSKTellEZ1YNwAb1C6A6X9xt+XaTdrQwY+KHYc36P52seN8UrS1rZnTyFppwaKokUGt0118QzsySZxfNK+R5Fb8j3PdXTecSaXa7Sdrp8qfImjfJAyYRh8LJpNw7kLIjvVuh1hnMc6U5aOWTrnn+n0FZKHoXZsbnn8PDbPjNkzpxj5kWNHlY8sYkMbI5y4E7jaoG6qyV5PtSF0c08by0uZLI1xZW6XNeQ4toAbpINaDRTD2pPC1zIciWNrvxNjkkY12lekGkA6LGumnpvDJu9ScnUNaFoWha7UmDWhaFoWijAqIWhaKIbQUtBFENoWgpaDEtFKoiiBG0qKBCilRtNAKKVFamDaNpVE0INaNpEU00GtFJaNrUIMoltFNNAo2lUWoQa1LS2otTQe1LSqLU0GtC0EFqaDWpaW1FqaBUQUtajAqWltC1qaDWhaFqIowNqWlURTQNqIILUYFRBS0UxEFFECRRBRYw9KUoopEgCNKKJMSkaQUWANKUookxAEaUUSBKUpRRYwaUAUUWMSkaUUSBKUpFRYwKUpFRYwKUpFRYwKUpRRYwCFKUUWElIUoogxKUpRRYwCFKUUQJKUpBRYxKUpRRBgUpSiiwkpRRRBj/9k=" alt="Azure DevOps logo" class="skill-logo mb-3">
-                            <h4 class="font-semibold text-white">Azure DevOps</h4>
+                        <div class="skill-item hover-lift">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg" alt="VS Code" loading="lazy" />
+                            <span>VS Code</span>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="future-learning" class="container mx-auto px-4 py-20" aria-labelledby="future-learning-heading">
-            <div class="w-full max-w-4xl mx-auto bg-gray-900 p-8 md:p-12 rounded-2xl shadow-xl border border-gray-800 reveal">
-                <h2 id="future-learning-heading" class="text-4xl font-bold text-center text-white mb-12 section-heading-underline">Currently Learning</h2>
+        <section id="future-learning" class="container mx-auto px-4 py-20 bg-gray-950" aria-labelledby="future-learning-heading">
+            <div class="max-w-4xl mx-auto reveal">
+                <h2 id="future-learning-heading" class="text-4xl font-bold text-center text-white mb-12">Currently Learning</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="bg-gray-800 p-6 rounded-lg shadow-md card-hover-effect">
-                        <h3 class="text-xl font-semibold text-green-300 mb-3 flex items-center gap-2"><i class="fas fa-brain" aria-hidden="true"></i> Advanced AI Concepts</h3>
-                        <ul>
-                            <li>Integrating AI into web applications to add intelligent features</li>
-                            <li>Exploring Generative AI (Transformers, Diffusion Models)</li>
-                            <li>Studying Ethical AI and bias mitigation techniques.</li>
-                        </ul>
+                    <div class="bg-gray-900 p-8 rounded-2xl card-hover-effect hover-lift">
+                        <div class="text-blue-400 mb-4">
+                            <i class="fas fa-robot text-4xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-white mb-4">Deep Learning</h3>
+                        <p class="text-gray-400">
+                            Expanding my knowledge in neural networks, transformers, and advanced deep learning architectures to build more sophisticated AI applications.
+                        </p>
                     </div>
-                    <div class="bg-gray-800 p-6 rounded-lg shadow-md card-hover-effect">
-                        <h3 class="text-xl font-semibold text-green-300 mb-3 flex items-center gap-2"><i class="fas fa-cloud" aria-hidden="true"></i> Cloud & MLOps</h3>
-                        <ul>
-                            <li>Learning Azure DevOps for CI/CD and cloud deployment</li>
-                            <li>Exploring GitHub Copilot to automate deployment workflows</li>
-                        </ul>
+                    <div class="bg-gray-900 p-8 rounded-2xl card-hover-effect hover-lift">
+                        <div class="text-green-400 mb-4">
+                            <i class="fas fa-cloud text-4xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-white mb-4">Cloud Architecture</h3>
+                        <p class="text-gray-400">
+                            Learning to design and deploy scalable, resilient cloud-native applications using modern cloud platforms and infrastructure-as-code practices.
+                        </p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="contact" class="container mx-auto px-4 py-20">
-    <div class="w-full max-w-2xl mx-auto bg-gray-900 p-8 rounded-2xl shadow-xl border border-gray-800 reveal">
-        <h2 class="text-4xl font-bold text-center text-white mb-4 section-heading-underline">Get In Touch</h2>
-        <p class="text-gray-400 text-center mb-8">
-            I'm currently seeking new opportunities. Feel free to reach out!
-        </p>
-        
-        <form class="space-y-6" aria-label="Contact Form" action="https://formspree.io/f/mdkdpybn" method="POST">
-            
-            <div>
-                <label for="name" class="block text-sm font-medium text-gray-300">Name</label>
-                <input type="text" id="name" name="name" class="mt-1 block w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 text-white" required>
+        <section id="contact" class="container mx-auto px-4 py-20" aria-labelledby="contact-heading">
+            <div class="max-w-4xl mx-auto reveal">
+                <h2 id="contact-heading" class="text-4xl font-bold text-center text-white mb-12">Get In Touch</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div>
+                        <h3 class="text-2xl font-semibold text-white mb-6">Let's Connect</h3>
+                        <p class="text-gray-400 mb-8">
+                            I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision. Feel free to reach out to me!
+                        </p>
+                        <div class="space-y-4">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 rounded-full bg-gray-900 flex items-center justify-center">
+                                    <i class="fas fa-envelope text-green-400"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-400">Email</p>
+                                    <a href="mailto:cynthiamotaung@example.com" class="text-white hover:text-green-400 transition-colors duration-300">cynthiamotaung@example.com</a>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 rounded-full bg-gray-900 flex items-center justify-center">
+                                    <i class="fab fa-linkedin-in text-green-400"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-400">LinkedIn</p>
+                                    <a href="https://linkedin.com/in/cynthiamotaung" target="_blank" rel="noopener noreferrer" class="text-white hover:text-green-400 transition-colors duration-300">linkedin.com/in/cynthiamotaung</a>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 rounded-full bg-gray-900 flex items-center justify-center">
+                                    <i class="fab fa-github text-green-400"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-400">GitHub</p>
+                                    <a href="https://github.com/cynthiamotaung" target="_blank" rel="noopener noreferrer" class="text-white hover:text-green-400 transition-colors duration-300">github.com/cynthiamotaung</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <form id="contact-form" class="space-y-6">
+                            <div>
+                                <label for="name" class="block text-gray-400 mb-2">Name</label>
+                                <input type="text" id="name" name="name" required class="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent transition-colors duration-300" aria-required="true">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-gray-400 mb-2">Email</label>
+                                <input type="email" id="email" name="email" required class="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent transition-colors duration-300" aria-required="true">
+                            </div>
+                            <div>
+                                <label for="message" class="block text-gray-400 mb-2">Message</label>
+                                <textarea id="message" name="message" rows="5" required class="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent transition-colors duration-300" aria-required="true"></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-gradient-to-r from-green-400 to-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
-            
-            <div>
-                <label for="email" class="block text-sm font-medium text-gray-300">Email</label>
-                <input type="email" id="email" name="email" class="mt-1 block w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 text-white" required>
-            </div>
-            
-            <div>
-                <label for="message" class="block text-sm font-medium text-gray-300">Message</label>
-                <textarea id="message" name="message" rows="4" class="mt-1 block w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 text-white" required></textarea>
-            </div>
-            
-            <div>
-                <button type="submit" class="w-full py-3 px-4 bg-transparent border-2 border-green-400 text-green-400 rounded-full font-bold transition-all duration-300 transform hover:scale-105 hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-700 hover:text-white hover:border-transparent">
-                    Send Message
-                </button>
-            </div>
-        </form>
-    </div>
-</section>
+        </section>
+    </main>
 
-    <footer class="bg-gray-950/70 text-center p-8 text-gray-500 reveal">
-        <div class="flex justify-center space-x-6 mb-4">
-             <a href="https://www.linkedin.com/in/cn-motaung/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors duration-300" aria-label="Visit LinkedIn profile">
-                <i class="fab fa-linkedin text-2xl" aria-hidden="true"></i>
-            </a>
-            <a href="https://github.com/Cynthia-Motaung" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors duration-300" aria-label="Visit GitHub profile">
-                <i class="fab fa-github text-2xl" aria-hidden="true"></i>
-            </a>
-             <a href="mailto:cynthiamotaung015@gmail.com" class="hover:text-white transition-colors duration-300" aria-label="Email at cynthiamotaung015@gmail.com">
-                <i class="fas fa-envelope text-2xl" aria-hidden="true"></i>
-            </a>
+    <footer class="bg-gray-900 text-gray-400 py-12">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2025 Cynthia M. All rights reserved.</p>
+            <div class="flex justify-center space-x-6 mt-6">
+                <a href="https://linkedin.com/in/cynthiamotaung" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-green-400 transition-colors duration-300" aria-label="Visit Cynthia's LinkedIn profile">
+                    <i class="fab fa-linkedin-in text-2xl"></i>
+                </a>
+                <a href="https://github.com/cynthiamotaung" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-green-400 transition-colors duration-300" aria-label="Visit Cynthia's GitHub profile">
+                    <i class="fab fa-github text-2xl"></i>
+                </a>
+                <a href="mailto:cynthiamotaung@example.com" class="text-gray-400 hover:text-green-400 transition-colors duration-300" aria-label="Send an email to Cynthia">
+                    <i class="fas fa-envelope text-2xl"></i>
+                </a>
+            </div>
         </div>
-        <p>&copy; 2025 Cynthia M. All rights reserved.</p>
     </footer>
 
-    
-    <div id="chatbot-container">
-        <div id="chatbot-icon" role="button" aria-label="Open chat" tabindex="0">
-            <i class="fas fa-comment-dots"></i>
-        </div>
-        
-        <div id="chatbot-window" class="hidden">
-            <div id="chatbot-header">
-                <span>Chat with Cynthia</span>
-                <button id="chatbot-close-btn" aria-label="Close chat">&times;</button>
-            </div>
-            <div id="chatbot-messages">
-                <div class="chat-message bot-message">
-                    <p>Ask me anything.</p>
-                </div>
-            </div>
-            <div id="chatbot-input-container">
-                <input type="text" id="chatbot-input" placeholder="Ask a question...">
-                <button id="chatbot-send-btn" aria-label="Send message">
-                    <i class="fas fa-paper-plane"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-    </body>
+    <script>
+        // Enhanced scrolling functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Scroll progress indicator
+            const scrollProgress = document.getElementById('scroll-progress');
+            
+            window.addEventListener('scroll', function() {
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.documentElement.scrollHeight - windowHeight;
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const scrollPercentage = (scrollTop / documentHeight) * 100;
+                
+                scrollProgress.style.width = scrollPercentage + '%';
+                
+                // Header styling on scroll
+                const header = document.querySelector('header');
+                if (scrollTop > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+            
+            // Reveal animations on scroll
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            function checkReveal() {
+                const windowHeight = window.innerHeight;
+                const revealPoint = 150;
+                
+                revealElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    
+                    if (elementTop < windowHeight - revealPoint) {
+                        element.classList.add('is-visible');
+                    }
+                });
+            }
+            
+            // Section fade-in on scroll
+            const sections = document.querySelectorAll('section');
+            
+            function checkSections() {
+                const windowHeight = window.innerHeight;
+                const revealPoint = 100;
+                
+                sections.forEach(section => {
+                    const sectionTop = section.getBoundingClientRect().top;
+                    
+                    if (sectionTop < windowHeight - revealPoint) {
+                        section.classList.add('in-view');
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', function() {
+                checkReveal();
+                checkSections();
+            });
+            
+            // Initial check on page load
+            checkReveal();
+            checkSections();
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerHeight = document.querySelector('header').offsetHeight;
+                        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close mobile menu if open
+                        const mobileMenu = document.getElementById('mobile-menu');
+                        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+                        if (mobileMenu.classList.contains('hidden') === false) {
+                            mobileMenu.classList.add('hidden');
+                            mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                        }
+                    }
+                });
+            });
+            
+            // Mobile menu toggle
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', !isExpanded);
+                mobileMenu.classList.toggle('hidden');
+                
+                // Change icon based on menu state
+                const icon = this.querySelector('i');
+                if (icon.classList.contains('fa-bars')) {
+                    icon.classList.replace('fa-bars', 'fa-times');
+                } else {
+                    icon.classList.replace('fa-times', 'fa-bars');
+                }
+            });
+            
+            // Parallax effect for hero section
+            const heroSection = document.getElementById('hero');
+            if (heroSection) {
+                window.addEventListener('scroll', function() {
+                    const scrolled = window.pageYOffset;
+                    const parallaxLayers = document.querySelectorAll('.parallax-layer');
+                    
+                    parallaxLayers.forEach(layer => {
+                        const speed = layer.classList.contains('parallax-back') ? 0.5 : 0.3;
+                        const offset = scrolled * speed;
+                        layer.style.transform = `translateY(${offset}px)`;
+                    });
+                });
+            }
+            
+            // Form submission handling
+            const contactForm = document.getElementById('contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Simple form validation
+                    const nameInput = document.getElementById('name');
+                    const emailInput = document.getElementById('email');
+                    const messageInput = document.getElementById('message');
+                    
+                    let isValid = true;
+                    
+                    if (!nameInput.value.trim()) {
+                        nameInput.classList.add('error');
+                        isValid = false;
+                    } else {
+                        nameInput.classList.remove('error');
+                    }
+                    
+                    if (!emailInput.value.trim() || !emailInput.value.includes('@')) {
+                        emailInput.classList.add('error');
+                        isValid = false;
+                    } else {
+                        emailInput.classList.remove('error');
+                    }
+                    
+                    if (!messageInput.value.trim()) {
+                        messageInput.classList.add('error');
+                        isValid = false;
+                    } else {
+                        messageInput.classList.remove('error');
+                    }
+                    
+                    if (isValid) {
+                        // Here you would typically send the form data to a server
+                        alert('Thank you for your message! I will get back to you soon.');
+                        contactForm.reset();
+                    }
+                });
+            }
+        });
+    </script>
+</body>
 </html>
