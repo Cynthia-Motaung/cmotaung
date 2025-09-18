@@ -144,12 +144,145 @@
             transform: translateY(-8px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
+        
+        /* Timeline styles */
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 20px;
+            width: 2px;
+            background: linear-gradient(to bottom, #34D399, #1D4ED8);
+        }
+        
+        .timeline-icon {
+            position: absolute;
+            left: -42px;
+            top: 0;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #34D399, #1D4ED8);
+            border: 3px solid #111827;
+        }
+        
+        .timeline-card {
+            background: rgba(17, 24, 39, 0.7);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            border: 1px solid rgba(55, 65, 81, 0.5);
+        }
+        
+        /* Tech tag styles */
+        .tech-tag {
+            display: inline-block;
+            background: rgba(34, 197, 94, 0.1);
+            color: #34D399;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+        
+        /* Skill items */
+        .skill-category-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+        
+        .skill-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(17, 24, 39, 0.7);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            border: 1px solid rgba(55, 65, 81, 0.5);
+            width: 120px;
+            transition: all 0.3s ease;
+        }
+        
+        .skill-item img {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 0.75rem;
+        }
+        
+        .skill-item span {
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        /* Section heading underline */
+        .section-heading-underline {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-heading-underline::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, #34D399, #1D4ED8);
+            border-radius: 2px;
+        }
+        
+        /* Card hover effect */
+        .card-hover-effect {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover-effect:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Navigation link hover gradient */
+        .nav-link-hover-gradient {
+            position: relative;
+        }
+        
+        .nav-link-hover-gradient::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(to right, #34D399, #1D4ED8);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link-hover-gradient:hover::after {
+            width: 100%;
+        }
+        
+        /* Text gradient */
+        .text-gradient {
+            background: linear-gradient(90deg, #34D399, #60A5FA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Form error state */
+        .error {
+            border-color: #EF4444 !important;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important;
+        }
     </style>
 </head>
 <body class="bg-gray-950 text-gray-100">
 
     <div id="scroll-progress"></div>
-    <div id="cursor-glow"></div>
 
     <a href="#main-content" class="absolute left-[-9999px] top-1 z-[9999] bg-green-500 text-white p-3 rounded-br-lg focus:left-0">Skip to main content</a>
 
@@ -433,22 +566,10 @@
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python" loading="lazy" />
                             <span>Python</span>
                         </div>
-                        <!--<div class="skill-item hover-lift">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg" alt="FastAPI" loading="lazy" />
-                            <span>FastAPI</span>
-                        </div>-->
                         <div class="skill-item hover-lift">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" alt="PostgreSQL" loading="lazy" />
                             <span>PostgreSQL</span>
                         </div>
-                        <!--<div class="skill-item hover-lift">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" alt="MySQL" loading="lazy" />
-                            <span>MySQL</span>
-                        </div>
-                        <div class="skill-item hover-lift">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg" alt="MongoDB" loading="lazy" />
-                            <span>MongoDB</span>
-                        </div>-->
                     </div>
                 </div>
         
@@ -471,10 +592,6 @@
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" alt="React" loading="lazy" />
                             <span>React</span>
                         </div>
-                        <!--<div class="skill-item hover-lift">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind CSS" loading="lazy" />
-                            <span>Tailwind CSS</span>
-                        </div>-->
                         <div class="skill-item hover-lift">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bootstrap/bootstrap-original.svg" alt="Bootstrap" loading="lazy" />
                             <span>Bootstrap</span>
@@ -493,10 +610,6 @@
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytorch/pytorch-original.svg" alt="PyTorch" loading="lazy" />
                             <span>PyTorch</span>
                         </div>
-                       <!---- <div class="skill-item hover-lift">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/opencv/opencv-original.svg" alt="OpenCV" loading="lazy" />
-                            <span>OpenCV</span>
-                        </div>-->
                         <div class="skill-item hover-lift">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg" alt="Pandas" loading="lazy" />
                             <span>Pandas</span>
@@ -602,7 +715,8 @@
                         </div>
                     </div>
                     <div>
-                        <form id="contact-form" class="space-y-6">
+                        <!-- Replace "your-form-id-here" with your actual Formspree form ID -->
+                        <form id="contact-form" action="https://formspree.io/f/mdkdpybn" method="POST" class="space-y-6">
                             <div>
                                 <label for="name" class="block text-gray-400 mb-2">Name</label>
                                 <input type="text" id="name" name="name" required class="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent transition-colors duration-300" aria-required="true">
@@ -768,12 +882,10 @@
                 });
             }
             
-            // Form submission handling
+            // Form submission handling for Formspree
             const contactForm = document.getElementById('contact-form');
             if (contactForm) {
                 contactForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    
                     // Simple form validation
                     const nameInput = document.getElementById('name');
                     const emailInput = document.getElementById('email');
@@ -802,10 +914,11 @@
                         messageInput.classList.remove('error');
                     }
                     
-                    if (isValid) {
-                        // Here you would typically send the form data to a server
+                    if (!isValid) {
+                        e.preventDefault();
+                    } else {
+                        // Show success message (Formspree will handle the actual submission)
                         alert('Thank you for your message! I will get back to you soon.');
-                        contactForm.reset();
                     }
                 });
             }
