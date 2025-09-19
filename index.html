@@ -39,6 +39,44 @@
     <script src="main.js" defer></script>
 
     <style>
+        :root {
+            --text-primary: #111827;
+            --text-secondary: #4B5563;
+            --bg-primary: #F9FAFB;
+            --bg-secondary: #FFFFFF;
+            --bg-tertiary: #F3F4F6;
+            --accent-primary: #10B981;
+            --accent-secondary: #3B82F6;
+            --border-color: #E5E7EB;
+            --scrollbar-track: rgba(209, 213, 219, 0.5);
+            --scrollbar-thumb: linear-gradient(to bottom, #34D399, #1D4ED8);
+            --scrollbar-thumb-hover: linear-gradient(to bottom, #10B981, #2563EB);
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --header-bg: rgba(249, 250, 251, 0.95);
+        }
+
+        .dark-mode {
+            --text-primary: #F9FAFB;
+            --text-secondary: #D1D5DB;
+            --bg-primary: #111827;
+            --bg-secondary: #1F2937;
+            --bg-tertiary: #374151;
+            --accent-primary: #34D399;
+            --accent-secondary: #60A5FA;
+            --border-color: #4B5563;
+            --scrollbar-track: rgba(17, 24, 39, 0.5);
+            --scrollbar-thumb: linear-gradient(to bottom, #34D399, #1D4ED8);
+            --scrollbar-thumb-hover: linear-gradient(to bottom, #10B981, #2563EB);
+            --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+            --header-bg: rgba(17, 24, 39, 0.95);
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
         /* Enhanced scrolling styles */
         html {
             scroll-behavior: smooth;
@@ -51,16 +89,16 @@
         }
         
         ::-webkit-scrollbar-track {
-            background: rgba(17, 24, 39, 0.5);
+            background: var(--scrollbar-track);
         }
         
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(to bottom, #34D399, #1D4ED8);
+            background: var(--scrollbar-thumb);
             border-radius: 4px;
         }
         
         ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(to bottom, #10B981, #2563EB);
+            background: var(--scrollbar-thumb-hover);
         }
         
         /* Progress indicator */
@@ -118,7 +156,12 @@
         
         /* Enhanced navigation on scroll */
         header.scrolled {
-            background-color: rgba(3, 7, 18, 0.95);
+            background-color: var(--header-bg);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .dark-mode header.scrolled {
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
         
@@ -142,6 +185,10 @@
         
         .hover-lift:hover {
             transform: translateY(-8px);
+            box-shadow: var(--card-shadow);
+        }
+
+        .dark-mode .hover-lift:hover {
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
         
@@ -164,14 +211,16 @@
             height: 24px;
             border-radius: 50%;
             background: linear-gradient(135deg, #34D399, #1D4ED8);
-            border: 3px solid #111827;
+            border: 3px solid var(--bg-primary);
         }
         
         .timeline-card {
-            background: rgba(17, 24, 39, 0.7);
+            background: var(--bg-secondary);
             padding: 1.5rem;
             border-radius: 0.75rem;
-            border: 1px solid rgba(55, 65, 81, 0.5);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
         }
         
         /* Tech tag styles */
@@ -197,12 +246,13 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            background: rgba(17, 24, 39, 0.7);
+            background: var(--bg-secondary);
             padding: 1.5rem;
             border-radius: 0.75rem;
-            border: 1px solid rgba(55, 65, 81, 0.5);
+            border: 1px solid var(--border-color);
             width: 120px;
             transition: all 0.3s ease;
+            color: var(--text-primary);
         }
         
         .skill-item img {
@@ -238,10 +288,16 @@
         /* Card hover effect */
         .card-hover-effect {
             transition: all 0.3s ease;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
         }
         
         .card-hover-effect:hover {
             transform: translateY(-5px);
+            box-shadow: var(--card-shadow);
+        }
+
+        .dark-mode .card-hover-effect:hover {
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
         }
         
@@ -278,34 +334,133 @@
             border-color: #EF4444 !important;
             box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important;
         }
+
+        /* Theme toggle button */
+        .theme-toggle {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark-mode .theme-toggle:hover {
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive improvements */
+        @media (max-width: 768px) {
+            .skill-category-container {
+                gap: 1rem;
+            }
+            
+            .skill-item {
+                width: 100px;
+                padding: 1rem;
+            }
+            
+            .skill-item img {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .timeline-container::before {
+                left: 15px;
+            }
+            
+            .timeline-icon {
+                left: -37px;
+                width: 20px;
+                height: 20px;
+            }
+            
+            .section-heading-underline::after {
+                width: 60px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hero-buttons a {
+                width: 100%;
+                max-width: 280px;
+                margin-bottom: 1rem;
+            }
+            
+            .skill-item {
+                width: 85px;
+                padding: 0.75rem;
+            }
+            
+            .skill-item span {
+                font-size: 0.875rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .timeline-card {
+                padding: 1rem;
+            }
+            
+            .skill-item {
+                width: 75px;
+            }
+            
+            .skill-item img {
+                width: 32px;
+                height: 32px;
+            }
+        }
     </style>
 </head>
-<body class="bg-gray-950 text-gray-100">
-
+<body class="dark-mode">
     <div id="scroll-progress"></div>
 
     <a href="#main-content" class="absolute left-[-9999px] top-1 z-[9999] bg-green-500 text-white p-3 rounded-br-lg focus:left-0">Skip to main content</a>
 
-    <header class="fixed top-0 left-0 right-0 z-50 bg-gray-950 bg-opacity-80 backdrop-filter backdrop-blur-lg transition-all duration-300">
+    <header class="fixed top-0 left-0 right-0 z-50 bg-opacity-80 backdrop-filter backdrop-blur-lg transition-all duration-300" style="background-color: var(--header-bg);">
         <nav class="container mx-auto px-4 py-4 flex justify-between items-center" aria-label="Main navigation">
-            <a href="#hero" class="text-2xl font-bold text-white transition-colors duration-300 hover:text-green-300" aria-label="Cynthia M - Go to Hero Section">Cynthia M</a>
-            <div class="hidden md:flex space-x-6" role="menubar">
-                <a href="#about" class="text-gray-400 transition-colors duration-300 nav-link-hover-gradient" role="menuitem">About</a>
-                <a href="#projects" class="text-gray-400 transition-colors duration-300 nav-link-hover-gradient" role="menuitem">Projects</a>
-                <a href="#skills" class="text-gray-400 transition-colors duration-300 nav-link-hover-gradient" role="menuitem">Skills</a>
-                <a href="#future-learning" class="text-gray-400 transition-colors duration-300 nav-link-hover-gradient" role="menuitem">Currently Learning</a>
-                <a href="#contact" class="text-gray-400 transition-colors duration-300 nav-link-hover-gradient" role="menuitem">Contact</a>
+            <a href="#hero" class="text-2xl font-bold transition-colors duration-300 hover:text-green-300" style="color: var(--text-primary);" aria-label="Cynthia M - Go to Hero Section">Cynthia M</a>
+            <div class="hidden md:flex space-x-6 items-center" role="menubar">
+                <a href="#about" class="transition-colors duration-300 nav-link-hover-gradient" style="color: var(--text-secondary);" role="menuitem">About</a>
+                <a href="#projects" class="transition-colors duration-300 nav-link-hover-gradient" style="color: var(--text-secondary);" role="menuitem">Projects</a>
+                <a href="#skills" class="transition-colors duration-300 nav-link-hover-gradient" style="color: var(--text-secondary);" role="menuitem">Skills</a>
+                <a href="#future-learning" class="transition-colors duration-300 nav-link-hover-gradient" style="color: var(--text-secondary);" role="menuitem">Currently Learning</a>
+                <a href="#contact" class="transition-colors duration-300 nav-link-hover-gradient" style="color: var(--text-secondary);" role="menuitem">Contact</a>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode">
+                    <i class="fas fa-moon" id="theme-icon"></i>
+                </button>
             </div>
-            <button id="mobile-menu-btn" class="md:hidden text-white focus:outline-none" aria-label="Open mobile menu" aria-expanded="false" aria-controls="mobile-menu">
-                <i class="fas fa-bars text-2xl"></i>
-            </button>
+            <div class="flex items-center md:hidden">
+                <button id="theme-toggle-mobile" class="theme-toggle mr-4" aria-label="Toggle dark/light mode">
+                    <i class="fas fa-moon" id="theme-icon-mobile"></i>
+                </button>
+                <button id="mobile-menu-btn" class="focus:outline-none" aria-label="Open mobile menu" aria-expanded="false" aria-controls="mobile-menu">
+                    <i class="fas fa-bars text-2xl" style="color: var(--text-primary);"></i>
+                </button>
+            </div>
         </nav>
-        <div id="mobile-menu" class="hidden md:hidden bg-gray-900 text-white text-center py-4" role="menu" aria-labelledby="mobile-menu-btn">
-            <a href="#about" class="block py-2 hover:bg-gray-800 transition-colors duration-300" role="menuitem">About</a>
-            <a href="#projects" class="block py-2 hover:bg-gray-800 transition-colors duration-300" role="menuitem">Projects</a>
-            <a href="#skills" class="block py-2 hover:bg-gray-800 transition-colors duration-300" role="menuitem">Skills</a>
-            <a href="#future-learning" class="block py-2 hover:bg-gray-800 transition-colors duration-300" role="menuitem">Currently Learning</a>
-            <a href="#contact" class="block py-2 hover:bg-gray-800 transition-colors duration-300" role="menuitem">Contact</a>
+        <div id="mobile-menu" class="hidden md:hidden text-center py-4" role="menu" aria-labelledby="mobile-menu-btn" style="background-color: var(--bg-secondary);">
+            <a href="#about" class="block py-2 transition-colors duration-300" style="color: var(--text-primary);" role="menuitem">About</a>
+            <a href="#projects" class="block py-2 transition-colors duration-300" style="color: var(--text-primary);" role="menuitem">Projects</a>
+            <a href="#skills" class="block py-2 transition-colors duration-300" style="color: var(--text-primary);" role="menuitem">Skills</a>
+            <a href="#future-learning" class="block py-2 transition-colors duration-300" style="color: var(--text-primary);" role="menuitem">Currently Learning</a>
+            <a href="#contact" class="block py-2 transition-colors duration-300" style="color: var(--text-primary);" role="menuitem">Contact</a>
         </div>
     </header>
 
@@ -315,33 +470,33 @@
                 <div class="parallax-layer parallax-back"></div>
             </div>
             <div class="relative z-10 text-center max-w-4xl">
-                <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-tight text-white mb-4 animate-fade-in">
+                <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-tight mb-4 animate-fade-in" style="color: var(--text-primary);">
                     <span class="text-gradient animate-gradient">Hello, I'm Cynthia M</span>
                 </h1>
-                <p class="text-lg sm:text-xl md:text-2xl text-gray-400 mb-8 animate-fade-in delay-200">
+                <p class="text-lg sm:text-xl md:text-2xl mb-8 animate-fade-in delay-200" style="color: var(--text-secondary);">
                     A software developer focused on creating full-stack web applications and exploring AI-driven features.
                 </p>
-                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 animate-fade-in delay-400">
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 animate-fade-in delay-400 hero-buttons">
                     <a href="#projects" class="bg-gradient-to-r from-green-400 to-blue-700 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover-lift">
                         View My Work
                     </a>
-                    <a href="#contact" class="bg-transparent border border-gray-400 text-gray-400 font-bold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105 hover:bg-gray-700 hover:text-white hover:border-gray-700 hover-lift">
+                    <a href="#contact" class="bg-transparent border font-bold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105 hover-lift" style="border-color: var(--text-secondary); color: var(--text-secondary);">
                         Get In Touch
                     </a>
                 </div>
             </div>
             <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-                <a href="#about" class="text-gray-400 hover:text-white transition-colors duration-300" aria-label="Scroll to About section">
+                <a href="#about" class="transition-colors duration-300" style="color: var(--text-secondary);" aria-label="Scroll to About section">
                     <i class="fas fa-chevron-down text-2xl"></i>
                 </a>
             </div>
         </section>
 
-        <section id="about" class="container mx-auto px-4 py-20" aria-labelledby="about-heading">
+        <section id="about" class="container mx-auto px-4 py-20" aria-labelledby="about-heading" style="background-color: var(--bg-primary);">
             <div class="w-full max-w-4xl mx-auto reveal">
                 <div class="text-center mb-16">
-                    <h2 id="about-heading" class="text-4xl font-bold text-center text-white mb-4">About Me</h2>
-                    <p class="text-lg text-gray-400 max-w-3xl mx-auto leading-relaxed">
+                    <h2 id="about-heading" class="text-4xl font-bold text-center mb-4" style="color: var(--text-primary);">About Me</h2>
+                    <p class="text-lg max-w-3xl mx-auto leading-relaxed" style="color: var(--text-secondary);">
                        I focus on bridging the gap between software architecture and applied AI. With a foundation in C# and .NET, I build scalable systems designed for performance, reliability, and maintainability. I also use Python and machine learning to create intelligent features that turn data into actionable insights. My goal is to develop practical, production-ready applications that are both smart and stable.
                     </p>
                 </div>
@@ -349,18 +504,18 @@
                     <div>
                         <div class="flex items-center gap-x-4 mb-8">
                             <i class="fas fa-briefcase text-3xl text-green-400"></i>
-                            <h3 class="text-3xl font-bold text-white">Experience</h3>
+                            <h3 class="text-3xl font-bold" style="color: var(--text-primary);">Experience</h3>
                         </div>
                         <div class="relative pl-12 timeline-container space-y-8">
                             <div class="relative timeline-item">
                                 <div class="timeline-icon"></div>
                                 <div class="timeline-card hover-lift">
                                     <div class="flex justify-between items-start">
-                                        <h4 class="text-xl font-semibold text-white">📚 LumiReads</h4>
-                                        <span class="text-sm font-medium text-gray-400 whitespace-nowrap">July, '25</span>
+                                        <h4 class="text-xl font-semibold" style="color: var(--text-primary);">📚 LumiReads</h4>
+                                        <span class="text-sm font-medium whitespace-nowrap" style="color: var(--text-secondary);">July, '25</span>
                                     </div>
                                     <h5 class="font-medium text-green-300 mb-4">AI Bootcamp Capstone Project</h5>
-                                    <ul class="list-disc list-outside ml-5 text-gray-300 space-y-2">
+                                    <ul class="list-disc list-outside ml-5 space-y-2" style="color: var(--text-secondary);">
                                         <li>Developed a full-stack web application enabling users to search for books, generate summaries, and create audio versions of text</li>
                                         <li>Frontend: React | Backend: FastAPI | Deployment: Render</li>
                                         <li>Integrated APIs: OpenLibrary for book data, Gemini API for text summarization, ElevenLabs API for audio generation.</li>
@@ -371,11 +526,11 @@
                                 <div class="timeline-icon"></div>
                                  <div class="timeline-card hover-lift">
                                     <div class="flex justify-between items-start">
-                                        <h4 class="text-xl font-semibold text-white">🏥 Ward Management System</h4>
-                                        <span class="text-sm font-medium text-gray-400 whitespace-nowrap">December, '24</span>
+                                        <h4 class="text-xl font-semibold" style="color: var(--text-primary);">🏥 Ward Management System</h4>
+                                        <span class="text-sm font-medium whitespace-nowrap" style="color: var(--text-secondary);">December, '24</span>
                                     </div>
                                     <h5 class="font-medium text-green-300 mb-4">Final year project</h5>
-                                    <ul class="list-disc list-outside ml-5 text-gray-300 space-y-2">
+                                    <ul class="list-disc list-outside ml-5 space-y-2" style="color: var(--text-secondary);">
                                         <li>Built a full-stack web application using ASP.NET Core with a clean architecture approach.</li>
                                          <li>Frontend: Bootstrap, CSS, Razor Pages | Responsive, user-friendly UI</li>
                                         <li>Developed a custom reporting module to generate weekly and monthly reports on ward occupancy and patient turnover, improving data accessibility for decision-making.</li>
@@ -387,26 +542,26 @@
                     <div>
                         <div class="flex items-center gap-x-4 mb-8">
                              <i class="fas fa-graduation-cap text-3xl text-green-400"></i>
-                            <h3 class="text-3xl font-bold text-white">Education</h3>
+                            <h3 class="text-3xl font-bold" style="color: var(--text-primary);">Education</h3>
                         </div>
                         <div class="relative pl-12 timeline-container space-y-8">
                              <div class="relative timeline-item">
                                 <div class="timeline-icon"></div>
                                 <div class="timeline-card hover-lift">
                                     <div class="flex justify-between items-start">
-                                        <h4 class="text-xl font-semibold text-white">AI Bootcamp</h4>
-                                        <span class="text-sm font-medium text-gray-400 whitespace-nowrap">2025</span>
+                                        <h4 class="text-xl font-semibold" style="color: var(--text-primary);">AI Bootcamp</h4>
+                                        <span class="text-sm font-medium whitespace-nowrap" style="color: var(--text-secondary);">2025</span>
                                     </div>
                                     <h5 class="font-medium text-green-300 mb-1">CAPACITI, Johannesburg, GP</h5>
-                                    <p class="text-gray-300">Certification in Machine Learning & Deep Learning</p>
+                                    <p class="" style="color: var(--text-secondary);">Certification in Machine Learning & Deep Learning</p>
                                 </div>
                             </div>
                              <div class="relative timeline-item">
                                 <div class="timeline-icon"></div>
                                 <div class="timeline-card hover-lift">
                                     <div class="flex justify-between items-start">
-                                        <h4 class="text-xl font-semibold text-white">Dip Information Technology, Software Development</h4>
-                                        <span class="text-sm font-medium text-gray-400 whitespace-nowrap">2024</span>
+                                        <h4 class="text-xl font-semibold" style="color: var(--text-primary);">Dip Information Technology, Software Development</h4>
+                                        <span class="text-sm font-medium whitespace-nowrap" style="color: var(--text-secondary);">2024</span>
                                     </div>
                                     <h5 class="font-medium text-green-300 mb-1">Nelson Mandela University, Gqeberha, EC</h5>
                                 </div>
@@ -423,27 +578,27 @@
             </div>
         </section>
 
-        <section id="approach" class="container mx-auto px-4 py-20 bg-gray-950">
+        <section id="approach" class="container mx-auto px-4 py-20" style="background-color: var(--bg-primary);">
             <div class="max-w-4xl mx-auto reveal">
-                <h2 class="text-3xl font-bold text-center text-white mb-12">My Approach</h2>
+                <h2 class="text-3xl font-bold text-center mb-12" style="color: var(--text-primary);">My Approach</h2>
                 <div class="grid md:grid-cols-2 gap-10 text-center">
                     
-                    <div class="bg-gray-900 p-8 rounded-2xl card-hover-effect hover-lift">
+                    <div class="p-8 rounded-2xl card-hover-effect hover-lift" style="background-color: var(--bg-secondary);">
                         <div class="text-green-400 mb-4">
                             <i class="fas fa-layer-group text-4xl"></i>
                         </div>
-                        <h3 class="text-xl font-semibold text-white mb-3">Engineer First</h3>
-                        <p class="text-gray-400">
+                        <h3 class="text-xl font-semibold mb-3" style="color: var(--text-primary);">Engineer First</h3>
+                        <p style="color: var(--text-secondary);">
                             I believe that successful AI and ML solutions start with solid software engineering principles. With A background in C# and .NET, I build systems that are reliable, maintainable, and secure.
                         </p>
                     </div>
                     
-                    <div class="bg-gray-900 p-8 rounded-2xl card-hover-effect hover-lift">
+                    <div class="p-8 rounded-2xl card-hover-effect hover-lift" style="background-color: var(--bg-secondary);">
                         <div class="text-blue-400 mb-4">
                             <i class="fas fa-brain text-4xl"></i>
                         </div>
-                        <h3 class="text-xl font-semibold text-white mb-3">AI-Focused</h3>
-                        <p class="text-gray-400">
+                        <h3 class="text-xl font-semibold mb-3" style="color: var(--text-primary);">AI-Focused</h3>
+                        <p style="color: var(--text-secondary);">
                             I view AI as a transformative tool and am committed to learning and applying cutting-edge AI technologies to create smarter, more efficient applications that address real-world challenges.
                         </p>
                     </div>
@@ -452,12 +607,12 @@
             </div>
         </section>
 
-        <section id="projects" class="container mx-auto px-4 py-20" aria-labelledby="projects-heading">
+        <section id="projects" class="container mx-auto px-4 py-20" aria-labelledby="projects-heading" style="background-color: var(--bg-primary);">
             <div class="reveal">
-                <h2 id="projects-heading" class="text-4xl font-bold text-center text-white mb-12 section-heading-underline">Featured Projects</h2>
+                <h2 id="projects-heading" class="text-4xl font-bold text-center mb-12 section-heading-underline" style="color: var(--text-primary);">Featured Projects</h2>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                <article class="group bg-gray-900 rounded-2xl shadow-xl overflow-hidden card-hover-effect reveal hover-lift">
+                <article class="group rounded-2xl shadow-xl overflow-hidden card-hover-effect reveal hover-lift" style="background-color: var(--bg-secondary);">
                     <div class="relative">
                         <img src="/py.png" alt="Abstract image representing sentiment analysis" class="w-full h-56 object-cover" loading="lazy">
                         <div class="absolute inset-0 bg-black bg-opacity-40"></div>
@@ -467,7 +622,7 @@
                         </div>
                     </div>
                     <div class="p-6">
-                        <p class="text-gray-400 mb-4">
+                        <p class="mb-4" style="color: var(--text-secondary);">
                            This is the official portfolio website for Py# Developers, a team of dedicated software engineers.
                         </p>
                         <div class="flex flex-wrap gap-2 mb-4">
@@ -486,7 +641,7 @@
                     </div>
                 </article>
 
-                <article class="group bg-gray-900 rounded-2xl shadow-xl overflow-hidden card-hover-effect reveal hover-lift">
+                <article class="group rounded-2xl shadow-xl overflow-hidden card-hover-effect reveal hover-lift" style="background-color: var(--bg-secondary);">
                     <div class="relative">
                         <img src="/chatbot.png" alt="Image of a modern house" class="w-full h-56 object-cover" loading="lazy">
                         <div class="absolute inset-0 bg-black bg-opacity-40"></div>
@@ -496,7 +651,7 @@
                         </div>
                     </div>
                     <div class="p-6">
-                        <p class="text-gray-400 mb-4">
+                        <p class="mb-4" style="color: var(--text-secondary);">
                             The AI Fundamentals Educational Chatbot is a no-code chatbot built using Landbot, designed to help users learn about core AI concepts.
                         </p>
                         <div class="flex flex-wrap gap-2 mb-4">
@@ -515,7 +670,7 @@
                     </div>
                 </article>
 
-                <article class="group bg-gray-900 rounded-2xl shadow-xl overflow-hidden card-hover-effect reveal hover-lift">
+                <article class="group rounded-2xl shadow-xl overflow-hidden card-hover-effect reveal hover-lift" style="background-color: var(--bg-secondary);">
                     <div class="relative">
                         <img src="/declutter.PNG" alt="Abstract image representing neural networks" class="w-full h-56 object-cover" loading="lazy">
                         <div class="absolute inset-0 bg-black bg-opacity-40"></div>
@@ -525,7 +680,7 @@
                         </div>
                     </div>
                     <div class="p-6">
-                        <p class="text-gray-400 mb-4">
+                        <p class="mb-4" style="color: var(--text-secondary);">
                            A beautiful, intuitive digital journal application designed to help you capture thoughts, organize reflections, and preserve memories in a secure, private environment.
                         <div class="flex flex-wrap gap-2 mb-4">
                             <span class="tech-tag">C#</span>
@@ -533,10 +688,7 @@
                             <span class="tech-tag">Bootstrap</span>
                         </div>
                         <div class="flex justify-start space-x-4">
-                            <a href="https://vimeo.com/1119432881" target="_blank" rel="noopener noreferrer" class="text-green-300 hover:text-white transition-colors duration-300 font-semibold flex items-center gap-2">
-                                <i class="fas fa-play-circle" aria-hidden="true"></i>Watch Demo
-                            </a>
-                            <a href="https://github.com/Cynthia-Motaung/declutter" target="_blank" rel="noopener noreferrer" class="text-green-300 hover:text-white transition-colors duration-300 font-semibold flex items-center gap-2">
+                            <a href="https://github.com/Cynthia-Motaung/Declutter.git" target="_blank" rel="noopener noreferrer" class="text-green-300 hover:text-white transition-colors duration-300 font-semibold flex items-center gap-2">
                                 <i class="fab fa-github" aria-hidden="true"></i>GitHub
                             </a>
                         </div>
@@ -545,191 +697,162 @@
             </div>
         </section>
 
-        <section id="skills" class="container mx-auto px-4 py-20" aria-labelledby="skills-heading">
+        <section id="skills" class="container mx-auto px-4 py-20" aria-labelledby="skills-heading" style="background-color: var(--bg-primary);">
             <div class="reveal">
-                <h2 id="skills-heading" class="text-4xl font-bold text-center text-white mb-16 section-heading-underline">Technical Skills</h2>
+                <h2 id="skills-heading" class="text-4xl font-bold text-center mb-16 section-heading-underline" style="color: var(--text-primary);">Skills & Technologies</h2>
             </div>
-        
             <div class="space-y-16">
                 <div class="reveal">
-                    <h3 class="text-2xl font-semibold text-green-300 mb-6 text-center">Backend & Databases</h3>
+                    <h3 class="text-2xl font-bold text-center mb-8" style="color: var(--text-primary);">Programming Languages</h3>
                     <div class="skill-category-container">
                         <div class="skill-item hover-lift">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg" alt="C#" loading="lazy" />
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg" alt="C#" loading="lazy">
                             <span>C#</span>
                         </div>
                         <div class="skill-item hover-lift">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/dotnetcore/dotnetcore-original.svg" alt=".NET Core" loading="lazy" />
-                            <span>.NET Core</span>
-                        </div>
-                        <div class="skill-item hover-lift">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python" loading="lazy" />
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python" loading="lazy">
                             <span>Python</span>
                         </div>
                         <div class="skill-item hover-lift">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" alt="PostgreSQL" loading="lazy" />
-                            <span>PostgreSQL</span>
-                        </div>
-                    </div>
-                </div>
-        
-                <div class="reveal">
-                    <h3 class="text-2xl font-semibold text-green-300 mb-6 text-center">Frontend</h3>
-                    <div class="skill-category-container">
-                        <div class="skill-item hover-lift">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" alt="HTML5" loading="lazy" />
-                            <span>HTML5</span>
-                        </div>
-                        <div class="skill-item hover-lift">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" alt="CSS3" loading="lazy" />
-                            <span>CSS3</span>
-                        </div>
-                        <div class="skill-item hover-lift">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="JavaScript" loading="lazy" />
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="JavaScript" loading="lazy">
                             <span>JavaScript</span>
                         </div>
                         <div class="skill-item hover-lift">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" alt="React" loading="lazy" />
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" alt="TypeScript" loading="lazy">
+                            <span>TypeScript</span>
+                        </div>
+                        <div class="skill-item hover-lift">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" alt="Java" loading="lazy">
+                            <span>Java</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="reveal">
+                    <h3 class="text-2xl font-bold text-center mb-8" style="color: var(--text-primary);">Frameworks & Libraries</h3>
+                    <div class="skill-category-container">
+                        <div class="skill-item hover-lift">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/dotnetcore/dotnetcore-original.svg" alt=".NET Core" loading="lazy">
+                            <span>.NET Core</span>
+                        </div>
+                        <div class="skill-item hover-lift">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" alt="React" loading="lazy">
                             <span>React</span>
                         </div>
                         <div class="skill-item hover-lift">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bootstrap/bootstrap-original.svg" alt="Bootstrap" loading="lazy" />
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" alt="Node.js" loading="lazy">
+                            <span>Node.js</span>
+                        </div>
+                        <div class="skill-item hover-lift">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind CSS" loading="lazy">
+                            <span>Tailwind CSS</span>
+                        </div>
+                        <div class="skill-item hover-lift">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bootstrap/bootstrap-original.svg" alt="Bootstrap" loading="lazy">
                             <span>Bootstrap</span>
                         </div>
                     </div>
                 </div>
-        
                 <div class="reveal">
-                    <h3 class="text-2xl font-semibold text-green-300 mb-6 text-center">AI & Machine Learning</h3>
+                    <h3 class="text-2xl font-bold text-center mb-8" style="color: var(--text-primary);">Tools & Technologies</h3>
                     <div class="skill-category-container">
                         <div class="skill-item hover-lift">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg" alt="TensorFlow" loading="lazy" />
-                            <span>TensorFlow</span>
-                        </div>
-                        <div class="skill-item hover-lift">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytorch/pytorch-original.svg" alt="PyTorch" loading="lazy" />
-                            <span>PyTorch</span>
-                        </div>
-                        <div class="skill-item hover-lift">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg" alt="Pandas" loading="lazy" />
-                            <span>Pandas</span>
-                        </div>
-                        <div class="skill-item hover-lift">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg" alt="NumPy" loading="lazy" />
-                            <span>NumPy</span>
-                        </div>
-                    </div>
-                </div>
-        
-                <div class="reveal">
-                    <h3 class="text-2xl font-semibold text-green-300 mb-6 text-center">Tools & Platforms</h3>
-                    <div class="skill-category-container">
-                        <div class="skill-item hover-lift">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" alt="Git" loading="lazy" />
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" alt="Git" loading="lazy">
                             <span>Git</span>
                         </div>
                         <div class="skill-item hover-lift">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" alt="Docker" loading="lazy" />
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" alt="Docker" loading="lazy">
                             <span>Docker</span>
                         </div>
                         <div class="skill-item hover-lift">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg" alt="Azure" loading="lazy" />
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" alt="MySQL" loading="lazy">
+                            <span>MySQL</span>
+                        </div>
+                        <div class="skill-item hover-lift">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg" alt="MongoDB" loading="lazy">
+                            <span>MongoDB</span>
+                        </div>
+                        <div class="skill-item hover-lift">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg" alt="Azure" loading="lazy">
                             <span>Azure</span>
                         </div>
-                        <div class="skill-item hover-lift">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/visualstudio/visualstudio-plain.svg" alt="Visual Studio" loading="lazy" />
-                            <span>Visual Studio</span>
-                        </div>
-                        <div class="skill-item hover-lift">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg" alt="VS Code" loading="lazy" />
-                            <span>VS Code</span>
-                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="future-learning" class="container mx-auto px-4 py-20 bg-gray-950" aria-labelledby="future-learning-heading">
+        <section id="future-learning" class="container mx-auto px-4 py-20" aria-labelledby="future-learning-heading" style="background-color: var(--bg-primary);">
             <div class="max-w-4xl mx-auto reveal">
-                <h2 id="future-learning-heading" class="text-4xl font-bold text-center text-white mb-12">Currently Learning</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="bg-gray-900 p-8 rounded-2xl card-hover-effect hover-lift">
-                        <div class="text-blue-400 mb-4">
+                <h2 id="future-learning-heading" class="text-4xl font-bold text-center mb-16 section-heading-underline" style="color: var(--text-primary);">Currently Learning</h2>
+                <div class="grid md:grid-cols-2 gap-10">
+                    <div class="p-8 rounded-2xl card-hover-effect hover-lift" style="background-color: var(--bg-secondary);">
+                        <div class="text-green-400 mb-4">
                             <i class="fas fa-robot text-4xl"></i>
                         </div>
-                        <h3 class="text-2xl font-semibold text-white mb-4">Deep Learning</h3>
-                        <p class="text-gray-400">
-                            Expanding my knowledge in neural networks, transformers, and advanced deep learning architectures to build more sophisticated AI applications.
+                        <h3 class="text-xl font-semibold mb-3" style="color: var(--text-primary);">Deep Learning</h3>
+                        <p style="color: var(--text-secondary);">
+                            I'm exploring deep learning architectures like CNNs, RNNs, and Transformers to understand how to build more sophisticated AI models for complex problem-solving.
                         </p>
                     </div>
-                    <div class="bg-gray-900 p-8 rounded-2xl card-hover-effect hover-lift">
-                        <div class="text-green-400 mb-4">
+                    <div class="p-8 rounded-2xl card-hover-effect hover-lift" style="background-color: var(--bg-secondary);">
+                        <div class="text-blue-400 mb-4">
                             <i class="fas fa-cloud text-4xl"></i>
                         </div>
-                        <h3 class="text-2xl font-semibold text-white mb-4">Cloud Architecture</h3>
-                        <p class="text-gray-400">
-                            Learning to design and deploy scalable, resilient cloud-native applications using modern cloud platforms and infrastructure-as-code practices.
+                        <h3 class="text-xl font-semibold mb-3" style="color: var(--text-primary);">Cloud Deployment</h3>
+                        <p style="color: var(--text-secondary);">
+                            I'm learning how to deploy and scale applications using cloud platforms like Azure and AWS, focusing on containerization and serverless architectures.
                         </p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="contact" class="container mx-auto px-4 py-20" aria-labelledby="contact-heading">
+        <section id="contact" class="container mx-auto px-4 py-20" aria-labelledby="contact-heading" style="background-color: var(--bg-primary);">
             <div class="max-w-4xl mx-auto reveal">
-                <h2 id="contact-heading" class="text-4xl font-bold text-center text-white mb-12">Get In Touch</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <h2 id="contact-heading" class="text-4xl font-bold text-center mb-16 section-heading-underline" style="color: var(--text-primary);">Get In Touch</h2>
+                <div class="grid md:grid-cols-2 gap-10">
                     <div>
-                        <h3 class="text-2xl font-semibold text-white mb-6">Let's Connect</h3>
-                        <p class="text-gray-400 mb-8">
-                            I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision. Feel free to reach out to me!
+                        <h3 class="text-2xl font-semibold mb-6" style="color: var(--text-primary);">Let's Connect</h3>
+                        <p class="mb-6" style="color: var(--text-secondary);">
+                            I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
                         </p>
                         <div class="space-y-4">
-                            <div class="flex items-center space-x-4">
-                                <div class="w-12 h-12 rounded-full bg-gray-900 flex items-center justify-center">
-                                    <i class="fas fa-envelope text-green-400"></i>
-                                </div>
-                                <div>
-                                    <p class="text-gray-400">Email</p>
-                                    <a href="mailto:cynthiamotaung015@gmail.com" class="text-white hover:text-green-400 transition-colors duration-300">cynthiamotaung015@gmail.com</a>
-                                </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-envelope text-green-400 mr-4 text-xl"></i>
+                                <a href="mailto:cynthiamotaung01@gmail.com" class="transition-colors duration-300 hover:text-green-300" style="color: var(--text-primary);">cynthiamotaung01@gmail.com</a>
                             </div>
-                            <div class="flex items-center space-x-4">
-                                <div class="w-12 h-12 rounded-full bg-gray-900 flex items-center justify-center">
-                                    <i class="fab fa-linkedin-in text-green-400"></i>
-                                </div>
-                                <div>
-                                    <p class="text-gray-400">LinkedIn</p>
-                                    <a href="https://linkedin.com/in/cynthiamotaung" target="_blank" rel="noopener noreferrer" class="text-white hover:text-green-400 transition-colors duration-300">linkedin.com/in/cynthiamotaung</a>
-                                </div>
+                            <div class="flex items-center">
+                                <i class="fab fa-linkedin text-green-400 mr-4 text-xl"></i>
+                                <a href="https://www.linkedin.com/in/cynthia-m-software-developer/" target="_blank" rel="noopener noreferrer" class="transition-colors duration-300 hover:text-green-300" style="color: var(--text-primary);">LinkedIn</a>
                             </div>
-                            <div class="flex items-center space-x-4">
-                                <div class="w-12 h-12 rounded-full bg-gray-900 flex items-center justify-center">
-                                    <i class="fab fa-github text-green-400"></i>
-                                </div>
-                                <div>
-                                    <p class="text-gray-400">GitHub</p>
-                                    <a href="https://github.com/Cynthia-Motaung" target="_blank" rel="noopener noreferrer" class="text-white hover:text-green-400 transition-colors duration-300">github.com/Cynthia-Motaung</a>
-                                </div>
+                            <div class="flex items-center">
+                                <i class="fab fa-github text-green-400 mr-4 text-xl"></i>
+                                <a href="https://github.com/Cynthia-Motaung" target="_blank" rel="noopener noreferrer" class="transition-colors duration-300 hover:text-green-300" style="color: var(--text-primary);">GitHub</a>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-map-marker-alt text-green-400 mr-4 text-xl"></i>
+                                <span style="color: var(--text-primary);">Johannesburg, South Africa</span>
                             </div>
                         </div>
                     </div>
                     <div>
-                        <!-- Replace "your-form-id-here" with your actual Formspree form ID -->
-                        <form id="contact-form" action="https://formspree.io/f/mdkdpybn" method="POST" class="space-y-6">
+                        <form id="contact-form" class="space-y-6" aria-labelledby="contact-form-heading">
+                            <h3 id="contact-form-heading" class="text-2xl font-semibold mb-6" style="color: var(--text-primary);">Send Me a Message</h3>
                             <div>
-                                <label for="name" class="block text-gray-400 mb-2">Name</label>
-                                <input type="text" id="name" name="name" required class="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent transition-colors duration-300" aria-required="true">
+                                <label for="name" class="block mb-2 font-medium" style="color: var(--text-primary);">Name</label>
+                                <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-lg transition-colors duration-300" style="background-color: var(--bg-tertiary); color: var(--text-primary); border: 1px solid var(--border-color);">
+                                <p id="name-error" class="text-red-400 text-sm mt-1 hidden">Please enter your name</p>
                             </div>
                             <div>
-                                <label for="email" class="block text-gray-400 mb-2">Email</label>
-                                <input type="email" id="email" name="email" required class="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent transition-colors duration-300" aria-required="true">
+                                <label for="email" class="block mb-2 font-medium" style="color: var(--text-primary);">Email</label>
+                                <input type="email" id="email" name="email" required class="w-full px-4 py-3 rounded-lg transition-colors duration-300" style="background-color: var(--bg-tertiary); color: var(--text-primary); border: 1px solid var(--border-color);">
+                                <p id="email-error" class="text-red-400 text-sm mt-1 hidden">Please enter a valid email</p>
                             </div>
                             <div>
-                                <label for="message" class="block text-gray-400 mb-2">Message</label>
-                                <textarea id="message" name="message" rows="5" required class="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent transition-colors duration-300" aria-required="true"></textarea>
+                                <label for="message" class="block mb-2 font-medium" style="color: var(--text-primary);">Message</label>
+                                <textarea id="message" name="message" rows="5" required class="w-full px-4 py-3 rounded-lg transition-colors duration-300" style="background-color: var(--bg-tertiary); color: var(--text-primary); border: 1px solid var(--border-color);"></textarea>
+                                <p id="message-error" class="text-red-400 text-sm mt-1 hidden">Please enter your message</p>
                             </div>
-                            <button type="submit" class="w-full bg-gradient-to-r from-green-400 to-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
+                            <button type="submit" class="w-full bg-gradient-to-r from-green-400 to-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 hover-lift">
                                 Send Message
                             </button>
                         </form>
@@ -739,190 +862,185 @@
         </section>
     </main>
 
-    <footer class="bg-gray-900 text-gray-400 py-12">
+    <footer class="py-10" style="background-color: var(--bg-secondary);">
         <div class="container mx-auto px-4 text-center">
-            <p>&copy; 2025 Cynthia Motaung. All rights reserved.</p>
-            <div class="flex justify-center space-x-6 mt-6">
-                <a href="https://linkedin.com/in/cynthiamotaung" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-green-400 transition-colors duration-300" aria-label="Visit Cynthia's LinkedIn profile">
-                    <i class="fab fa-linkedin-in text-2xl"></i>
-                </a>
-                <a href="https://github.com/Cynthia-Motaung" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-green-400 transition-colors duration-300" aria-label="Visit Cynthia's GitHub profile">
-                    <i class="fab fa-github text-2xl"></i>
-                </a>
-                <a href="mailto:cynthiamotaung015@gmail.com" class="text-gray-400 hover:text-green-400 transition-colors duration-300" aria-label="Send an email to Cynthia">
-                    <i class="fas fa-envelope text-2xl"></i>
-                </a>
-            </div>
+            <p style="color: var(--text-primary);">&copy; 2025 Cynthia M. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
-        // Enhanced scrolling functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            // Scroll progress indicator
-            const scrollProgress = document.getElementById('scroll-progress');
-            
-            window.addEventListener('scroll', function() {
-                const windowHeight = window.innerHeight;
-                const documentHeight = document.documentElement.scrollHeight - windowHeight;
-                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                const scrollPercentage = (scrollTop / documentHeight) * 100;
-                
-                scrollProgress.style.width = scrollPercentage + '%';
-                
-                // Header styling on scroll
-                const header = document.querySelector('header');
-                if (scrollTop > 50) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
-            });
-            
-            // Reveal animations on scroll
-            const revealElements = document.querySelectorAll('.reveal');
-            
-            function checkReveal() {
-                const windowHeight = window.innerHeight;
-                const revealPoint = 150;
-                
-                revealElements.forEach(element => {
-                    const elementTop = element.getBoundingClientRect().top;
-                    
-                    if (elementTop < windowHeight - revealPoint) {
-                        element.classList.add('is-visible');
-                    }
-                });
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+        const themeIcon = document.getElementById('theme-icon');
+        const themeIconMobile = document.getElementById('theme-icon-mobile');
+        const body = document.body;
+
+        // Check for saved theme preference or respect OS preference
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+        // Set initial theme
+        if (savedTheme === 'light' || (!savedTheme && !prefersDarkScheme.matches)) {
+            body.classList.remove('dark-mode');
+            themeIcon.classList.replace('fa-moon', 'fa-sun');
+            themeIconMobile.classList.replace('fa-moon', 'fa-sun');
+        } else {
+            body.classList.add('dark-mode');
+            themeIcon.classList.replace('fa-sun', 'fa-moon');
+            themeIconMobile.classList.replace('fa-sun', 'fa-moon');
+        }
+
+        // Theme toggle function
+        function toggleTheme() {
+            if (body.classList.contains('dark-mode')) {
+                body.classList.remove('dark-mode');
+                localStorage.setItem('theme', 'light');
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+                themeIconMobile.classList.replace('fa-moon', 'fa-sun');
+            } else {
+                body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+                themeIconMobile.classList.replace('fa-sun', 'fa-moon');
             }
-            
-            // Section fade-in on scroll
-            const sections = document.querySelectorAll('section');
-            
-            function checkSections() {
-                const windowHeight = window.innerHeight;
-                const revealPoint = 100;
-                
-                sections.forEach(section => {
-                    const sectionTop = section.getBoundingClientRect().top;
-                    
-                    if (sectionTop < windowHeight - revealPoint) {
-                        section.classList.add('in-view');
-                    }
-                });
+        }
+
+        // Add event listeners
+        themeToggle.addEventListener('click', toggleTheme);
+        themeToggleMobile.addEventListener('click', toggleTheme);
+
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        let menuOpen = false;
+
+        mobileMenuBtn.addEventListener('click', () => {
+            menuOpen = !menuOpen;
+            mobileMenu.classList.toggle('hidden');
+            mobileMenuBtn.setAttribute('aria-expanded', menuOpen);
+            mobileMenuBtn.querySelector('i').classList.toggle('fa-bars');
+            mobileMenuBtn.querySelector('i').classList.toggle('fa-times');
+        });
+
+        // Close mobile menu when clicking on a link
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenuBtn.setAttribute('aria-expanded', false);
+                mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+                mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+                menuOpen = false;
+            });
+        });
+
+        // Scroll progress indicator
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('scroll-progress').style.width = scrolled + '%';
+        });
+
+        // Form validation
+        const contactForm = document.getElementById('contact-form');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const messageInput = document.getElementById('message');
+        const nameError = document.getElementById('name-error');
+        const emailError = document.getElementById('email-error');
+        const messageError = document.getElementById('message-error');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let isValid = true;
+
+            // Validate name
+            if (!nameInput.value.trim()) {
+                nameError.classList.remove('hidden');
+                nameInput.classList.add('error');
+                isValid = false;
+            } else {
+                nameError.classList.add('hidden');
+                nameInput.classList.remove('error');
             }
-            
-            window.addEventListener('scroll', function() {
-                checkReveal();
-                checkSections();
-            });
-            
-            // Initial check on page load
-            checkReveal();
-            checkSections();
-            
-            // Smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        const headerHeight = document.querySelector('header').offsetHeight;
-                        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-                        
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
-                        
-                        // Close mobile menu if open
-                        const mobileMenu = document.getElementById('mobile-menu');
-                        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-                        if (mobileMenu.classList.contains('hidden') === false) {
-                            mobileMenu.classList.add('hidden');
-                            mobileMenuBtn.setAttribute('aria-expanded', 'false');
-                        }
-                    }
-                });
-            });
-            
-            // Mobile menu toggle
-            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
-            
-            mobileMenuBtn.addEventListener('click', function() {
-                const isExpanded = this.getAttribute('aria-expanded') === 'true';
-                this.setAttribute('aria-expanded', !isExpanded);
-                mobileMenu.classList.toggle('hidden');
-                
-                // Change icon based on menu state
-                const icon = this.querySelector('i');
-                if (icon.classList.contains('fa-bars')) {
-                    icon.classList.replace('fa-bars', 'fa-times');
-                } else {
-                    icon.classList.replace('fa-times', 'fa-bars');
-                }
-            });
-            
-            // Parallax effect for hero section
-            const heroSection = document.getElementById('hero');
-            if (heroSection) {
-                window.addEventListener('scroll', function() {
-                    const scrolled = window.pageYOffset;
-                    const parallaxLayers = document.querySelectorAll('.parallax-layer');
-                    
-                    parallaxLayers.forEach(layer => {
-                        const speed = layer.classList.contains('parallax-back') ? 0.5 : 0.3;
-                        const offset = scrolled * speed;
-                        layer.style.transform = `translateY(${offset}px)`;
-                    });
-                });
+
+            // Validate email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailInput.value)) {
+                emailError.classList.remove('hidden');
+                emailInput.classList.add('error');
+                isValid = false;
+            } else {
+                emailError.classList.add('hidden');
+                emailInput.classList.remove('error');
             }
-            
-            // Form submission handling for Formspree
-            const contactForm = document.getElementById('contact-form');
-            if (contactForm) {
-                contactForm.addEventListener('submit', function(e) {
-                    // Simple form validation
-                    const nameInput = document.getElementById('name');
-                    const emailInput = document.getElementById('email');
-                    const messageInput = document.getElementById('message');
-                    
-                    let isValid = true;
-                    
-                    if (!nameInput.value.trim()) {
-                        nameInput.classList.add('error');
-                        isValid = false;
-                    } else {
-                        nameInput.classList.remove('error');
-                    }
-                    
-                    if (!emailInput.value.trim() || !emailInput.value.includes('@')) {
-                        emailInput.classList.add('error');
-                        isValid = false;
-                    } else {
-                        emailInput.classList.remove('error');
-                    }
-                    
-                    if (!messageInput.value.trim()) {
-                        messageInput.classList.add('error');
-                        isValid = false;
-                    } else {
-                        messageInput.classList.remove('error');
-                    }
-                    
-                    if (!isValid) {
-                        e.preventDefault();
-                    } else {
-                        // Show success message (Formspree will handle the actual submission)
-                        alert('Thank you for your message! I will get back to you soon.');
-                    }
-                });
+
+            // Validate message
+            if (!messageInput.value.trim()) {
+                messageError.classList.remove('hidden');
+                messageInput.classList.add('error');
+                isValid = false;
+            } else {
+                messageError.classList.add('hidden');
+                messageInput.classList.remove('error');
+            }
+
+            if (isValid) {
+                // Form is valid, you can submit it here
+                alert('Thank you for your message! I will get back to you soon.');
+                contactForm.reset();
             }
         });
+
+        // Reveal animations on scroll
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.reveal');
+            
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add('is-visible');
+                }
+            }
+        }
+
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+
+        // Section fade-in on scroll
+        function checkSections() {
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (sectionTop < windowHeight * 0.75) {
+                    section.classList.add('in-view');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkSections);
+        window.addEventListener('load', checkSections);
+
+        // Header background on scroll
+        function updateHeader() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        }
+
+        window.addEventListener('scroll', updateHeader);
+        window.addEventListener('load', updateHeader);
     </script>
 </body>
 </html>
